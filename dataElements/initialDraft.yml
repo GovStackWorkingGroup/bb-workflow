@@ -1,0 +1,53 @@
+---
+openapi: 3.0.0
+info:
+  title: Data Elements
+  description: Initial draft for Data Elements in Workflow BB
+  contact:
+    email: aarelaponin@gmail.com
+  license:
+    name: MIT
+  version: 1.0.0-oas3-oas3
+servers:
+  - url: https://virtserver.swaggerhub.com/DigitalImpactAllianc/Registration/1.0.0
+tags:
+  - name: admins
+    description: Secured Admin-only calls
+  - name: developers
+    description: Operations available to regular developers
+paths:
+  /process:
+    get:
+      tags:
+        - developers
+      summary: returns data about a process
+      description: |
+        Pass in the ID of the process and it will return all information about that process
+      operationId: getProcess
+      parameters:
+        - name: processId
+          in: query
+          description: pass the unique identifier of the process
+          required: true
+          style: form
+          explode: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: search results matching criteria
+          content:
+            application/json:
+              schema:
+                type: object
+                items:
+                  $ref: '#/components/schemas/Process'
+        "404":
+          description: process not found
+    post:
+      tags:
+        - admins
+      summary: adds a process
+      description: Adds a process to the system
+      operationId: addProcess
+      requestBody:
