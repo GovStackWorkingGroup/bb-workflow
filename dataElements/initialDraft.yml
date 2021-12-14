@@ -103,4 +103,14 @@ components:
         processRef:
           type: integer
           description: refrence to the process
+        initTime:
+          type: string
+          description: Initiation Timestamp
+        state:
+          type: string
+          description: see BPMN specification v.2.0 section 13.2.2
+        lastChangeTime:
+          type: string
+          description: last change Timestamp
+
 
