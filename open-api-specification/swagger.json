@@ -28,7 +28,7 @@
     "/process" : {
       "get" : {
         "tags" : [ "developers" ],
-        "summary" : "returns a list of all processes on the system",
+        "summary" : "returns a list of all processes",
         "description" : "Listing of all process definitions",
         "operationId" : "getProcessList",
         "responses" : {
