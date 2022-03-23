@@ -1,8 +1,8 @@
 {
   "openapi" : "3.0.0",
   "info" : {
-    "title" : "Workflow Process Management",
-    "description" : "Initial draft for Data Elements in Workflow BB",
+    "title" : "Workflow Building Block",
+    "description" : "The GovStack Workflow Building Block API",
     "contact" : {
       "email" : "aarelaponin@gmail.com"
     },
@@ -28,7 +28,7 @@
     "/process" : {
       "get" : {
         "tags" : [ "developers" ],
-        "summary" : "returns a list of all processes",
+        "summary" : "returns a list of all processes on the system",
         "description" : "Listing of all process definitions",
         "operationId" : "getProcessList",
         "responses" : {
