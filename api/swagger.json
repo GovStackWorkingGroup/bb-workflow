@@ -50,7 +50,7 @@
       },
       "post" : {
         "tags" : [ "admins" ],
-        "summary" : "adds a new process",
+        "summary" : "Adds a new process",
         "description" : "Adds a process to the system",
         "operationId" : "addProcess",
         "responses" : {
@@ -63,7 +63,7 @@
     "/processes/{processId}" : {
       "get" : {
         "tags" : [ "developers" ],
-        "summary" : "returns data about a process",
+        "summary" : "returns detailed information about a process",
         "description" : "Pass in the ID of the process and it will return all information about that process\n",
         "operationId" : "getProcess",
         "parameters" : [ {
@@ -120,7 +120,7 @@
       },
       "delete" : {
         "tags" : [ "admins" ],
-        "summary" : "Updates an existing process",
+        "summary" : "Deletes an existing process",
         "description" : "Deletes a process on the system",
         "operationId" : "deleteProcess",
         "parameters" : [ {
@@ -169,8 +169,15 @@
           }
         },
         "responses" : {
-          "200" : {
-            "description" : "Process successfully started"
+          "202" : {
+            "description" : "Process started; registered for execution with unique process instance ID.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_202"
+                }
+              }
+            }
           },
           "404" : {
             "description" : "Invalid processId. Process does not exist"
@@ -181,28 +188,32 @@
         }
       }
     },
-    "/processes/instances/status/{instanceId}" : {
+    "/instances/" : {
       "get" : {
         "tags" : [ "developers" ],
-        "summary" : "Get execution status details of process.",
+        "summary" : "Get a list of process instances",
+        "description" : "Optionally include a processId in the query params to filter by that process",
         "parameters" : [ {
-          "name" : "instanceId",
-          "in" : "path",
-          "description" : "Numeric ID of a process instance",
-          "required" : true,
-          "style" : "simple",
-          "explode" : false,
+          "name" : "processId",
+          "in" : "query",
+          "description" : "Pass a processId to only view instances for a specific process",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
           "schema" : {
             "type" : "integer"
           }
         } ],
         "responses" : {
           "200" : {
-            "description" : "A process instance status object",
+            "description" : "An array of process instances",
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/inline_response_200"
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/inline_response_200"
+                  }
                 }
               }
             }
@@ -211,6 +222,13 @@
             "description" : "Invalid instance ID. Process instance does not exist"
           }
         }
+      }
+    },
+    "/instances/{instanceId}" : {
+      "get" : {
+        "tags" : [ "developers" ],
+        "summary" : "Get execution status details of single process instance.",
+        "description" : "By passing in the process instance ID, get full details on its execution, including server logs emitted."
       }
     }
   },
@@ -391,6 +409,15 @@
           }
         }
       },
+      "inline_response_202" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "integer",
+            "description" : "The unique process instance ID."
+          }
+        }
+      },
       "inline_response_200" : {
         "type" : "object",
         "properties" : {
@@ -402,6 +429,9 @@
           "process_name" : {
             "type" : "string",
             "example" : "Register Child Birth Process"
+          },
+          "status_code" : {
+            "type" : "integer"
           },
           "execution_status" : {
             "type" : "string",
