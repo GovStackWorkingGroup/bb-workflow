@@ -20,8 +20,8 @@ paths:
     get:
       tags:
         - developers
-      summary: returns a list of all processes on the system
-      description: Listing of all process definitions
+      summary: returns a list of workflow processes
+      description: Listing of all processes with basic information
       operationId: getProcessList
       responses:
         "200":
@@ -37,7 +37,7 @@ paths:
     post:
       tags:
         - admins
-      summary: Adds a new process
+      summary: adds a new process
       description: Adds a process to the system
       operationId: addProcess
       responses:
@@ -77,7 +77,7 @@ paths:
           required: true
           schema:
             type: integer
-      summary: Updates an existing process
+      summary: updates an existing process
       description: Updates a process on the system
       operationId: updateProcess
       responses:
@@ -93,7 +93,7 @@ paths:
           required: true
           schema:
             type: integer
-      summary: Deletes an existing process
+      summary: deletes an existing process
       description: Deletes a process on the system
       operationId: deleteProcess
       responses:
@@ -103,7 +103,7 @@ paths:
     post:
       tags:
         - developers
-      summary: Instantiate a process execution; create a process instance
+      summary: instantiates a process execution; creates a process instance
       operationId: start
       description: Create a process instance and register it with the execution engine
       requestBody:
@@ -138,7 +138,7 @@ paths:
     get:
       tags:
         - developers
-      summary: Get a list of process instances
+      summary: returns a list of process instances
       parameters:
         - in: query
           name: processId
@@ -181,7 +181,7 @@ paths:
     get:
       tags:
         - developers
-      summary: Get execution status details of single process instance.
+      summary: return execution status details for a single process instance
       description: By passing in the process instance ID, get full details on its execution, including server logs emitted.
       parameters:
       - name: instanceId
