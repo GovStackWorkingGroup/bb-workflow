@@ -14,9 +14,6 @@
   "servers" : [ {
     "url" : "https://virtserver.swaggerhub.com/GovStack/Workflow-BB/1.0.0",
     "description" : "SwaggerHub API Auto Mocking"
-  }, {
-    "url" : "https://virtserver.swaggerhub.com/GovStack/WorkflowProcessManagement/0.1.0",
-    "description" : "SwaggerHub API Auto Mocking"
   } ],
   "tags" : [ {
     "name" : "admins",
@@ -26,79 +23,7 @@
     "description" : "Endpoints that are available to other GovStack developers/applications to discover, instantiate, and monitor processes."
   } ],
   "paths" : {
-    "/process/{processId}/start" : {
-      "post" : {
-        "tags" : [ "developers" ],
-        "summary" : "Starts a process execution, which creates a process instance.",
-        "description" : "Create a process instance and register it with the execution engine",
-        "operationId" : "start",
-        "parameters" : [ {
-          "name" : "processId",
-          "in" : "path",
-          "description" : "Numeric ID of a defined process",
-          "required" : true,
-          "style" : "simple",
-          "explode" : false,
-          "schema" : {
-            "type" : "integer"
-          }
-        } ],
-        "requestBody" : {
-          "description" : "Process instance initiation payload,",
-          "content" : {
-            "application/json" : {
-              "schema" : {
-                "$ref" : "#/components/schemas/ProcessInstanceInitiation"
-              }
-            }
-          }
-        },
-        "responses" : {
-          "200" : {
-            "description" : "Process successfully started"
-          },
-          "404" : {
-            "description" : "Invalid processId. Process does not exist"
-          },
-          "500" : {
-            "description" : "Server error starting process"
-          }
-        }
-      }
-    },
-    "/process/instance/status/{instanceId}" : {
-      "get" : {
-        "tags" : [ "developers" ],
-        "summary" : "Get execution status details of process.",
-        "parameters" : [ {
-          "name" : "instanceId",
-          "in" : "path",
-          "description" : "Numeric ID of a process instance",
-          "required" : true,
-          "style" : "simple",
-          "explode" : false,
-          "schema" : {
-            "type" : "integer"
-          }
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "A process status object",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/inline_response_200"
-                }
-              }
-            }
-          },
-          "404" : {
-            "description" : "Invalid processId. Process does not exist"
-          }
-        }
-      }
-    },
-    "/process" : {
+    "/processes" : {
       "get" : {
         "tags" : [ "developers" ],
         "summary" : "returns a list of all processes on the system",
@@ -119,7 +44,7 @@
             }
           },
           "404" : {
-            "description" : "process not found"
+            "description" : "processes not found"
           }
         }
       },
@@ -130,12 +55,12 @@
         "operationId" : "addProcess",
         "responses" : {
           "200" : {
-            "description" : "Process successfully started"
+            "description" : "Process successfully added"
           }
         }
       }
     },
-    "/process/{processId}" : {
+    "/processes/{processId}" : {
       "get" : {
         "tags" : [ "developers" ],
         "summary" : "returns data about a process",
@@ -154,7 +79,7 @@
         } ],
         "responses" : {
           "200" : {
-            "description" : "search results matching criteria",
+            "description" : "process found and representation returned",
             "content" : {
               "application/json" : {
                 "schema" : {
@@ -189,14 +114,14 @@
         } ],
         "responses" : {
           "200" : {
-            "description" : "Process successfully started"
+            "description" : "Process successfully updated"
           }
         }
       },
       "delete" : {
         "tags" : [ "admins" ],
         "summary" : "Updates an existing process",
-        "description" : "Updates a process on the system",
+        "description" : "Deletes a process on the system",
         "operationId" : "deleteProcess",
         "parameters" : [ {
           "name" : "processId",
@@ -211,7 +136,79 @@
         } ],
         "responses" : {
           "200" : {
+            "description" : "Process successfully deleted"
+          }
+        }
+      }
+    },
+    "/processes/{processId}/start" : {
+      "post" : {
+        "tags" : [ "developers" ],
+        "summary" : "Instantiate a process execution; create a process instance",
+        "description" : "Create a process instance and register it with the execution engine",
+        "operationId" : "start",
+        "parameters" : [ {
+          "name" : "processId",
+          "in" : "path",
+          "description" : "Numeric ID of a defined process",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "integer"
+          }
+        } ],
+        "requestBody" : {
+          "description" : "Process instance initiation payload (initial \"state\" for the process)",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/ProcessInstanceInitiation"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
             "description" : "Process successfully started"
+          },
+          "404" : {
+            "description" : "Invalid processId. Process does not exist"
+          },
+          "500" : {
+            "description" : "Server error starting process"
+          }
+        }
+      }
+    },
+    "/processes/instances/status/{instanceId}" : {
+      "get" : {
+        "tags" : [ "developers" ],
+        "summary" : "Get execution status details of process.",
+        "parameters" : [ {
+          "name" : "instanceId",
+          "in" : "path",
+          "description" : "Numeric ID of a process instance",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "integer"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "A process instance status object",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_200"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "Invalid instance ID. Process instance does not exist"
           }
         }
       }
@@ -416,7 +413,7 @@
           },
           "started_by" : {
             "type" : "string",
-            "example" : "Farai_Mutero"
+            "example" : "Farai Mutero"
           }
         }
       },
