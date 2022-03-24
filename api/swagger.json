@@ -1,10 +1,10 @@
 {
   "openapi" : "3.0.0",
   "info" : {
-    "title" : "Workflow Building Block",
+    "title" : "Workflow Building Block API",
     "description" : "The GovStack Workflow Building Block API",
     "contact" : {
-      "email" : "aarelaponin@gmail.com"
+      "email" : "workflow@discourse.govstack.global"
     },
     "license" : {
       "name" : "MIT"
@@ -12,19 +12,92 @@
     "version" : "1.0.0"
   },
   "servers" : [ {
-    "url" : "https://virtserver.swaggerhub.com/GovStack/WorkflowProcessManagement/1.0.0",
+    "url" : "https://virtserver.swaggerhub.com/GovStack/Workflow-BB/1.0.0",
     "description" : "SwaggerHub API Auto Mocking"
   }, {
-    "url" : "https://virtserver.swaggerhub.com/DigitalImpactAllianc/Registration/1.0.0"
+    "url" : "https://virtserver.swaggerhub.com/GovStack/WorkflowProcessManagement/0.1.0",
+    "description" : "SwaggerHub API Auto Mocking"
   } ],
   "tags" : [ {
     "name" : "admins",
-    "description" : "Secured Admin-only calls"
+    "description" : "Endpoints that are available to administrators of this workflow BB instance (e.g., to configure the workflow BB.)"
   }, {
     "name" : "developers",
-    "description" : "Operations available to regular developers"
+    "description" : "Endpoints that are available to other GovStack developers/applications to discover, instantiate, and monitor processes."
   } ],
   "paths" : {
+    "/process/{processId}/start" : {
+      "post" : {
+        "tags" : [ "developers" ],
+        "summary" : "Starts a process execution, which creates a process instance.",
+        "description" : "Create a process instance and register it with the execution engine",
+        "operationId" : "start",
+        "parameters" : [ {
+          "name" : "processId",
+          "in" : "path",
+          "description" : "Numeric ID of a defined process",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "integer"
+          }
+        } ],
+        "requestBody" : {
+          "description" : "Process instance initiation payload,",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/ProcessInstanceInitiation"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Process successfully started"
+          },
+          "404" : {
+            "description" : "Invalid processId. Process does not exist"
+          },
+          "500" : {
+            "description" : "Server error starting process"
+          }
+        }
+      }
+    },
+    "/process/instance/status/{instanceId}" : {
+      "get" : {
+        "tags" : [ "developers" ],
+        "summary" : "Get execution status details of process.",
+        "parameters" : [ {
+          "name" : "instanceId",
+          "in" : "path",
+          "description" : "Numeric ID of a process instance",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "integer"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "A process status object",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_200"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "Invalid processId. Process does not exist"
+          }
+        }
+      }
+    },
     "/process" : {
       "get" : {
         "tags" : [ "developers" ],
@@ -193,6 +266,25 @@
           }
         }
       },
+      "ProcessInstanceInitiation" : {
+        "required" : [ "processId" ],
+        "type" : "object",
+        "properties" : {
+          "processId" : {
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "processStartedBy" : {
+            "type" : "string"
+          },
+          "instanceValues" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/ProcessInstanceInitiation_instanceValues"
+            }
+          }
+        }
+      },
       "ProcessInstance" : {
         "type" : "object",
         "properties" : {
@@ -300,6 +392,58 @@
           "id" : {
             "type" : "integer"
           }
+        }
+      },
+      "inline_response_200" : {
+        "type" : "object",
+        "properties" : {
+          "process_id" : {
+            "type" : "integer",
+            "format" : "int64",
+            "example" : 4
+          },
+          "process_name" : {
+            "type" : "string",
+            "example" : "Register Child Birth Process"
+          },
+          "execution_status" : {
+            "type" : "string",
+            "example" : "In Progress"
+          },
+          "start_time" : {
+            "type" : "string",
+            "example" : "2022-03-02T11:45:45.383Z"
+          },
+          "started_by" : {
+            "type" : "string",
+            "example" : "Farai_Mutero"
+          }
+        }
+      },
+      "ProcessInstanceInitiation_instanceValues" : {
+        "type" : "object",
+        "properties" : {
+          "code" : {
+            "type" : "string"
+          },
+          "value" : {
+            "type" : "string"
+          }
+        },
+        "example" : null
+      }
+    },
+    "parameters" : {
+      "processIdParam" : {
+        "name" : "processId",
+        "in" : "query",
+        "description" : "The id for a defined process in the workflow engine.",
+        "required" : true,
+        "style" : "form",
+        "explode" : true,
+        "schema" : {
+          "minimum" : 1,
+          "type" : "integer"
         }
       }
     }
