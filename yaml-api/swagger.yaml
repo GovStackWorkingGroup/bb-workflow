@@ -1,0 +1,368 @@
+openapi: 3.0.0
+info:
+  title: Workflow Building Block API
+  description: The GovStack Workflow Building Block API
+  contact:
+    email: workflow@discourse.govstack.global
+  license:
+    name: MIT
+  version: 1.0.0
+servers:
+  - description: SwaggerHub API Auto Mocking
+    url: https://virtserver.swaggerhub.com/GovStack/Workflow-BB/1.0.0
+tags:
+  - name: admins
+    description: Endpoints that are available to administrators of this workflow BB instance (e.g., to configure the workflow BB.)
+  - name: developers
+    description: Endpoints that are available to other GovStack developers/applications to discover, instantiate, and monitor processes.
+paths:
+  /processes:
+    get:
+      tags:
+        - developers
+      summary: returns a list of workflow processes
+      description: Listing of all processes with basic information
+      operationId: getProcessList
+      responses:
+        "200":
+          description: list of processes
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Process'
+        "404":
+          description: processes not found
+    post:
+      tags:
+        - admins
+      summary: adds a new process
+      description: Adds a process to the system
+      operationId: addProcess
+      responses:
+        '200': 
+          description: Process successfully added
+  /processes/{processId}:
+    get:
+      tags:
+        - developers
+      summary: returns detailed information about a process
+      description: |
+        Pass in the ID of the process and it will return all information about that process
+      operationId: getProcess
+      parameters:
+        - name: processId
+          in: path
+          description: pass the unique identifier of the process
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: process found and representation returned
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Process'
+        "404":
+          description: process not found
+    put:
+      tags:
+        - admins
+      parameters:
+        - name: processId
+          in: path
+          description: pass the unique identifier of the process
+          required: true
+          schema:
+            type: integer
+      summary: updates an existing process
+      description: Updates a process on the system
+      operationId: updateProcess
+      responses:
+        '200': 
+          description: Process successfully updated
+    delete:
+      tags:
+        - admins
+      parameters:
+        - name: processId
+          in: path
+          description: pass the unique identifier of the process
+          required: true
+          schema:
+            type: integer
+      summary: deletes an existing process
+      description: Deletes a process on the system
+      operationId: deleteProcess
+      responses:
+        '200': 
+          description: Process successfully deleted
+  /processes/{processId}/start:
+    post:
+      tags:
+        - developers
+      summary: instantiates a process execution; creates a process instance
+      operationId: start
+      description: Create a process instance and register it with the execution engine
+      requestBody:
+        description: Process instance initiation payload (initial "state" for the process)
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProcessInstanceInitiation'
+      parameters:
+        - in: path
+          name: processId
+          schema:
+            type: integer
+          required: true
+          description: Numeric ID of a defined process
+      responses:
+        '202':
+          description: Process started; registered for execution with unique process instance ID.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    description: The unique process instance ID.
+        '404':
+          description: Invalid processId. Process does not exist
+        '500':
+          description: Server error starting process
+  /instances/:
+    get:
+      tags:
+        - developers
+      summary: returns a list of process instances
+      parameters:
+        - in: query
+          name: processId
+          schema:
+            type: integer
+          description: Pass a processId to only view instances for a specific process
+      responses:
+        '200':
+          description: An array of process instances
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    process_id:
+                      type: integer
+                      format: int64
+                      example: 4
+                    process_name:
+                      type: string
+                      example: Register Child Birth Process
+                    status_code:
+                      type: integer
+                      example: null
+                    execution_status:
+                      type: string
+                      example: In Progress
+                    start_time:
+                      type: string
+                      example: '2022-03-02T11:45:45.383Z'
+                    started_by:
+                      type: string
+                      example: Farai Mutero
+        '404':
+          description: Invalid instance ID. Process instance does not exist
+      description: Optionally include a processId in the query params to filter by that process
+  "/instances/{instanceId}":
+    get:
+      tags:
+        - developers
+      summary: return execution status details for a single process instance
+      description: By passing in the process instance ID, get full details on its execution, including server logs emitted.
+      parameters:
+      - name: instanceId
+        in: path
+        description: Numeric ID of a process instance
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: A detailed process instance status object
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  process_id:
+                    type: integer
+                    format: int64
+                    example: 4
+                  process_name:
+                    type: string
+                    example: Register Child Birth Process
+                  status_code:
+                    type: integer
+                    example: null
+                  execution_status:
+                    type: string
+                    example: In Progress
+                  start_time:
+                    type: string
+                    example: '2022-03-02T11:45:45.383Z'
+                  started_by:
+                    type: string
+                    example: Farai Mutero
+                  logs:
+                    type: array
+                    items:
+                      type: string
+                      example: Server log line n
+        '404':
+          description: Invalid processId. Process does not exist
+components:
+  schemas:
+    ResourceRole:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: generated by a system surrogate primary key
+        resourceRef:
+          type: integer
+          description: reference to the Resource that is associated with Activity
+    Process:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: generated by a system surrogate primary key
+        name:
+          type: string
+          description: name of a process
+        type:
+          type: string
+          enum:
+            - None
+            - Private
+            - Public
+        isExecutable:
+          type: boolean
+          description: Specifies whether the Process is executable
+        isClosed:
+          type: boolean
+          description: whether Messages and Events, not modeled in Process, can occur when the Process is executed or performed
+        resources:
+          $ref: '#/components/schemas/ResourceRole'
+        version:
+          type: string
+        description:
+          type: string
+    ProcessInstanceInitiation:
+      type: object
+      properties:
+        processId:
+          type: integer
+          format: int64
+        processStartedBy:
+          type: string
+        instanceValues:
+          type: array
+          items:
+            type: object
+            properties:
+              code:
+                type: string
+              value:
+                type: string
+      required:
+        - processId
+    ProcessInstance:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: generated by a system surrogate primary key
+        processRef:
+          type: integer
+          description: refrence to the process
+        initTime:
+          type: string
+          description: Initiation Timestamp
+        state:
+          type: string
+          description: see BPMN specification v.2.0 section 13.2.2
+        lastChangeTime:
+          type: string
+          description: last change Timestamp
+    Activity:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: generated by a system surrogate primary key
+        name:
+          type: string
+        categoryValueRef:
+          type: integer
+          description: A reference to the Category Values that are associated with this Flow Element
+        isForCompensation:
+          type: boolean
+          description: A flag that identifies whether this Activity is intended for the purposes of compensation
+        loopCharacteristics:
+          $ref: '#/components/schemas/LoopCharacteristics'
+        resources:
+          items:
+            $ref: '#/components/schemas/ResourceRole'
+        default:
+          $ref: '#/components/schemas/SequenceFlow'
+        ioSpecification:
+          $ref: '#/components/schemas/IoSpecification'
+        startQuantity:
+          type: integer
+          description: number of tokens that must arrive before the activity can begin. Minamal value is 1
+        completionQuantity:
+          type: integer
+          description: number of tokens to be generated from the activity; must not be less than 1
+    ActivityInstance:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: generated by a system surrogate primary key
+        activityRef:
+          type: integer
+          description: refrence to the process
+        state:
+          type: string
+          description: see BPMN specikication v.2.0 section 13.2.2
+    LoopCharacteristics:
+      type: object
+      properties:
+        id:
+          type: integer
+    SequenceFlow:
+      type: object
+      properties:
+        id:
+          type: integer
+    IoSpecification:
+      type: object
+      properties:
+        id:
+          type: integer
+  parameters:
+    processIdParam: 
+      in: query
+      name: processId
+      required: true
+      schema:
+        type: integer
+        minimum: 1
+      description: The id for a defined process in the workflow engine.
