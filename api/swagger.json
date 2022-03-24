@@ -12,8 +12,8 @@
     "version" : "1.0.0"
   },
   "servers" : [ {
-    "url" : "https://virtserver.swaggerhub.com/GovStack/Workflow-BB/1.0.0",
-    "description" : "SwaggerHub API Auto Mocking"
+    "description" : "SwaggerHub API Auto Mocking",
+    "url" : "https://virtserver.swaggerhub.com/GovStack/Workflow-BB/1.0.0"
   } ],
   "tags" : [ {
     "name" : "admins",
@@ -71,8 +71,6 @@
           "in" : "path",
           "description" : "pass the unique identifier of the process",
           "required" : true,
-          "style" : "simple",
-          "explode" : false,
           "schema" : {
             "type" : "integer"
           }
@@ -95,20 +93,18 @@
       },
       "put" : {
         "tags" : [ "admins" ],
-        "summary" : "Updates an existing process",
-        "description" : "Updates a process on the system",
-        "operationId" : "updateProcess",
         "parameters" : [ {
           "name" : "processId",
           "in" : "path",
           "description" : "pass the unique identifier of the process",
           "required" : true,
-          "style" : "simple",
-          "explode" : false,
           "schema" : {
             "type" : "integer"
           }
         } ],
+        "summary" : "Updates an existing process",
+        "description" : "Updates a process on the system",
+        "operationId" : "updateProcess",
         "responses" : {
           "200" : {
             "description" : "Process successfully updated"
@@ -117,20 +113,18 @@
       },
       "delete" : {
         "tags" : [ "admins" ],
-        "summary" : "Deletes an existing process",
-        "description" : "Deletes a process on the system",
-        "operationId" : "deleteProcess",
         "parameters" : [ {
           "name" : "processId",
           "in" : "path",
           "description" : "pass the unique identifier of the process",
           "required" : true,
-          "style" : "simple",
-          "explode" : false,
           "schema" : {
             "type" : "integer"
           }
         } ],
+        "summary" : "Deletes an existing process",
+        "description" : "Deletes a process on the system",
+        "operationId" : "deleteProcess",
         "responses" : {
           "200" : {
             "description" : "Process successfully deleted"
@@ -142,19 +136,8 @@
       "post" : {
         "tags" : [ "developers" ],
         "summary" : "Instantiate a process execution; create a process instance",
-        "description" : "Create a process instance and register it with the execution engine",
         "operationId" : "start",
-        "parameters" : [ {
-          "name" : "processId",
-          "in" : "path",
-          "description" : "Numeric ID of a defined process",
-          "required" : true,
-          "style" : "simple",
-          "explode" : false,
-          "schema" : {
-            "type" : "integer"
-          }
-        } ],
+        "description" : "Create a process instance and register it with the execution engine",
         "requestBody" : {
           "description" : "Process instance initiation payload (initial \"state\" for the process)",
           "content" : {
@@ -165,13 +148,28 @@
             }
           }
         },
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "processId",
+          "schema" : {
+            "type" : "integer"
+          },
+          "required" : true,
+          "description" : "Numeric ID of a defined process"
+        } ],
         "responses" : {
           "202" : {
             "description" : "Process started; registered for execution with unique process instance ID.",
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/inline_response_202"
+                  "type" : "object",
+                  "properties" : {
+                    "id" : {
+                      "type" : "integer",
+                      "description" : "The unique process instance ID."
+                    }
+                  }
                 }
               }
             }
@@ -189,17 +187,13 @@
       "get" : {
         "tags" : [ "developers" ],
         "summary" : "Get a list of process instances",
-        "description" : "Optionally include a processId in the query params to filter by that process",
         "parameters" : [ {
-          "name" : "processId",
           "in" : "query",
-          "description" : "Pass a processId to only view instances for a specific process",
-          "required" : false,
-          "style" : "form",
-          "explode" : true,
+          "name" : "processId",
           "schema" : {
             "type" : "integer"
-          }
+          },
+          "description" : "Pass a processId to only view instances for a specific process"
         } ],
         "responses" : {
           "200" : {
@@ -209,7 +203,34 @@
                 "schema" : {
                   "type" : "array",
                   "items" : {
-                    "$ref" : "#/components/schemas/inline_response_200"
+                    "type" : "object",
+                    "properties" : {
+                      "process_id" : {
+                        "type" : "integer",
+                        "format" : "int64",
+                        "example" : 4
+                      },
+                      "process_name" : {
+                        "type" : "string",
+                        "example" : "Register Child Birth Process"
+                      },
+                      "status_code" : {
+                        "type" : "integer",
+                        "example" : null
+                      },
+                      "execution_status" : {
+                        "type" : "string",
+                        "example" : "In Progress"
+                      },
+                      "start_time" : {
+                        "type" : "string",
+                        "example" : "2022-03-02T11:45:45.383Z"
+                      },
+                      "started_by" : {
+                        "type" : "string",
+                        "example" : "Farai Mutero"
+                      }
+                    }
                   }
                 }
               }
@@ -218,7 +239,8 @@
           "404" : {
             "description" : "Invalid instance ID. Process instance does not exist"
           }
-        }
+        },
+        "description" : "Optionally include a processId in the query params to filter by that process"
       }
     },
     "/instances/{instanceId}" : {
@@ -243,7 +265,41 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/inline_response_200_1"
+                  "type" : "object",
+                  "properties" : {
+                    "process_id" : {
+                      "type" : "integer",
+                      "format" : "int64",
+                      "example" : 4
+                    },
+                    "process_name" : {
+                      "type" : "string",
+                      "example" : "Register Child Birth Process"
+                    },
+                    "status_code" : {
+                      "type" : "integer",
+                      "example" : null
+                    },
+                    "execution_status" : {
+                      "type" : "string",
+                      "example" : "In Progress"
+                    },
+                    "start_time" : {
+                      "type" : "string",
+                      "example" : "2022-03-02T11:45:45.383Z"
+                    },
+                    "started_by" : {
+                      "type" : "string",
+                      "example" : "Farai Mutero"
+                    },
+                    "logs" : {
+                      "type" : "array",
+                      "items" : {
+                        "type" : "string",
+                        "example" : "Server log line n"
+                      }
+                    }
+                  }
                 }
               }
             }
@@ -305,7 +361,6 @@
         }
       },
       "ProcessInstanceInitiation" : {
-        "required" : [ "processId" ],
         "type" : "object",
         "properties" : {
           "processId" : {
@@ -318,10 +373,19 @@
           "instanceValues" : {
             "type" : "array",
             "items" : {
-              "$ref" : "#/components/schemas/ProcessInstanceInitiation_instanceValues"
+              "type" : "object",
+              "properties" : {
+                "code" : {
+                  "type" : "string"
+                },
+                "value" : {
+                  "type" : "string"
+                }
+              }
             }
           }
-        }
+        },
+        "required" : [ "processId" ]
       },
       "ProcessInstance" : {
         "type" : "object",
@@ -370,7 +434,6 @@
             "$ref" : "#/components/schemas/LoopCharacteristics"
           },
           "resources" : {
-            "type" : "array",
             "items" : {
               "$ref" : "#/components/schemas/ResourceRole"
             }
@@ -431,106 +494,18 @@
             "type" : "integer"
           }
         }
-      },
-      "inline_response_202" : {
-        "type" : "object",
-        "properties" : {
-          "id" : {
-            "type" : "integer",
-            "description" : "The unique process instance ID."
-          }
-        }
-      },
-      "inline_response_200" : {
-        "type" : "object",
-        "properties" : {
-          "process_id" : {
-            "type" : "integer",
-            "format" : "int64",
-            "example" : 4
-          },
-          "process_name" : {
-            "type" : "string",
-            "example" : "Register Child Birth Process"
-          },
-          "status_code" : {
-            "type" : "integer"
-          },
-          "execution_status" : {
-            "type" : "string",
-            "example" : "In Progress"
-          },
-          "start_time" : {
-            "type" : "string",
-            "example" : "2022-03-02T11:45:45.383Z"
-          },
-          "started_by" : {
-            "type" : "string",
-            "example" : "Farai Mutero"
-          }
-        }
-      },
-      "inline_response_200_1" : {
-        "type" : "object",
-        "properties" : {
-          "process_id" : {
-            "type" : "integer",
-            "format" : "int64",
-            "example" : 4
-          },
-          "process_name" : {
-            "type" : "string",
-            "example" : "Register Child Birth Process"
-          },
-          "status_code" : {
-            "type" : "integer"
-          },
-          "execution_status" : {
-            "type" : "string",
-            "example" : "In Progress"
-          },
-          "start_time" : {
-            "type" : "string",
-            "example" : "2022-03-02T11:45:45.383Z"
-          },
-          "started_by" : {
-            "type" : "string",
-            "example" : "Farai Mutero"
-          },
-          "logs" : {
-            "type" : "array",
-            "items" : {
-              "type" : "string",
-              "example" : "Server log line n"
-            }
-          }
-        }
-      },
-      "ProcessInstanceInitiation_instanceValues" : {
-        "type" : "object",
-        "properties" : {
-          "code" : {
-            "type" : "string"
-          },
-          "value" : {
-            "type" : "string"
-          }
-        },
-        "example" : null
       }
     },
     "parameters" : {
       "processIdParam" : {
-        "name" : "processId",
         "in" : "query",
-        "description" : "The id for a defined process in the workflow engine.",
+        "name" : "processId",
         "required" : true,
-        "style" : "form",
-        "explode" : true,
         "schema" : {
-          "minimum" : 1,
-          "type" : "integer"
-        }
+          "type" : "integer",
+          "minimum" : 1
+        },
+        "description" : "The id for a defined process in the workflow engine."
       }
     }
   }
