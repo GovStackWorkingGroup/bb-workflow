@@ -139,7 +139,7 @@
         "operationId" : "start",
         "description" : "Create a process instance and register it with the execution engine",
         "requestBody" : {
-          "description" : "Process instance initiation payload (initial \"state\" for the process)",
+          "description" : "Process instance initiation payload (initial \"state\" for the process, i.e., the data required for the process to be instantiated)",
           "content" : {
             "application/json" : {
               "schema" : {
@@ -363,23 +363,33 @@
       "ProcessInstanceInitiation" : {
         "type" : "object",
         "properties" : {
-          "processId" : {
-            "type" : "integer",
-            "format" : "int64"
-          },
-          "processStartedBy" : {
+          "somethingArbitrary" : {
             "type" : "string"
           },
-          "instanceValues" : {
-            "type" : "array",
+          "somethingElse" : {
+            "type" : "boolean"
+          },
+          "beneficiaryAge" : {
+            "type" : "integer",
+            "example" : 42
+          },
+          "beneficiaryCardId" : {
+            "type" : "string",
+            "example" : "abc-123-xyz-456"
+          },
+          "callbackUrl" : {
+            "type" : "string",
+            "example" : "https://www.moh.gov/api/event_processing"
+          },
+          "someArray" : {
             "items" : {
               "type" : "object",
               "properties" : {
-                "code" : {
+                "a" : {
                   "type" : "string"
                 },
-                "value" : {
-                  "type" : "string"
+                "b" : {
+                  "type" : "integer"
                 }
               }
             }
@@ -446,7 +456,7 @@
           },
           "startQuantity" : {
             "type" : "integer",
-            "description" : "number of tokens that must arrive before the activity can begin. Minamal value is 1"
+            "description" : "number of tokens that must arrive before the activity can begin. Minimal value is 1"
           },
           "completionQuantity" : {
             "type" : "integer",
@@ -463,11 +473,11 @@
           },
           "activityRef" : {
             "type" : "integer",
-            "description" : "refrence to the process"
+            "description" : "reference to the process"
           },
           "state" : {
             "type" : "string",
-            "description" : "see BPMN specikication v.2.0 section 13.2.2"
+            "description" : "see BPMN specification v.2.0 section 13.2.2"
           }
         }
       },
