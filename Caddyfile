@@ -1,0 +1,5 @@
+localhost
+
+rewrite * /foo.html
+
+respond "hola world"
