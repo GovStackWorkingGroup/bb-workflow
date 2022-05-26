@@ -1,5 +1,6 @@
 localhost
-
-rewrite * /foo.html
-
-respond "hola world"
+rewrite /api/start_flow?id=7 /api/processes/7/start
+rewrite /api/workflow?id=7 /api/processes/7
+rewrite /api/all_workflows /api/processes
+rewrite /api/workflow_runs /api/instances
+rewrite /api/workflow_runs?id=13 /api/instances/13
