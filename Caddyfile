@@ -1,10 +1,28 @@
-localhost {
-    # @start_specific_follow {
-    #     path_regexp url ^/api/start_flow?id=([0-9]+)$
-    # }
-    @url {
-        path_regexp a ^/api/start_flow?id=([0-9]+)$
-    }
-    rewrite @url /api/processes/{re.a.1}/start
-    respond * @url
+localhost
+
+@startFlow {
+    path /api/start_flow
+    query id=*
 }
+
+@workflow {
+    path /api/workflow
+    query id=*
+}
+
+@workflowRuns {
+    path /api/workflow_runs
+    query id=*
+}
+
+rewrite @startFlow /api/processes/{http.request.uri.query.id}/start
+rewrite @workflow /api/processes/{http.request.uri.query.id}
+rewrite @workflowRuns /api/instances/{http.request.uri.query.id}
+rewrite /api/all_workflows /api/processes
+rewrite /api/workflow_runs /api/instances
+
+respond /api/processes/{http.request.uri.query.id}/start "/api/processes/{http.request.uri.query.id}/start"
+respond /api/processes/{http.request.uri.query.id} "/api/processes/{http.request.uri.query.id}"
+respond /api/instances/{http.request.uri.query.id} "/api/instances/{http.request.uri.query.id}"
+respond /api/processes "/api/processes"
+respond /api/instances "/api/instances"
