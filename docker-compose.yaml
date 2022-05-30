@@ -37,17 +37,13 @@ services:
     command: /bin/sh -c "sleep 5; n8n start"
 
   caddy:
-    image: caddy:latest
+    image: govstack-sample:latest
     restart: unless-stopped
     ports:
       - "80:80"
       - "443:443"
     volumes:
-      - $PWD/Caddyfile:/etc/caddy/Caddyfile
-      - $PWD/site:/srv
       - caddy_data:/data
-      - caddy_config:/config
 volumes:
   caddy_data:
     external: true
-  caddy_config:
