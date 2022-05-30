@@ -1,6 +1,10 @@
-localhost
-rewrite /api/start_flow?id=7 /api/processes/7/start
-rewrite /api/workflow?id=7 /api/processes/7
-rewrite /api/all_workflows /api/processes
-rewrite /api/workflow_runs /api/instances
-rewrite /api/workflow_runs?id=13 /api/instances/13
+localhost {
+    # @start_specific_follow {
+    #     path_regexp url ^/api/start_flow?id=([0-9]+)$
+    # }
+    @url {
+        path_regexp a ^/api/start_flow?id=([0-9]+)$
+    }
+    rewrite @url /api/processes/{re.a.1}/start
+    respond * @url
+}
