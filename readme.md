@@ -2,22 +2,29 @@
 
 A sample repository for GovStack integration with n8n
 
-## Configure / Start / Stop
+## Prerequities
 
-- Your first need to build the docker image:
+You need to have Docker and Docker Compose up and running to be able to run this repo.
+Install Docker and Docker Compose [here](https://docs.docker.com/).
+
+After installing Docker, you may need to follow the steps [here](https://docs.docker.com/engine/install/linux-postinstall/#manage-docker-as-a-non-root-user) in order to execute Docker and Docker Compose without sudo.
+
+## Configure
+
+Rename the `.env.example` file to `.env`. Edit it to set your own environment variable values. That file allows you to define the n8n username and password and also the n8n and Caddy config files paths.
+
+## Start / Stop
+
+- To start:
 
 ```bash
-sudo docker build -t govstack-sample:latest .
+docker compose up -d
 ```
 
-- Then to start it, run this command:
+- To stop:
 
 ```bash
-sudo docker compose up -d
+docker compose down
 ```
 
-- To stop it, run this command:
-
-```bash
-sudo docker compose stop
-```
+NB: n8n is accessible in `https://127.0.0.1:5678/` and the Caddy server is accessible in `http://127.0.0.1:80`.
