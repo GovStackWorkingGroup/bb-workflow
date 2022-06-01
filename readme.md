@@ -17,6 +17,10 @@ Rename the `.env.example` file to `.env`. Edit it to set your own environment
 variable values. That file allows you to define the n8n username and password
 and also the n8n and Caddy config files paths.
 
+## Rebuild
+
+Run `docker compose build` to rebuild your Caddy image
+
 ## Start / Stop
 
 - To start:
