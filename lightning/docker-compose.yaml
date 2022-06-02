@@ -1,0 +1,30 @@
+version: '3.7'
+
+services:
+  # lightning:
+  #   image: openfn/lightning:latest
+  #   restart: always
+  #   ports:
+  #     - '127.0.0.1:4000:4000'
+  #   environment:
+  #     - N8N_BASIC_AUTH_ACTIVE=true
+  #     - N8N_BASIC_AUTH_USER
+  #     - N8N_BASIC_AUTH_PASSWORD
+  #     - N8N_HOST=127.0.0.1
+  #     - N8N_PORT=5678
+  #     - N8N_PROTOCOL=https
+  #     - NODE_ENV=production
+  #     - WEBHOOK_URL=https://127.0.0.1:5678/
+  #     - GENERIC_TIMEZONE=${GENERIC_TIMEZONE}
+  #   volumes:
+  #     - ${LIGHTNING_DATA_FOLDER}:/home/node/.n8n
+  #     - ${LIGHTNING_LOCAL_FILES}:/files
+
+  caddy:
+    build: .
+    restart: unless-stopped
+    ports:
+      - '80:80'
+      - '443:443'
+    volumes:
+      - ${CADDY_DATA_FOLDER}:/data

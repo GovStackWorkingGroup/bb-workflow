@@ -5,4 +5,4 @@ FROM caddy:latest
 ENV PROJECT_UUID=123
 
 # Configure Caddy in the image build, so we don't rely on persistent volumes.
-COPY lightning-Caddyfile /etc/caddy/Caddyfile
+COPY Caddyfile /etc/caddy/Caddyfile
