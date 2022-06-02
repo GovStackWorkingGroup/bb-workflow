@@ -1,28 +1,38 @@
 localhost
 
-@startFlow {
-    path /api/start_flow
-    query id=*
+@list_processes {
+    path /processes
 }
 
-@workflow {
-    path /api/workflow
-    query id=*
+@detail_process {
+    path /processes/*
+    path_regexp static \/processes\/(\w+)
 }
 
-@workflowRuns {
-    path /api/workflow_runs
-    query id=*
+@start_process {
+    path /processes/*/start
+    path_regexp static \/processes\/(\w+)
 }
 
-rewrite @startFlow /api/processes/{http.request.uri.query.id}/start
-rewrite @workflow /api/processes/{http.request.uri.query.id}
-rewrite @workflowRuns /api/instances/{http.request.uri.query.id}
-rewrite /api/all_workflows /api/processes
-rewrite /api/workflow_runs /api/instances
+@list_instances {
+    path /instances
+}
 
-respond /api/processes/{http.request.uri.query.id}/start "/api/processes/{http.request.uri.query.id}/start"
-respond /api/processes/{http.request.uri.query.id} "/api/processes/{http.request.uri.query.id}"
-respond /api/instances/{http.request.uri.query.id} "/api/instances/{http.request.uri.query.id}"
-respond /api/processes "/api/processes"
-respond /api/instances "/api/instances"
+@detail_instance {
+    path /instances/*
+    path_regexp static \/instances\/(\w+)
+}
+
+rewrite @start_process /webhook-test/{re.static.1}
+rewrite @detail_process /rest/workflows/{re.static.1}
+rewrite @detail_instance /rest/executions/{re.static.1}
+rewrite @list_processes /rest/workflows
+rewrite @list_instances /rest/executions
+
+respond /webhook-test/{re.static.1} "Starting the process {re.static.1}"
+respond /rest/workflows/{re.static.1} "Details of the process {re.static.1}"
+respond /rest/executions/{re.static.1} "Details of the execution {re.static.1}"
+respond /rest/workflows "All processes"
+respond /rest/executions "All executions"
+
+respond / "Nothing matched."
