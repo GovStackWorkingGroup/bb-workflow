@@ -37,3 +37,11 @@ docker compose down
 
 NB: n8n is accessible in `https://127.0.0.1:5678/` and the Caddy server is
 accessible in `http://127.0.0.1:80`.
+
+## Test the APIs
+
+`curl -k https://localhost/processes`
+`curl -k https://localhost/processes/14`
+`curl -k -X POST https://localhost/processes/14/start`
+`curl -k https://localhost/instances`
+`curl -k https://localhost/instances/12`
