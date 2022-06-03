@@ -1,8 +1,14 @@
-# GovStack Sample
+# GovStack Workflow Demos
 
-A sample repository for GovStack integration with n8n
+Tools for creating GovStack "API Adaptors" and demonstrating how various
+applications can achieve compliance with the
+[GovStack Workflow BB Api Specification](https://app.swaggerhub.com/apis-docs/GovStack/Workflow-BB/1.0.0#/developers).
 
-## Prerequities
+Note that this same adaptor pattern (using Caddy) can be used to create adaptors
+for any GovStack building block specification, and may be used to mock BB
+endpoints that have not yet been developed.
+
+## Prerequisites
 
 You need to have Docker and Docker Compose up and running to be able to run this
 repo. Install Docker and Docker Compose [here](https://docs.docker.com/).
@@ -13,35 +19,26 @@ in order to execute Docker and Docker Compose without sudo.
 
 ## Configure
 
-Rename the `.env.example` file to `.env`. Edit it to set your own environment
-variable values. That file allows you to define the n8n username and password
-and also the n8n and Caddy config files paths.
+To set up a demo, `cd` into that applications folder, copy the example env, set
+your own secrets, then start up via docker compose.
 
-## Rebuild
+- `git clone git@github.com:OpenFn/govstack-workflow-demos.git`
+- `cd govstack-workflow-demos`
+- `cd << camunda || lightning || n8n || ...more >>`
+- `cp .env.example .env`
+- `vim .env`
+- `docker compose up -d`
 
-Run `docker compose build` to rebuild your Caddy image
+## Stop / Rebuild /Start
 
-## Start / Stop
+- stop: `docker compose down`
+- rebuild: `docker compose build`
+- start: `docker compose up -d`
 
-- To start:
+## Test the APIs GovStack Workflow BB APIs
 
-```bash
-docker compose up -d
-```
-
-- To stop:
-
-```bash
-docker compose down
-```
-
-NB: n8n is accessible in `https://127.0.0.1:5678/` and the Caddy server is
-accessible in `http://127.0.0.1:80`.
-
-## Test the APIs
-
-`curl -k https://localhost/processes`
-`curl -k https://localhost/processes/14`
-`curl -k -X POST https://localhost/processes/14/start`
-`curl -k https://localhost/instances`
-`curl -k https://localhost/instances/12`
+1. `curl -k https://localhost/processes`
+2. `curl -k https://localhost/processes/14`
+3. `curl -k -X POST https://localhost/processes/14/start`
+4. `curl -k https://localhost/instances`
+5. `curl -k https://localhost/instances/12`
