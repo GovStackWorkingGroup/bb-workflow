@@ -1,4 +1,5 @@
 localhost
+reverse_proxy http://127.0.0.1:4000
 
 # Workflow API Spec: https://app.swaggerhub.com/apis-docs/GovStack/Workflow-BB/1.0.0#/developers
 
