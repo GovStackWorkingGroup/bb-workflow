@@ -1,4 +1,8 @@
-localhost
+localhost {
+
+reverse_proxy n8n:5678
+
+# reverse_proxy http://127.0.0.1:5678   
 
 @list_processes {
     path /processes
@@ -30,9 +34,16 @@ rewrite @list_processes /rest/workflows
 rewrite @list_instances /rest/executions
 
 respond /webhook-test/{re.static.1} "Starting the process {re.static.1}"
-respond /rest/workflows/{re.static.1} "Details of the process {re.static.1}"
-respond /rest/executions/{re.static.1} "Details of the execution {re.static.1}"
-respond /rest/workflows "All processes"
-respond /rest/executions "All executions"
+# respond /rest/workflows/{re.static.1} "Details of the process {re.static.1}"
+# respond /rest/executions/{re.static.1} "Details of the execution {re.static.1}"
+# respond /rest/workflows "All processes"
+# respond /rest/executions "All executions"
 
-respond / "Nothing matched."
+# respond /api/projects/{$PROJECT_UUID}/jobs "Here's a list of processes served from '{path}'"
+# respond /api/projects/{$PROJECT_UUID}/jobs/{re.static.1} "Here's a single process being served from '{path}'"
+# respond /api/projects/{$PROJECT_UUID}/jobs/{re.static.1}/start "You've started a process instance from '{path}'"
+# respond /api/projects/{$PROJECT_UUID}/runs "Here's a list of instances served from '{path}'"
+# respond /api/projects/{$PROJECT_UUID}/runs/{re.static.1} "Here's a single instance being served from '{path}'"
+
+# respond / "Nothing matched."
+}
