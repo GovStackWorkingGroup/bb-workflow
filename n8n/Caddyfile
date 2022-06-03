@@ -1,5 +1,5 @@
 localhost
-reverse_proxy http://127.0.0.1:5678
+reverse_proxy n8n:5678
 
 # Workflow API Spec: https://app.swaggerhub.com/apis-docs/GovStack/Workflow-BB/1.0.0#/developers
 
@@ -33,11 +33,11 @@ rewrite @list_instances /rest/executions
 rewrite @detail_instance /rest/executions/{re.static.1}
 
 # Mock responses
-respond /rest/workflows "Here's a list of processes served from '{path}'"
-respond /rest/workflows/{re.static.1} "Here's a single process being served from '{path}'"
-respond /webhook-test/{re.static.1} "You've started a process instance from '{path}'"
-respond /rest/executions "Here's a list of instances served from '{path}'"
-respond /rest/executions/{re.static.1} "Here's a single instance being served from '{path}'"
+# respond /rest/workflows "Here's a list of processes served from '{path}'"
+# respond /rest/workflows/{re.static.1} "Here's a single process being served from '{path}'"
+# respond /webhook-test/{re.static.1} "You've started a process instance from '{path}'"
+# respond /rest/executions "Here's a list of instances served from '{path}'"
+# respond /rest/executions/{re.static.1} "Here's a single instance being served from '{path}'"
 
 # Catch all
 respond / "Nothing matched."
