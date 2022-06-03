@@ -1,4 +1,5 @@
 localhost
+reverse_proxy http://127.0.0.1:5678
 
 @list_processes {
     path /processes
