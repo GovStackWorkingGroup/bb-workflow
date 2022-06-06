@@ -15,6 +15,8 @@ services:
       - 'postgres:/var/lib/postgresql/data'
 
   web:
+    env_file:
+      - '.env'
     image: openfn/lightning:latest
     deploy:
       resources:
