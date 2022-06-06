@@ -1,30 +1,34 @@
 version: '3.7'
-
 services:
-  # lightning:
-  #   image: openfn/lightning:latest
-  #   restart: always
-  #   ports:
-  #     - '127.0.0.1:4000:4000'
-  #   environment:
-  #     - N8N_BASIC_AUTH_ACTIVE=true
-  #     - N8N_BASIC_AUTH_USER
-  #     - N8N_BASIC_AUTH_PASSWORD
-  #     - N8N_HOST=127.0.0.1
-  #     - N8N_PORT=5678
-  #     - N8N_PROTOCOL=https
-  #     - NODE_ENV=production
-  #     - WEBHOOK_URL=https://127.0.0.1:5678/
-  #     - GENERIC_TIMEZONE=${GENERIC_TIMEZONE}
-  #   volumes:
-  #     - ${LIGHTNING_DATA_FOLDER}:/home/node/.n8n
-  #     - ${LIGHTNING_LOCAL_FILES}:/files
-
-  caddy:
-    build: .
-    restart: unless-stopped
-    ports:
-      - '80:80'
-      - '443:443'
+  postgres:
+    deploy:
+      resources:
+        limits:
+          cpus: '${DOCKER_POSTGRES_CPUS:-0}'
+          memory: '${DOCKER_POSTGRES_MEMORY:-0}'
+    env_file:
+      - '.env'
+    image: 'postgres:14.2-alpine'
+    restart: '${DOCKER_RESTART_POLICY:-unless-stopped}'
+    stop_grace_period: '3s'
     volumes:
-      - ${CADDY_DATA_FOLDER}:/data
+      - 'postgres:/var/lib/postgresql/data'
+
+  web:
+    image: openfn/lightning:latest
+    deploy:
+      resources:
+        limits:
+          cpus: '${DOCKER_WEB_CPUS:-0}'
+          memory: '${DOCKER_WEB_MEMORY:-0}'
+    healthcheck:
+      test: '${DOCKER_WEB_HEALTHCHECK_TEST:-curl localhost:4000/health_check}'
+      interval: '60s'
+      timeout: '3s'
+      start_period: '5s'
+      retries: 3
+    ports:
+      - '${LIGHTNING_EXTERNAL_PORT:-127.0.0.1:${PORT}}:${URL_PORT}'
+
+volumes:
+  postgres: {}
