@@ -26,7 +26,9 @@ your own secrets, then start up via docker compose.
 - `cd govstack-workflow-demos`
 - `cd << camunda || lightning || n8n || ...more >>`
 - `cp .env.example .env`
-- `vim .env`
+- `vim .env` to change you secrets
+- (Optionally `vim Caddyfile` to swap out the site address `localhost` for
+  `http://136.164.122.12` or `yoursite.com`.)
 - `docker compose up -d`
 
 ## Stop / Rebuild /Start
