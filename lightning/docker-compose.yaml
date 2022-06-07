@@ -32,5 +32,20 @@ services:
     ports:
       - '${LIGHTNING_EXTERNAL_PORT:-127.0.0.1:${PORT}}:${URL_PORT}'
 
+    command:
+      bash -c "/app/bin/lightning eval Lightning.Release.migrate &&
+      /app/bin/server"
+
+  caddy:
+    build: .
+    restart: unless-stopped
+    ports:
+      - '80:80'
+      - '443:443'
+    volumes:
+      - ${CADDY_DATA_FOLDER}:/data
+      - ${CADDY_CONFIG_FOLDER}:/config
+
 volumes:
   postgres: {}
+  caddy_data:

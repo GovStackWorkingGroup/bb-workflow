@@ -1,5 +1,7 @@
 localhost
 
+reverse_proxy lightning:4000
+
 # Workflow API Spec: https://app.swaggerhub.com/apis-docs/GovStack/Workflow-BB/1.0.0#/developers
 
 @list_processes {
