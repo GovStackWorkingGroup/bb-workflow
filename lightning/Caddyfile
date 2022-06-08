@@ -1,44 +1,55 @@
-localhost
-
-reverse_proxy lightning:4000
-
-# Workflow API Spec: https://app.swaggerhub.com/apis-docs/GovStack/Workflow-BB/1.0.0#/developers
-
-@list_processes {
-    path /processes
+{
+	auto_https off
 }
 
-@detail_process {
-    path /processes/*
-    path_regexp static \/processes\/(\w+)
+http://localhost {
+
+    reverse_proxy lightning:4000
+
+    # Workflow API Spec: https://app.swaggerhub.com/apis-docs/GovStack/Workflow-BB/1.0.0#/developers
+
+    @list_processes {
+        path /processes
+    }
+
+    @detail_process {
+        path /processes/*
+        path_regexp static \/processes\/(\w+)
+    }
+
+    @start_process {
+        path /processes/*/start
+        path_regexp static \/processes\/(\w+)
+    }
+
+    @list_instances {
+        path /instances
+    }
+
+    @detail_instance {
+        path /instances/*
+        path_regexp static \/instances\/(\w+)
+    }
+
+    @openfn {
+        path /openfn
+    }
+
+    rewrite @openfn /first_setup
+
+    rewrite @list_processes /api/projects/{$PROJECT_UUID}/jobs?
+    rewrite @detail_process /api/projects/{$PROJECT_UUID}/jobs/{re.static.1}
+    rewrite @start_process /api/projects/{$PROJECT_UUID}/jobs/{re.static.1}/start
+    rewrite @list_instances /api/projects/{$PROJECT_UUID}/runs
+    rewrite @detail_instance /api/projects/{$PROJECT_UUID}/runs/{re.static.1}
+
+    # # Mock responses
+    # respond /api/projects/{$PROJECT_UUID}/jobs "Here's a list of processes served from '{path}'"
+    # respond /api/projects/{$PROJECT_UUID}/jobs/{re.static.1} "Here's a single process being served from '{path}'"
+    # respond /api/projects/{$PROJECT_UUID}/jobs/{re.static.1}/start "You've started a process instance from '{path}'"
+    # respond /api/projects/{$PROJECT_UUID}/runs "Here's a list of instances served from '{path}'"
+    # respond /api/projects/{$PROJECT_UUID}/runs/{re.static.1} "Here's a single instance being served from '{path}'"
+
+    # # Catch all
+    # respond "Nothing matched."
 }
-
-@start_process {
-    path /processes/*/start
-    path_regexp static \/processes\/(\w+)
-}
-
-@list_instances {
-    path /instances
-}
-
-@detail_instance {
-    path /instances/*
-    path_regexp static \/instances\/(\w+)
-}
-
-rewrite @list_processes /api/projects/{$PROJECT_UUID}/jobs?
-rewrite @detail_process /api/projects/{$PROJECT_UUID}/jobs/{re.static.1}
-rewrite @start_process /api/projects/{$PROJECT_UUID}/jobs/{re.static.1}/start
-rewrite @list_instances /api/projects/{$PROJECT_UUID}/runs
-rewrite @detail_instance /api/projects/{$PROJECT_UUID}/runs/{re.static.1}
-
-# Mock responses
-respond /api/projects/{$PROJECT_UUID}/jobs "Here's a list of processes served from '{path}'"
-respond /api/projects/{$PROJECT_UUID}/jobs/{re.static.1} "Here's a single process being served from '{path}'"
-respond /api/projects/{$PROJECT_UUID}/jobs/{re.static.1}/start "You've started a process instance from '{path}'"
-respond /api/projects/{$PROJECT_UUID}/runs "Here's a list of instances served from '{path}'"
-respond /api/projects/{$PROJECT_UUID}/runs/{re.static.1} "Here's a single instance being served from '{path}'"
-
-# Catch all
-respond "Nothing matched."
