@@ -1,4 +1,7 @@
 localhost
+reverse_proxy n8n:5678
+
+# Workflow API Spec: https://app.swaggerhub.com/apis-docs/GovStack/Workflow-BB/1.0.0#/developers
 
 @list_processes {
     path /processes
@@ -23,16 +26,18 @@ localhost
     path_regexp static \/instances\/(\w+)
 }
 
-rewrite @start_process /webhook-test/{re.static.1}
-rewrite @detail_process /rest/workflows/{re.static.1}
-rewrite @detail_instance /rest/executions/{re.static.1}
 rewrite @list_processes /rest/workflows
+rewrite @detail_process /rest/workflows/{re.static.1}
+rewrite @start_process /webhook-test/{re.static.1}
 rewrite @list_instances /rest/executions
+rewrite @detail_instance /rest/executions/{re.static.1}
 
-respond /webhook-test/{re.static.1} "Starting the process {re.static.1}"
-respond /rest/workflows/{re.static.1} "Details of the process {re.static.1}"
-respond /rest/executions/{re.static.1} "Details of the execution {re.static.1}"
-respond /rest/workflows "All processes"
-respond /rest/executions "All executions"
+# Mock responses
+# respond /rest/workflows "Here's a list of processes served from '{path}'"
+# respond /rest/workflows/{re.static.1} "Here's a single process being served from '{path}'"
+# respond /webhook-test/{re.static.1} "You've started a process instance from '{path}'"
+# respond /rest/executions "Here's a list of instances served from '{path}'"
+# respond /rest/executions/{re.static.1} "Here's a single instance being served from '{path}'"
 
+# Catch all
 respond / "Nothing matched."
