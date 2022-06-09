@@ -1,5 +1,5 @@
 localhost
-reverse_proxy http://127.0.0.1:4000
+reverse_proxy lightning:4000
 
 # Workflow API Spec: https://app.swaggerhub.com/apis-docs/GovStack/Workflow-BB/1.0.0#/developers
 
@@ -26,6 +26,12 @@ reverse_proxy http://127.0.0.1:4000
     path_regexp static \/instances\/(\w+)
 }
 
+@openfn {
+    path /openfn
+}
+
+rewrite @openfn /first_setup
+
 rewrite @list_processes /api/projects/{$PROJECT_UUID}/jobs?
 rewrite @detail_process /api/projects/{$PROJECT_UUID}/jobs/{re.static.1}
 rewrite @start_process /api/projects/{$PROJECT_UUID}/jobs/{re.static.1}/start
@@ -33,11 +39,11 @@ rewrite @list_instances /api/projects/{$PROJECT_UUID}/runs
 rewrite @detail_instance /api/projects/{$PROJECT_UUID}/runs/{re.static.1}
 
 # Mock responses
-respond /api/projects/{$PROJECT_UUID}/jobs "Here's a list of processes served from '{path}'"
-respond /api/projects/{$PROJECT_UUID}/jobs/{re.static.1} "Here's a single process being served from '{path}'"
-respond /api/projects/{$PROJECT_UUID}/jobs/{re.static.1}/start "You've started a process instance from '{path}'"
-respond /api/projects/{$PROJECT_UUID}/runs "Here's a list of instances served from '{path}'"
-respond /api/projects/{$PROJECT_UUID}/runs/{re.static.1} "Here's a single instance being served from '{path}'"
+# respond /api/projects/{$PROJECT_UUID}/jobs "Here's a list of processes served from '{path}'"
+# respond /api/projects/{$PROJECT_UUID}/jobs/{re.static.1} "Here's a single process being served from '{path}'"
+# respond /api/projects/{$PROJECT_UUID}/jobs/{re.static.1}/start "You've started a process instance from '{path}'"
+# respond /api/projects/{$PROJECT_UUID}/runs "Here's a list of instances served from '{path}'"
+# respond /api/projects/{$PROJECT_UUID}/runs/{re.static.1} "Here's a single instance being served from '{path}'"
 
 # Catch all
 respond "Nothing matched."
