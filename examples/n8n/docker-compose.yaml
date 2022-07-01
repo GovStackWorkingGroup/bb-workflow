@@ -1,0 +1,31 @@
+version: '3.7'
+
+services:
+  n8n:
+    image: n8nio/n8n
+    restart: always
+    ports:
+      - '127.0.0.1:5678:5678'
+    environment:
+      - N8N_USER_MANAGEMENT_DISABLED=true
+      - N8N_BASIC_AUTH_ACTIVE=true
+      - N8N_BASIC_AUTH_USER
+      - N8N_BASIC_AUTH_PASSWORD
+      - N8N_HOST=127.0.0.1
+      - N8N_PORT=5678
+      - N8N_PROTOCOL=https
+      - NODE_ENV=production
+      - WEBHOOK_URL=https://127.0.0.1:5678/
+      - GENERIC_TIMEZONE=${GENERIC_TIMEZONE}
+    volumes:
+      - ${N8N_DATA_FOLDER}:/home/node/.n8n
+      - ${N8N_LOCAL_FILES}:/files
+
+  caddy:
+    build: .
+    restart: unless-stopped
+    ports:
+      - '80:80'
+      - '443:443'
+    volumes:
+      - ${CADDY_DATA_FOLDER}:/data
