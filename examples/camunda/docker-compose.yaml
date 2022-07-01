@@ -1,0 +1,15 @@
+version: '3.7'
+
+services:
+  # camunda:
+  #   image: 
+  #   restart: always
+
+  caddy:
+    build: .
+    restart: unless-stopped
+    ports:
+      - '80:80'
+      - '443:443'
+    volumes:
+      - ${CADDY_DATA_FOLDER}:/data

@@ -1,0 +1,41 @@
+name: Bug Report
+description: Report a bug or error in the specifications
+title: "[Bug]: "
+labels: ["bug"]
+assignees: "rachellawson"
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for taking the time to submit a bug report. Below, you will find a few questions to help you give us the information needed to handle the report.
+  - type: checkboxes
+    id: opening-questions
+    attributes:
+      label: Opening questions
+      description: These opening questions will help ensure you have not missed sny things to check before reporting a bug or error in the specifications
+      options:
+        - label: I have checked the development branch of the specification and the bug still exists there
+          required: true
+        - label: I agree to follow this project's Code of Conduct
+          required: true
+        - label: I have checked the [list of issues](https://github.com/GovStackWorkingGroup/specifications/issues) and confirm this bug has not already been reported
+          required: true
+  - type: input
+    id: location
+    attributes:
+      label: Location (url) of the error
+      description: Please enter the url of the published page containing the bug or error
+      placeholder: ex. https://docs.govstack.global/contribution
+    validations:
+      required: true
+  - type: textarea
+    id: what-bug
+    attributes:
+      label: What is the bug or error?
+      description: What do you consider to be incorrect and why is is incorrect?
+      placeholder: Tell us what you see!
+      value: "A bug happened!"
+    validations:
+      required: true
+
+
