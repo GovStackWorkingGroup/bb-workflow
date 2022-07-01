@@ -1,0 +1,51 @@
+version: '3.7'
+services:
+  postgres:
+    deploy:
+      resources:
+        limits:
+          cpus: '${DOCKER_POSTGRES_CPUS:-0}'
+          memory: '${DOCKER_POSTGRES_MEMORY:-0}'
+    env_file:
+      - '.env'
+    image: 'postgres:14.2-alpine'
+    restart: '${DOCKER_RESTART_POLICY:-unless-stopped}'
+    stop_grace_period: '3s'
+    volumes:
+      - 'postgres:/var/lib/postgresql/data'
+
+  web:
+    env_file:
+      - '.env'
+    image: openfn/lightning:latest
+    deploy:
+      resources:
+        limits:
+          cpus: '${DOCKER_WEB_CPUS:-0}'
+          memory: '${DOCKER_WEB_MEMORY:-0}'
+    healthcheck:
+      test: '${DOCKER_WEB_HEALTHCHECK_TEST:-curl localhost:4000/health_check}'
+      interval: '60s'
+      timeout: '3s'
+      start_period: '5s'
+      retries: 3
+    ports:
+      - '${LIGHTNING_EXTERNAL_PORT:-127.0.0.1:${PORT}}:${URL_PORT}'
+
+    command:
+      bash -c "/app/bin/lightning eval Lightning.Release.migrate &&
+      /app/bin/server"
+
+  caddy:
+    build: .
+    restart: unless-stopped
+    ports:
+      - '80:80'
+      - '443:443'
+    volumes:
+      - ${CADDY_DATA_FOLDER}:/data
+      - ${CADDY_CONFIG_FOLDER}:/config
+
+volumes:
+  postgres: {}
+  caddy_data:
