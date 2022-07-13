@@ -1,4 +1,4 @@
-# GovStack Workflow Demos
+# GovStack Workflow Examples
 
 Tools for creating GovStack "API Adaptors" and demonstrating how various
 applications can achieve compliance with the
@@ -37,7 +37,9 @@ your own secrets, then start up via docker compose.
 - rebuild: `docker compose build`
 - start: `docker compose up -d`
 
-## Test the APIs GovStack Workflow BB APIs
+## Test the GovStack Workflow BB APIs
+
+https://app.swaggerhub.com/apis/GovStack/Workflow-BB/1.0.0#/
 
 1. `curl -k https://localhost/processes`
 2. `curl -k https://localhost/processes/14`
