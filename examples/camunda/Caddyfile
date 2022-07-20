@@ -39,4 +39,4 @@ respond /api/projects/{$PROJECT_UUID}/runs "Here's a list of instances served fr
 respond /api/projects/{$PROJECT_UUID}/runs/{re.static.1} "Here's a single instance being served from '{path}'"
 
 # Catch all
-respond "Nothing matched."
+respond ":->"

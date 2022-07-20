@@ -1,10 +1,11 @@
 version: '3.7'
 
 services:
-  # camunda:
-  #   image: 
-  #   restart: always
-
+  camunda:
+    image: camunda/camunda-bpm-platform:latest
+    restart: always
+    ports:
+      - '127.0.0.1:8080:8080'
   caddy:
     build: .
     restart: unless-stopped
