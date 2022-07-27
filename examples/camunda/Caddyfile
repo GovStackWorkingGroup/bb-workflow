@@ -1,4 +1,5 @@
 localhost
+reverse_proxy camunda:8080
 
 # Workflow API Spec: https://app.swaggerhub.com/apis-docs/GovStack/Workflow-BB/1.0.0#/developers
 
@@ -25,13 +26,18 @@ localhost
     path_regexp static \/instances\/(\w+)
 }
 
-rewrite @list_processes /api/projects/{$PROJECT_UUID}/jobs?
+rewrite /hello /test_this
+
+# TODO: farai to determine why the paths are not quite as we expect.
+rewrite @list_processes /api/projects/{$PROJECT_UUID}/jobs
 rewrite @detail_process /api/projects/{$PROJECT_UUID}/jobs/{re.static.1}
 rewrite @start_process /api/projects/{$PROJECT_UUID}/jobs/{re.static.1}/start
 rewrite @list_instances /api/projects/{$PROJECT_UUID}/runs
 rewrite @detail_instance /api/projects/{$PROJECT_UUID}/runs/{re.static.1}
 
 # Mock responses
+respond /test_this "here's the response"
+
 respond /api/projects/{$PROJECT_UUID}/jobs "Here's a list of processes served from '{path}'"
 respond /api/projects/{$PROJECT_UUID}/jobs/{re.static.1} "Here's a single process being served from '{path}'"
 respond /api/projects/{$PROJECT_UUID}/jobs/{re.static.1}/start "You've started a process instance from '{path}'"
@@ -39,4 +45,4 @@ respond /api/projects/{$PROJECT_UUID}/runs "Here's a list of instances served fr
 respond /api/projects/{$PROJECT_UUID}/runs/{re.static.1} "Here's a single instance being served from '{path}'"
 
 # Catch all
-respond ":->"
+respond "Do we see anything here?"
