@@ -17,3 +17,19 @@ The output will be a ✅ or ❌ for _each_ example, for each of the 5 tests.
 @farai - How do we test an actual workflow process? (do we set up each example
 with a "fixture" - a standard workflow that must be configured for each example
 application.)
+
+@aare - Several steps... first check endpoints. Next, specify a series of workflows
+that the engine must be able to perform.
+
+@taylor - if we define what we expect the output of a business process to be, given
+a certain input and theoretical steps, could we ask the "owner" of each candidate
+application to "create a process with id N, which when executed does X, Y, and Z".
+
+**Next Step:** come up with the "canonical workflow processes" that we want to test
+and document them in a BPMN diagram.
+
+## Tests
+
+1. ensure that application can be launched via docker with a adaptor and a security server
+2. check that all defined API endpoints in the openAPI-spec.yaml return proper response codes
+3. check input/output/result for canonical workflow processes
