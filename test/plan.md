@@ -11,3 +11,9 @@
    the 5 api endpoint tests for _that_ example.
 
 The output will be a ✅ or ❌ for _each_ example, for each of the 5 tests.
+
+## Comments
+
+@farai - How do we test an actual workflow process? (do we set up each example
+with a "fixture" - a standard workflow that must be configured for each example
+application.)
