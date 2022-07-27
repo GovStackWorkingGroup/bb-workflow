@@ -28,6 +28,8 @@ application to "create a process with id N, which when executed does X, Y, and Z
 **Next Step:** come up with the "canonical workflow processes" that we want to test
 and document them in a BPMN diagram.
 
+- @aare - should we use yaml? json? we must have a textual definition of these canonical worfklows
+
 ## Levels of Tests
 
 1. ensure that application can be launched via docker with a adaptor and a security server
