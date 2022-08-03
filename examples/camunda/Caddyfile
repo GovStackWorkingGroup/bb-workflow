@@ -17,32 +17,14 @@ reverse_proxy camunda:8080
     path_regexp static \/processes\/(\w+)
 }
 
-@list_instances {
-    path /instances
-}
-
-@detail_instance {
-    path /instances/*
-    path_regexp static \/instances\/(\w+)
-}
-
 rewrite /hello /test_this
 
-# TODO: farai to determine why the paths are not quite as we expect.
-rewrite @list_processes /api/projects/{$PROJECT_UUID}/jobs
-rewrite @detail_process /api/projects/{$PROJECT_UUID}/jobs/{re.static.1}
-rewrite @start_process /api/projects/{$PROJECT_UUID}/jobs/{re.static.1}/start
-rewrite @list_instances /api/projects/{$PROJECT_UUID}/runs
-rewrite @detail_instance /api/projects/{$PROJECT_UUID}/runs/{re.static.1}
+rewrite /processes /engine-rest/process-definition
+rewrite @detail_process /engine-rest/process-definition/{re.static.1}
+rewrite @start_process /engine-rest/process-definition/key/{re.static.1}/start
 
 # Mock responses
 respond /test_this "here's the response"
 
-respond /api/projects/{$PROJECT_UUID}/jobs "Here's a list of processes served from '{path}'"
-respond /api/projects/{$PROJECT_UUID}/jobs/{re.static.1} "Here's a single process being served from '{path}'"
-respond /api/projects/{$PROJECT_UUID}/jobs/{re.static.1}/start "You've started a process instance from '{path}'"
-respond /api/projects/{$PROJECT_UUID}/runs "Here's a list of instances served from '{path}'"
-respond /api/projects/{$PROJECT_UUID}/runs/{re.static.1} "Here's a single instance being served from '{path}'"
-
 # Catch all
-respond "Do we see anything here?"
+respond / "Do we see anything here?"
