@@ -1,4 +1,4 @@
-# GovStack Workflow Building Block
+# GovStack Workflow Building Block [![CircleCI](https://circleci.com/gh/GovStackWorkingGroup/bb-workflow/tree/main.svg?style=svg&circle-token=c3bf8256012299797947d80caf772a72cb451d21)](https://circleci.com/gh/GovStackWorkingGroup/bb-workflow/tree/main)
 
 This repository contains technical specifications for the GovStack Workflow BB.
 
