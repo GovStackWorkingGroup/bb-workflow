@@ -34,9 +34,16 @@ jobs:
             'echo testing all examples in /examples against test suite in /test'
 
       - run:
-          name: 'setup n8n'
+          name: 'Test n8n deployment via docker and a GovStack adaptor'
           command:
             'cd examples/n8n && cp .env.example .env && docker compose up -d'
+
+      - run:
+          name:
+            'Test OpenFn/Lightning deployment via docker and a GovStack adaptor'
+          command:
+            'cd examples/lightning && cp .env.example .env && docker compose up
+            -d'
 
       # TODO: Ugly test then cucumber test.
 
