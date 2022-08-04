@@ -14,14 +14,28 @@ jobs:
     # See: https://circleci.com/docs/2.0/configuration-reference/#steps
     steps:
       - checkout
+
+      - run:
+          name: Install Docker Compose
+          environment:
+            COMPOSE_VERSION: '1.29.2'
+          command: |
+            curl -L "https://github.com/docker/compose/releases/download/${COMPOSE_VERSION}/docker-compose-$(uname -s)-$(uname -m)" -o ~/docker-compose
+            chmod +x ~/docker-compose
+            sudo mv ~/docker-compose /usr/local/bin/docker-compose
+
+      - setup_remote_docker
+
       - run:
           name: 'Intro'
           command:
             'echo testing all examples in /examples against test suite in /test'
+
       - run:
           name: 'setup n8n'
           command:
             'cd examples/n8n && cp .env.example .env && docker compose up -d'
+
       - run:
           name: 'test n8n against first api'
           command: 'curl -k https://localhost/processes'
