@@ -38,11 +38,14 @@ jobs:
           command:
             'cd examples/n8n && cp .env.example .env && docker compose up -d'
 
-      - run:
-          name: 'test n8n against first api'
-          command: 'curl -k https://localhost/processes'
+      # TODO: Ugly test then cucumber test.
 
-      # TODO: Cucumber
+      # First, an ugly curl based test
+      # - run:
+      #     name: 'test n8n against first api'
+      #     command: 'curl -k https://localhost/processes'
+
+      # Cucumber based test
       # - run:
       #     name: Save test results
       #     command: |
