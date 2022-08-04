@@ -9,7 +9,7 @@ jobs:
     # Specify the execution environment. You can specify an image from Dockerhub or use one of our Convenience Images from CircleCI's Developer Hub.
     # See: https://circleci.com/docs/2.0/configuration-reference/#docker-machine-macos-windows-executor
     docker:
-      - image: cimg/base:stable
+      - image: cimg/node:18.7.0
     # Add steps to the job
     # See: https://circleci.com/docs/2.0/configuration-reference/#steps
     steps:
@@ -24,7 +24,9 @@ jobs:
             chmod +x ~/docker-compose
             sudo mv ~/docker-compose /usr/local/bin/docker-compose
 
-      - setup_remote_docker
+      - setup_remote_docker:
+          docker_layer_caching: true
+          version: 20.10.12
 
       - run:
           name: 'Intro'
@@ -39,6 +41,16 @@ jobs:
       - run:
           name: 'test n8n against first api'
           command: 'curl -k https://localhost/processes'
+
+      # TODO: Cucumber
+      # - run:
+      #     name: Save test results
+      #     command: |
+      #       mkdir -p ~/cucumber
+      #       bundle exec cucumber --format junit --out ~/cucumber/junit.xml
+      #     when: always
+      # - store_test_results:
+      #     path: ~/cucumber
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
