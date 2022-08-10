@@ -1,4 +1,5 @@
 localhost
+reverse_proxy camunda:8080
 
 # Workflow API Spec: https://app.swaggerhub.com/apis-docs/GovStack/Workflow-BB/1.0.0#/developers
 
@@ -8,12 +9,12 @@ localhost
 
 @detail_process {
     path /processes/*
-    path_regexp static \/processes\/(\w+)
+    path_regexp static \/processes\/(\b[\w\W-]+$)
 }
 
 @start_process {
     path /processes/*/start
-    path_regexp static \/processes\/(\w+)
+    path_regexp static \/processes\/(\b[\w\W-]+[^/start$])
 }
 
 @list_instances {
@@ -22,21 +23,17 @@ localhost
 
 @detail_instance {
     path /instances/*
-    path_regexp static \/instances\/(\w+)
+    path_regexp static \/instances\/(\b[\w-]+$)
 }
 
-rewrite @list_processes /api/projects/{$PROJECT_UUID}/jobs?
-rewrite @detail_process /api/projects/{$PROJECT_UUID}/jobs/{re.static.1}
-rewrite @start_process /api/projects/{$PROJECT_UUID}/jobs/{re.static.1}/start
-rewrite @list_instances /api/projects/{$PROJECT_UUID}/runs
-rewrite @detail_instance /api/projects/{$PROJECT_UUID}/runs/{re.static.1}
+rewrite @list_processes /engine-rest/process-definition
+rewrite @detail_process /engine-rest/process-definition/{re.static.1}
+rewrite @start_process /engine-rest/process-definition/{re.static.1}/start
+rewrite @list_instances /engine-rest/process-instance
+rewrite @detail_instance /engine-rest/process-instance/{re.static.1}
 
 # Mock responses
-respond /api/projects/{$PROJECT_UUID}/jobs "Here's a list of processes served from '{path}'"
-respond /api/projects/{$PROJECT_UUID}/jobs/{re.static.1} "Here's a single process being served from '{path}'"
-respond /api/projects/{$PROJECT_UUID}/jobs/{re.static.1}/start "You've started a process instance from '{path}'"
-respond /api/projects/{$PROJECT_UUID}/runs "Here's a list of instances served from '{path}'"
-respond /api/projects/{$PROJECT_UUID}/runs/{re.static.1} "Here's a single instance being served from '{path}'"
+#respond /test_this "here's the response"
 
 # Catch all
-respond ":->"
+respond / "Do we see anything here?"
