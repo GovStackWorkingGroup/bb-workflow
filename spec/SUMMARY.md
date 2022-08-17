@@ -1,6 +1,6 @@
 # Table of contents
 
-* [\<name of building block>](README.md)
+* [Workflow](README.md)
 * [1 Version History](1-version-history.md)
 * [2 Description](2-description.md)
 * [3 Terminology](3-terminology.md)
