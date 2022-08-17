@@ -22,8 +22,9 @@ in order to execute Docker and Docker Compose without sudo.
 To set up a demo, `cd` into that applications folder, copy the example env, set
 your own secrets, then start up via docker compose.
 
-- `git clone git@github.com:OpenFn/govstack-workflow-demos.git`
-- `cd govstack-workflow-demos`
+- `git clone git@github.com:GovStackWorkingGroup/bb-workflow.git`
+- `cd bb-workflow`
+- `cd example`
 - `cd << camunda || lightning || n8n || ...more >>`
 - `cp .env.example .env`
 - `vim .env` to change you secrets
