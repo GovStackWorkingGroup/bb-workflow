@@ -5,7 +5,7 @@ The workflows required for this building block are outlined in detail under the
 
 <p id="gdcalert8" ><span style="color: red; font-weight: bold">>>>>>  gd2md-html alert: undefined internal link (link text: "User Journeys and Use Cases"). Did you generate a TOC? </span><br>(<a href="#">Back to top</a>)(<a href="#gdcalert9">Next alert</a>)<br><span style="color: red; font-weight: bold">>>>>> </span></p>
 
-[User Journeys and Use Cases](#heading=h.uo8xe4esfhxv)” section below.
+[User Journeys and Use Cases](#user-journeys-and-use-cases)” section below.
 
 Generally, however, the major workflow that is supported by this BB is that
 another BB or application will request to start an instance of a process by

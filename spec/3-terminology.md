@@ -1,5 +1,7 @@
 # (3) Terminology
 
+## Overview
+
 The WFbb block is _generic_, _flexible and un-opinionated._ These aspects are
 crucial, as they enable many different kinds of automated processes to be
 designed and executed. Fundamentally, every activity in a process may itself be
