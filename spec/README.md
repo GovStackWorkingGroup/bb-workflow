@@ -1,10 +1,8 @@
 # Workflow
 
-{% hint style="success" %}
-Throughout this template are a series of these info callouts. They are designed to guide the type of content to add in each section and often contain example content from other building blocks. Delete them as no longer required.
-{% endhint %}
+Version 0.9.3
 
+Developed by: Khaled Ben Driss, Farai Mutero, Comfort Mankga, Ramkumar PS, Aare
+Lapõnin, and Taylor Downs
 
-
-\
-Developed by: `<Names and organization affiliations of working group members>` in cooperation with GIZ, ITU, DIAL, and the Government of Estonia
+In cooperation with GIZ, ITU, DIAL, and the Government of Estonia

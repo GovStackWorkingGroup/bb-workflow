@@ -1,11 +1,6 @@
-# 1 Version History
+# (1) Version History
 
-{% hint style="success" %}
-Add a line to the version history table describing the major changes to the specifications between _published_ versions. Ideally, include links to issues and authors on GitHub.
-{% endhint %}
-
-| Version | Authors | Comment |
-| ------- | ------- | ------- |
-|         |         |         |
-|         |         |         |
-|         |         |         |
+| Version | Authors                                                                                     | Comment                               |
+| ------- | ------------------------------------------------------------------------------------------- | ------------------------------------- |
+| 0.9.2   | Khaled Ben Driss, Farai Mutero, Comfort Mankga, Ramkumar PS, Aare Lapõnin, and Taylor Downs | Initial draft for TAC review          |
+| 0.9.3   | Khaled Ben Driss, Farai Mutero, Comfort Mankga, Ramkumar PS, Aare Lapõnin, and Taylor Downs | Feedback incorporated from TAC review |
