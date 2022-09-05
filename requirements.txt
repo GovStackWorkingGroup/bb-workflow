@@ -3,3 +3,4 @@ parse==1.19.0
 parse-type==0.6.0
 PyHamcrest==2.0.4
 six==1.16.0
+requests==2.27.1

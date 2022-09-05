@@ -1,4 +1,5 @@
 from behave import *
+from features.common.ApiClient import ApiClient
 from hamcrest import assert_that, equal_to, is_not
 
 HOST = 'http://localhost/'
@@ -28,6 +29,8 @@ def step_impl(context, endpoint_name):
 
 @then('we receive list of processes having {predefined_number} of processes')
 def step_impl(context, predefined_number):
+    obj = ApiClient('processes', protocol='https', port='', prefix='', suffix='')
+    data = obj.all_records
     count = context.obj.count_of_records()
     assert count == 2
     assert context.failed is False
