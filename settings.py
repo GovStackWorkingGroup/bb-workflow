@@ -7,3 +7,6 @@ DEFAULT_VALUES = {
     'prefix': 'api',
     'suffix': 'v1'
 }
+
+DROP_LAST_SLASH = True
+RESULT_IS_PLAIN_JSON = True
