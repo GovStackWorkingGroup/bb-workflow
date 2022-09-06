@@ -1,57 +1,9 @@
 import json
 import requests
-from typing import Dict
-import inspect
+
+from common import utils as utl
 
 import settings as st
-
-
-def _url_default_value(entity, protocol, host, port, prefix, suffix):
-    """
-    Method receives some values for URL. All not-None values are placed to the return-Dictionary.
-    For all missing values default values are taken.
-
-    :param protocol: HTTP or HTTPS
-    :param host: server IP address
-    :param port: port number
-    :param prefix: after server address and before entity name some times there is a prefix, eg. localhost:8000/api/
-    :param entity: name of resource, which is provided by the endpoint
-    :param suffix: sometimes there may some suffix, for example for versioning
-    :return: URL with default values instead of NONE-s
-    """
-    if entity is None:
-        raise ValueError(f'name of resource cannot be NONE {entity}.')
-    #
-    _, _, _, values = inspect.getargvalues(inspect.currentframe())  # we only interested in Dict of names-values
-    for k, v in values.items():
-        if v is None:
-            values[k] = st.DEFAULT_VALUES[k]
-    return values
-
-
-def _url_from_dict(entity: str, url_values_dict: Dict) -> str:
-    """
-    Method creates valid URL. None values are omitted.,
-
-    :param url_values_dict:
-    :return:
-    """
-    if entity is None:
-        raise ValueError(f'name of resource cannot be NONE {entity}.')
-    #
-    base_url = f'{url_values_dict["protocol"]}://{url_values_dict["host"]}'
-    if url_values_dict['port']:
-        base_url = f'{base_url}:{url_values_dict["port"]}/'
-    else:
-        base_url = f'{base_url}/'
-    if url_values_dict['prefix']:
-        base_url = f'{base_url}{url_values_dict["prefix"]}/'
-    #
-    base_url = f'{base_url}{entity}/'
-    if url_values_dict['suffix']:
-        base_url = f'{base_url}{url_values_dict["suffix"]}/'
-    #
-    return base_url
 
 
 class ApiClient:
@@ -76,8 +28,10 @@ class ApiClient:
             raise ValueError(f'Resource name must be provided')
         #
         self._entity = entity
-        self._url_values = _url_default_value(entity, protocol, host, port, prefix, suffix)
-        self._entity_url = _url_from_dict(entity, self._url_values)
+        self._url_values = utl.url_default_value(entity, protocol, host, port, prefix, suffix)
+        self._entity_url = utl.url_from_dict(entity, self._url_values)
+        if st.DROP_LAST_SLASH:
+            self._entity_url = self._entity_url[:-1]
 
     @property
     def entity_url(self):
@@ -89,7 +43,7 @@ class ApiClient:
         if self._entity_url:
             return _get_records(self._entity_url)
 
-    def records(self, filter_dict: Dict):
+    def records(self, filter_dict: dict):
         """
         List of records with filter, where filter values are in the dictionary
         :param filter_dict: - list of filter values
@@ -117,11 +71,16 @@ class ApiClient:
 
 
 def _get_records(full_url: str, filter_dict=None):
-    response = requests.get(full_url, params=filter_dict)
-    return response.json()['results']
+    response = requests.get(full_url, params=filter_dict, verify=False)
+    if st.RESULT_IS_PLAIN_JSON:
+        # plain JSON without support for pagination
+        return response.status_code
+    else:
+        # Django RF style
+        return response.json()['results']
 
 
-def _get_params(filter_dict: Dict):
+def _get_params(filter_dict: dict):
     ls = [f'{k}={v}' for k, v in filter_dict.items()]
     return '&'.join(ls)
 
@@ -133,7 +92,6 @@ def local_url(entity_name: str) -> str:
     :param entity_name:
     :return:
     """
-    api_url_obj = ApiClient()
-    api_url_obj.api_entity = entity_name
+    api_url_obj = ApiClient(entity_name)
     return api_url_obj.entity_url
 

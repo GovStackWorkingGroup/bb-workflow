@@ -17,7 +17,7 @@ def step_impl(context, endpoint_name):
 
 @then('we receive list of processes having {predefined_number} of processes')
 def step_impl(context, predefined_number):
-    # data = obj.all_records
-    # count = context.obj.count_of_records()
-    assert context.url == 'https://localhost/processes/'
+    assert context.url == 'https://localhost/processes'
     assert context.failed is False
+    status_code = context.obj.all_records
+    assert status_code == 200
