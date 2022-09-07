@@ -9,7 +9,7 @@ jobs:
     # Specify the execution environment. You can specify an image from Dockerhub or use one of our Convenience Images from CircleCI's Developer Hub.
     # See: https://circleci.com/docs/2.0/configuration-reference/#docker-machine-macos-windows-executor
     docker:
-      - image: cimg/node:18.7.0
+      - image: cimg/python:3.9
     # Add steps to the job
     # See: https://circleci.com/docs/2.0/configuration-reference/#steps
     steps:
@@ -28,6 +28,8 @@ jobs:
           docker_layer_caching: true
           version: 20.10.12
 
+      - run: pip install -r requirements.txt
+
       - run:
           name: 'Intro'
           command:
@@ -37,23 +39,6 @@ jobs:
           name: 'Test n8n deployment via docker and a GovStack adaptor'
           command:
             'cd examples/n8n && cp .env.example .env && docker compose up -d'
-
-      # TODO: Ugly test then cucumber test.
-
-      # First, an ugly curl based test
-      # - run:
-      #     name: 'test n8n against first api'
-      #     command: 'curl -k https://localhost/processes'
-
-      # Cucumber based test
-      # - run:
-      #     name: Save test results
-      #     command: |
-      #       mkdir -p ~/cucumber
-      #       bundle exec cucumber --format junit --out ~/cucumber/junit.xml
-      #     when: always
-      # - store_test_results:
-      #     path: ~/cucumber
 
       - run:
           name: 'Shut down n8n'
@@ -74,6 +59,10 @@ jobs:
           name: 'Test Camunda deployment via docker and a GovStack adaptor'
           command:
             'cd examples/camunda && cp .env.example .env && docker compose up -d'
+
+      - run:
+          name: 'Run cucumber tests against camunda image'
+          command: behave
 
       - run:
           name: 'Shut down camunda'
