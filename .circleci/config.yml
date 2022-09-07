@@ -28,7 +28,7 @@ jobs:
           docker_layer_caching: true
           version: 20.10.12
 
-      - run: pip install -r requirements.txt
+      - run: cd test && pip install -r requirements.txt
 
       - run:
           name: 'Intro'
@@ -62,7 +62,7 @@ jobs:
 
       - run:
           name: 'Run cucumber tests against camunda image'
-          command: behave
+          command: cd test && behave
 
       - run:
           name: 'Shut down camunda'
