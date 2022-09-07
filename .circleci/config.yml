@@ -37,8 +37,7 @@ jobs:
 
       - run:
           name: 'Test n8n deployment via docker and a GovStack adaptor'
-          command:
-            'cd examples/n8n && cp .env.example .env && docker compose up -d'
+          command: 'cd examples/n8n && test_entrypoint'
 
       - run:
           name: 'Shut down n8n'
@@ -47,9 +46,7 @@ jobs:
       - run:
           name:
             'Test OpenFn/Lightning deployment via docker and a GovStack adaptor'
-          command:
-            'cd examples/lightning && cp .env.example .env && docker compose up
-            -d'
+          command: 'cd examples/lightning && test_entrypoint'
 
       - run:
           name: 'Shut down OpenFn/Lightning'
@@ -57,8 +54,7 @@ jobs:
 
       - run:
           name: 'Test Camunda deployment via docker and a GovStack adaptor'
-          command:
-            'cd examples/camunda && cp .env.example .env && docker compose up -d'
+          command: 'cd examples/camunda && test_entrypoint'
 
       - run:
           name: 'Run cucumber tests against camunda image'
