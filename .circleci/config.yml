@@ -5,7 +5,7 @@ version: 2.1
 # Define a job to be invoked later in a workflow.
 # See: https://circleci.com/docs/2.0/configuration-reference/#jobs
 jobs:
-  demo:
+  bb-example-testing:
     # Specify the execution environment. You can specify an image from Dockerhub or use one of our Convenience Images from CircleCI's Developer Hub.
     # See: https://circleci.com/docs/2.0/configuration-reference/#docker-machine-macos-windows-executor
     docker:
@@ -37,7 +37,7 @@ jobs:
 
       - run:
           name: 'Test n8n deployment via docker and a GovStack adaptor'
-          command: 'cd examples/n8n && test_entrypoint'
+          command: 'cd examples/n8n && ./test_entrypoint.sh'
 
       - run:
           name: 'Shut down n8n'
@@ -46,7 +46,7 @@ jobs:
       - run:
           name:
             'Test OpenFn/Lightning deployment via docker and a GovStack adaptor'
-          command: 'cd examples/lightning && test_entrypoint'
+          command: 'cd examples/lightning && ./test_entrypoint.sh'
 
       - run:
           name: 'Shut down OpenFn/Lightning'
@@ -54,7 +54,7 @@ jobs:
 
       - run:
           name: 'Test Camunda deployment via docker and a GovStack adaptor'
-          command: 'cd examples/camunda && test_entrypoint'
+          command: 'cd examples/camunda && ./test_entrypoint.sh'
 
       - run:
           name: 'Run cucumber tests against camunda image'
@@ -67,6 +67,6 @@ jobs:
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
 workflows:
-  say-hello-workflow:
+  building-block-test:
     jobs:
-      - demo
+      - bb-example-testing
