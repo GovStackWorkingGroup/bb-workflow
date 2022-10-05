@@ -8,5 +8,5 @@ When('we request a list of processes', async function () {
 Then('we receive {int} processes', async function (expectedResponse) {
   console.log('yay!');
   const data = await this.whatIHeard.json();
-  assert.equal(data.length, 200);
+  assert.equal(data.length, expectedResponse);
 });
