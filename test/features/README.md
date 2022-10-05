@@ -1,15 +1,12 @@
 # Objective
+
 This is testing branch
 
 # Installation
 
-git clone <project_from_git>
-cd <project_from_git>
-virtualenv venv
-source venv/bin/activate
-pip install -r requirements.txt
-
-To run just print:
-behave
-
-
+1. `git clone <project_from_git>`
+2. `cd <project_from_git>`
+3. `cd test`
+4. `asdf install`
+5. `yarn i`
+6. `yarn run test`
