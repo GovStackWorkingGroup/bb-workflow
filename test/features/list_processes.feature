@@ -3,4 +3,4 @@ Feature: viewing list of Processes
 
   Scenario: run a simple test to view Processes
     When we request a list of processes
-    Then we receive 12 processes
+    Then we receive 3 processes
