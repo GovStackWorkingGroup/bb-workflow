@@ -2,7 +2,9 @@
   "name": "workflow-bb-tests",
   "version": "0.1.0",
   "scripts": {
-    "test": "cucumber-js"
+    "setup": "",
+    "test": "cucumber-js",
+    "shutdown": ""
   },
   "devDependencies": {
     "@cucumber/cucumber": "^8.6.0"
