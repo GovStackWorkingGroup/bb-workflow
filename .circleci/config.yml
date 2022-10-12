@@ -16,7 +16,7 @@ jobs:
       - checkout
 
       - run: node --version
-      - run: corepack enable
+      - run: sudo corepack enable
 
       - run:
           name: Install Docker Compose
