@@ -1,7 +1,7 @@
 version: 2.1
 
 jobs:
-  workflow-api-tests:
+  deployment-and-api-tests:
     docker:
       - image: cimg/node:18.10.0
 
@@ -64,4 +64,4 @@ jobs:
 workflows:
   building-block-test:
     jobs:
-      - bb-example-testing
+      - deployment-and-api-tests
