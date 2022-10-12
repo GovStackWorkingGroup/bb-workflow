@@ -35,22 +35,22 @@ jobs:
           command:
             'echo testing all examples in /examples against test suite in /test'
 
-      - run:
-          name: 'Test n8n deployment via docker and a GovStack adaptor'
-          command: 'cd examples/n8n && ./test_entrypoint.sh'
+      # - run:
+      #     name: 'Test n8n deployment via docker and a GovStack adaptor'
+      #     command: 'cd examples/n8n && ./test_entrypoint.sh'
 
-      - run:
-          name: 'Shut down n8n'
-          command: 'cd examples/n8n && docker compose down'
+      # - run:
+      #     name: 'Shut down n8n'
+      #     command: 'cd examples/n8n && docker compose down'
 
-      - run:
-          name:
-            'Test OpenFn/Lightning deployment via docker and a GovStack adaptor'
-          command: 'cd examples/lightning && ./test_entrypoint.sh'
+      # - run:
+      #     name:
+      #       'Test OpenFn/Lightning deployment via docker and a GovStack adaptor'
+      #     command: 'cd examples/lightning && ./test_entrypoint.sh'
 
-      - run:
-          name: 'Shut down OpenFn/Lightning'
-          command: 'cd examples/lightning && docker compose down'
+      # - run:
+      #     name: 'Shut down OpenFn/Lightning'
+      #     command: 'cd examples/lightning && docker compose down'
 
       - run:
           name: 'Test Camunda deployment via docker and a GovStack adaptor'
@@ -58,7 +58,7 @@ jobs:
 
       - run:
           name: 'Run cucumber tests against camunda image'
-          command: cd test && behave
+          command: cd test && yarn install && yarn run test
 
       - run:
           name: 'Shut down camunda'
