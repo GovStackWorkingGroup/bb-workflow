@@ -6,7 +6,7 @@ const { When, Then } = require('@cucumber/cucumber');
 
 process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = 0;
 
-When('we request a list of processes', async function () {
+When('we request a list of processes from the api', async function () {
   this.whatIHeard = await fetch('https://localhost/processes');
 });
 
