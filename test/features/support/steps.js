@@ -11,6 +11,9 @@ When('we request a list of processes from the api', async function () {
 });
 
 Then('we receive {int} processes', async function (expectedResponse) {
-  const data = await this.whatIHeard.json();
+  const resp = this.whatIHeard;
+  assert.equal(resp.status, 201);
+
+  const data = await resp.json();
   assert.equal(data.length, expectedResponse);
 });
