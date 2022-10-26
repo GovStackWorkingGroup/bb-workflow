@@ -38,6 +38,3 @@ rewrite @detail_instance /rest/executions/{re.static.1}
 # respond /webhook-test/{re.static.1} "You've started a process instance from '{path}'"
 # respond /rest/executions "Here's a list of instances served from '{path}'"
 # respond /rest/executions/{re.static.1} "Here's a single instance being served from '{path}'"
-
-# Catch all
-respond / "Nothing matched."

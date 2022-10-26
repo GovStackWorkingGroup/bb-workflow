@@ -31,9 +31,3 @@ rewrite @detail_process /engine-rest/process-definition/{re.static.1}
 rewrite @start_process /engine-rest/process-definition/{re.static.1}/start
 rewrite @list_instances /engine-rest/process-instance
 rewrite @detail_instance /engine-rest/process-instance/{re.static.1}
-
-# Mock responses
-#respond /test_this "here's the response"
-
-# Catch all
-respond / "Do we see anything here?"

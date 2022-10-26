@@ -1,0 +1,45 @@
+localhost
+
+# Workflow API Spec: https://app.swaggerhub.com/apis-docs/GovStack/Workflow-BB/1.0.0#/developers
+
+@list_processes {
+    path /processes
+}
+
+@detail_process {
+    path /processes/*
+    path_regexp static \/processes\/(\b[\w\W-]+$)
+}
+
+@start_process {
+    path /processes/*/start
+    path_regexp static \/processes\/(\b[\w\W-]+[^/start$])
+}
+
+@list_instances {
+    path /instances
+}
+
+@detail_instance {
+    path /instances/*
+    path_regexp static \/instances\/(\b[\w-]+$)
+}
+
+rewrite @list_processes /api/workflows
+rewrite @detail_process /api/workflows/{re.static.1}
+rewrite @start_process /api/workflows/{re.static.1}/start
+rewrite @list_instances /api/runs
+rewrite @detail_instance /api/runs/{re.static.1}
+
+# Mock responses
+respond /api/workflows 200 {
+    body: "Here's a list of processes served from '{path}'"
+}
+respond /api/workflows/{re.static.1} "Here's a single process being served from '{path}'"
+respond /api/workflows/{re.static.1}/start "You've started a process instance from '{path}'"
+respond /api/runs "Here's a list of instances served from '{path}'"
+respond /api/runs/{re.static.1} "Here's a single instance being served from '{path}'"
+
+respond "Not govstack endpoint here" 404 {
+	close
+}
