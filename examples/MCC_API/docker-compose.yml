@@ -1,0 +1,12 @@
+version: "3.9"
+services:
+  webapi:
+    image: "sreedocker123/govstackmccapitestcircleci:latest"
+    container_name: myapi
+    ports:
+      - "8000:8000"
+  pytest:
+    image: "sreedocker123/govstackmccapitestcircleci:myapi"
+    container_name: pytest
+    ports:
+      - "8001:8000"
