@@ -28,6 +28,27 @@ jobs:
           name: 'Intro'
           command:
             'echo testing all examples in /examples against test suite in /test'
+            
+      - run:
+          name: 'Setting Up Environmnet using Docker-Compose for MCC API Testing Use-case'
+          command:  cd examples && docker-compose up -d
+          
+      - run:
+          name: 'Check is Environment Up and Running'
+          command:  docker ps
+          
+      - run:
+          name: 'Check MCC App API Accessabality for Testing'
+          command:  docker exec -i pytest curl http://myapi:8000/home
+          
+      - run:
+          name: 'Run BDD Test using PyTest-BDD and Selenium'
+          command:  docker exec -i pytest pytest /app/test
+          
+       - run:
+          name: 'Self-Destruction of Environmenmty'
+          command:  cd examples && docker-compose down
+           
 
       # TODO: recurse through these
       - run:
