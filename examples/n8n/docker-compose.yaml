@@ -3,6 +3,7 @@ version: '3.7'
 services:
   n8n:
     image: n8nio/n8n
+    container_name: n8n
     restart: always
     ports:
       - '127.0.0.1:5678:5678'
@@ -23,9 +24,21 @@ services:
 
   caddy:
     build: .
+    container_name: caddy
     restart: unless-stopped
     ports:
       - '80:80'
       - '443:443'
     volumes:
       - ${CADDY_DATA_FOLDER}:/data
+      
+  webapi:
+    image: "sreedocker123/govstackmccapitestcircleci:latest"
+    container_name: myapi
+    ports:
+      - "8000:8000"
+  pytest:
+    image: "sreedocker123/govstackmccapitestcircleci:myapi"
+    container_name: pytest
+    ports:
+      - "8001:8000"
