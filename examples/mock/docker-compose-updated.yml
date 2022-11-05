@@ -8,6 +8,6 @@ services:
       - "4010:4010"
   pytest:
     build:
-      context: ../regbbtest/. 
+      context: ../../regbbtest/. 
     container_name: pytest
     tty: true
