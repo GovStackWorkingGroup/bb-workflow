@@ -1,0 +1,13 @@
+services:
+  myapi:
+    build:
+      context: . 
+      dockerfile: Dockerfile_Updated 
+    container_name: myapi
+    ports:
+      - "4010:4010"
+  pytest:
+    build:
+      context: ../regbbtest/. 
+    container_name: pytest
+    tty: true
