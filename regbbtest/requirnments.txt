@@ -1,0 +1,8 @@
+fastapi 
+uvicorn
+python-multipart
+pytest 
+pytest-bdd
+requests
+selenium
+webdriver_manager
