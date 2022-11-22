@@ -59,8 +59,8 @@ When('We request to start a workflow process from the api', async function () {
   });
 })
 
-Then('we receive status code 200 to confirm success', async function (expectedResponse) {
-  const resp = this.whatIHeard;
+Then('we receive status code {int} to confirm success', async function (expectedResponse) {
+  const resp = await this.whatIHeard;
   assert.equal(resp.status, expectedResponse);
 });
 
