@@ -25,13 +25,14 @@ When('we request a list of instances from the api', async function () {
 Then('we receive status code {int} for the instances', async function (expectedResponse) {
   const resp = this.whatIHeard;
   assert.equal(resp.status, 200);
-
-  //const data = await resp.json();
-  //assert.equal(data.length, expectedResponse);
 });
 
 When('We request the details of an existing workflow processes from the api', async function () {
-  this.whatIHeard = await fetch('https://localhost/processes/ReviewInvoice:1:bf20fe53-5548-11ed-9dd4-0242ac150002');
+  let response = await fetch('https://localhost/processes')
+  let processList = await response.json()
+  let processQueryUrl = 'https://localhost/processes/' + processList[0].id;
+
+  this.whatIHeard = await fetch(processQueryUrl)
 })
 
 Then('we receive status code {int} for the workflow process', async function (expectedResponse) {
@@ -40,7 +41,11 @@ Then('we receive status code {int} for the workflow process', async function (ex
 });
 
 When('We request the details of an existing workflow processes instance from the api', async function () {
-  this.whatIHeard = await fetch('https://localhost/instances/c0717272-5548-11ed-9dd4-0242ac150002');
+  let response = await fetch('https://localhost/instances');
+  let instanceList = await response.json();
+  let instanceQueryUrl = 'https://localhost/instances/' + instanceList[0].id;
+
+  this.whatIHeard = await fetch(instanceQueryUrl);
 })
 
 Then('we receive status code {int} for the workflow process instance', async function (expectedResponse) {
@@ -50,7 +55,11 @@ Then('we receive status code {int} for the workflow process instance', async fun
 
 When('We request to start a workflow process from the api', async function () {
   let payload = JSON.stringify({"name": "Test"})
-  this.whatIHeard = await fetch('https://localhost/processes/ReviewInvoice:1:bf20fe53-5548-11ed-9dd4-0242ac150002/start', {
+  let response = await fetch('https://localhost/processes')
+  let processList = await response.json()
+  let processQueryUrl = 'https://localhost/processes/' + processList[0].id + '/start';
+  
+  this.whatIHeard = await fetch(processQueryUrl, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
