@@ -77,6 +77,7 @@ venv.bak/
 .dmypy.json
 dmypy.json
 
+# This is what keeps all of your modules out of Github when using yarn.
 .pnp.*
 .yarn/*
 !.yarn/patches
@@ -84,3 +85,6 @@ dmypy.json
 !.yarn/releases
 !.yarn/sdks
 !.yarn/versions
+
+# In case someone uses npm INSTEAD of yarn, we should also try to prevent them
+# from accidentally committing those modules to git.
