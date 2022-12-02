@@ -56,10 +56,6 @@ jobs:
             docker container run --network n8n_web test:latest
 
       - run:
-          name: 'Run cucumber tests against n8n image'
-          command: cd test && yarn install && yarn run test
-
-      - run:
           name: 'Shut down n8n'
           command: 'cd examples/n8n && docker compose down'
       # ========================================================================
