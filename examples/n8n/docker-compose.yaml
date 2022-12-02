@@ -4,6 +4,8 @@ services:
   n8n:
     image: n8nio/n8n
     restart: always
+    networks:
+      - web
     ports:
       - '127.0.0.1:5678:5678'
     environment:
@@ -24,8 +26,19 @@ services:
   caddy:
     build: .
     restart: unless-stopped
+    networks:
+      web:
+        aliases:
+          - caddy.local
     ports:
       - '80:80'
       - '443:443'
     volumes:
       - ${CADDY_DATA_FOLDER}:/data
+
+volumes:
+  caddy:
+
+networks:
+  web:
+    driver: bridge

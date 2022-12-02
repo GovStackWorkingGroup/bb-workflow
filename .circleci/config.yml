@@ -45,7 +45,7 @@ jobs:
           command: |
             # In this example, we have a "contacts" service, and
             # we are trying to check, via `dockerize`, if the service is ready.
-            docker container run --network mock_web \
+            docker container run --network n8n_web \
               docker.io/jwilder/dockerize \
               -wait tcp://caddy:80 \
               -wait-retry-interval 2s \
@@ -53,7 +53,7 @@ jobs:
       - run:
           name: Run Gherkin tests
           command: |
-            docker container run --network mock_web test:latest
+            docker container run --network n8n_web test:latest
 
       - run:
           name: 'Run cucumber tests against n8n image'
