@@ -1,14 +1,15 @@
-version: '3.7'
+version: '3'
 services:
-  caddy:
-    build: .
-    restart: unless-stopped
+  mockoon:
+    image: mockoon/cli:latest
+    command: mockoon-cli start  --data <directory> # this is where the change takes place
+    networks:
+      demo:
     ports:
-      - '80:80'
-      - '443:443'
+      - '8001:8001'
     volumes:
-      - ${CADDY_DATA_FOLDER}:/data
-      - ${CADDY_CONFIG_FOLDER}:/config
-
-volumes:
-  caddy_data:
+      - type: bind
+        source: ../../api/swagger.yaml
+        target: /www
+networks:
+  demo:

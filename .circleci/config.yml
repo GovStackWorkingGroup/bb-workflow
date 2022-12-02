@@ -29,10 +29,31 @@ jobs:
           command:
             'echo testing all examples in /examples against test suite in /test'
 
-      # TODO: recurse through these
+      - run:
+          name: Build test image
+          command: |
+            cd ./test/gherkin/
+            docker build . -t test:latest
+
+      # TODO: Recurse through these ============================================
       - run:
           name: 'Test n8n deployment via docker and a GovStack adaptor'
           command: 'cd examples/n8n && ./test_entrypoint.sh'
+
+      - run:
+          name: Wait for service to be alive
+          command: |
+            # In this example, we have a "contacts" service, and
+            # we are trying to check, via `dockerize`, if the service is ready.
+            docker container run --network mock_web \
+              docker.io/jwilder/dockerize \
+              -wait tcp://caddy:80 \
+              -wait-retry-interval 2s \
+              -timeout 20s
+      - run:
+          name: Run Gherkin tests
+          command: |
+            docker container run --network mock_web test:latest
 
       - run:
           name: 'Run cucumber tests against n8n image'
@@ -41,23 +62,7 @@ jobs:
       - run:
           name: 'Shut down n8n'
           command: 'cd examples/n8n && docker compose down'
-
-      # - run:
-      #     name:
-      #       'Test OpenFn/Lightning deployment via docker and a GovStack adaptor'
-      #     command: 'cd examples/lightning && ./test_entrypoint.sh'
-
-      # - run:
-      #     name: 'Shut down OpenFn/Lightning'
-      #     command: 'cd examples/lightning && docker compose down'
-
-      # - run:
-      #     name: 'Test Camunda deployment via docker and a GovStack adaptor'
-      #     command: 'cd examples/camunda && ./test_entrypoint.sh'
-
-      # - run:
-      #     name: 'Shut down camunda'
-      #     command: 'cd examples/camunda && docker compose down'
+      # ========================================================================
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
