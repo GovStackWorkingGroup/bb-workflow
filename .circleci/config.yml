@@ -32,7 +32,7 @@ jobs:
       - run:
           name: Build test image
           command: |
-            cd ./test/gherkin/
+            cd ./test/
             docker build . -t test:latest
 
       # TODO: Recurse through these ============================================
