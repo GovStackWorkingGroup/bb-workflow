@@ -264,6 +264,8 @@ components:
           type: string
         description:
           type: string
+        body:
+          type: [object, string]
     ProcessInstanceInitiation:
       type: object
       properties:
