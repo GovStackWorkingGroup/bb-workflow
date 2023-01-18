@@ -39,6 +39,8 @@ rewrite @list_instances /api/projects/{$PROJECT_UUID}/runs
 rewrite @detail_instance /api/projects/{$PROJECT_UUID}/runs/{re.static.1}
 
 # Mock responses
+respond /healthcheck "I'm ok."
+respond /api/healthcheck "Really, I'm fine."
 # respond /api/projects/{$PROJECT_UUID}/jobs "Here's a list of processes served from '{path}'"
 # respond /api/projects/{$PROJECT_UUID}/jobs/{re.static.1} "Here's a single process being served from '{path}'"
 # respond /api/projects/{$PROJECT_UUID}/jobs/{re.static.1}/start "You've started a process instance from '{path}'"
