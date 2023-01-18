@@ -1,0 +1,25 @@
+{
+  "name": "reportexport",
+  "version": "1.0.0",
+  "description": "Export results of test harness to external storage",
+  "main": "index.js",
+  "author": "GovStack",
+  "license": "MIT",
+  "scripts": {
+    "export-mongo": "node ./mongo/mongoExport"
+  },
+  "dependencies": {
+    "dotenv": "^16.0.3",
+    "eslint": "^7.32.0 || ^8.2.0",
+    "mongodb": "^4.13.0",
+    "mongoose": "^6.8.2"
+  },
+  "devDependencies": {
+    "eslint-config-airbnb": "19.0.4",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.25.2",
+    "eslint-plugin-jsx-a11y": "^6.5.1",
+    "eslint-plugin-react": "^7.28.0",
+    "eslint-plugin-react-hooks": "^4.3.0"
+  }
+}
