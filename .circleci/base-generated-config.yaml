@@ -23,9 +23,8 @@ jobs:
             pwd
             ls
 
-            chmod u+x <<parameters.path >>/test_entrypoint.sh &
-            cd <<parameters.path >> 
-            ./test_entrypoint.sh &
+            chmod u+x <<parameters.path >>/test_entrypoint.sh
+            <<parameters.path >>/test_entrypoint.sh
 
             # Execute gherkin tests for given application 
             cd ./../../test/
