@@ -1,0 +1,24 @@
+version: '3.3'
+
+networks:
+  isolation-network:
+    driver: bridge
+
+services:
+  # Local test execution waits for API to be available and create test harnes report
+  gherkin-test-report:
+    image: gherkin-test-execution
+    build:
+      context: .
+      dockerfile: ./docker/Dockerfile
+    command: run_tests
+    environment:
+      - RESULT_NAME=${RESULT_NAME:-example_result}
+      - EXPORT_RESULTS=${EXPORT_SCRIPT:-docker/export_to_mongo.sh}
+      - API_URL=${API_URL:-localhost:3333/healthcheck}
+    volumes:
+      - ./tests_result/:/app/results
+    network_mode: 'host'
+
+volumes:
+  test_result:
