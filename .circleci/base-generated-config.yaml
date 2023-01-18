@@ -12,36 +12,39 @@ jobs:
       docker_layer_caching: true
     environment:
       BUILDING_BLOCK: digital-registries
-      TESTED_APPLICATION: << parameters.example-app-name >> 
+      TESTED_APPLICATION: << parameters.example-app-name >>
       TEST_RESULT_REPORT_FILENAME: example_result.message
     steps:
       - checkout
       - run:
           name: Execute tests
           command: |
-            # Execute application test_entrypoint.sh in background. 
+            # Execute application test_entrypoint.sh in background.
+            pwd
+            ls
+
             chmod u+x <<parameters.path >> test_entrypoint.sh &
             cd <<parameters.path >> 
             ./test_entrypoint.sh &
-            
+
             # Execute gherkin tests for given application 
             cd ./../../test/
             EXAMPLE_APPLICATION_ABSOLUTE_PATH=<<parameters.path >> docker-compose up --build gherkin-test-report
-      - checkout 
+      - checkout
       - run:
-          name: Export test results 
-          command: | 
+          name: Export test results
+          command: |
             # Save test execution result path to environment:
             export TEST_RESULTS_PATH=${CIRCLE_WORKING_DIRECTORY}/test/tests_result/
             cd .circleci/reportExport 
             yarn install 
-            yarn run export-mongo 
+            yarn run export-mongo
 
-            
 workflows:
   test_everything:
     jobs:
-      # This part is replaced programatically by test executions for all example applications 
+      # This part is replaced programatically by test executions for all example applications
       - test-example:
           name: 'example-application-name'
-          path-info: 'Path to example application directory with test_entrypoint.sh'
+          path-info:
+            'Path to example application directory with test_entrypoint.sh'
