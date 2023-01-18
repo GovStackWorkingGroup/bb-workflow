@@ -40,6 +40,9 @@ respond /api/workflows/{re.static.1}/start "You've started a process instance fr
 respond /api/runs "Here's a list of instances served from '{path}'"
 respond /api/runs/{re.static.1} "Here's a single instance being served from '{path}'"
 
+respond /healthcheck "I'm ok."
+respond /api/healthcheck "Really, I'm fine."
+
 respond "Not govstack endpoint here" 404 {
 	close
 }
