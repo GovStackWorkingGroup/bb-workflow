@@ -23,7 +23,7 @@ jobs:
             pwd
             ls
 
-            chmod u+x <<parameters.path >> test_entrypoint.sh &
+            chmod u+x <<parameters.path >>/test_entrypoint.sh &
             cd <<parameters.path >> 
             ./test_entrypoint.sh &
 
