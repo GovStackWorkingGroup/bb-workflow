@@ -8,5 +8,8 @@
   },
   "devDependencies": {
     "@cucumber/cucumber": "^8.6.0"
+  },
+  "dependencies": {
+    "read-yaml-file": "^2.1.0"
   }
 }
