@@ -1,2 +1,6 @@
 tmp
 .env
+
+# mac & intelliJ stuff
+.DS_Store
+.idea

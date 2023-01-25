@@ -46,6 +46,8 @@ paths:
                   $ref: '#/components/schemas/Process'
         "404":
           description: processes not found
+        '500':
+          $ref: '#/components/responses/InternalServerError'
     post:
       tags:
         - admins
@@ -65,6 +67,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Process'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
   /processes/{processId}:
     get:
       tags:
@@ -85,6 +89,8 @@ paths:
                 $ref: '#/components/schemas/Process'
         "404":
           description: process not found
+        '500':
+          $ref: '#/components/responses/InternalServerError'
     put:
       tags:
         - Design
@@ -106,6 +112,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Process'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
     delete:
       tags:
         - admins
@@ -117,6 +125,8 @@ paths:
       responses:
         '200':
           description: Process successfully deleted
+        '500':
+          $ref: '#/components/responses/InternalServerError'
   /processes/{processId}/start:
     post:
       tags:
@@ -147,7 +157,7 @@ paths:
         '404':
           description: Invalid processId. Process does not exist
         '500':
-          description: Server error starting process
+          $ref: '#/components/responses/InternalServerError'
   /instances/:
     get:
       tags:
@@ -168,6 +178,8 @@ paths:
                   $ref: '#/components/schemas/ProcessInstance'
         '404':
           description: Invalid instance ID. Process instance does not exist
+        '500':
+          $ref: '#/components/responses/InternalServerError'
   /instances/{instanceId}:
     get:
       tags:
@@ -193,6 +205,8 @@ paths:
                 $ref: '#/components/schemas/ProcessInstance'
         '404':
           description: Invalid processId. Process does not exist
+        '500':
+          $ref: '#/components/responses/InternalServerError'
 components:
   schemas:
     ProcessDefinition:
@@ -285,3 +299,6 @@ components:
         type: integer
         minimum: 1
       description: The id for a defined process in the workflow engine.
+  responses:
+    InternalServerError:
+      description: Internal server error, please contact administrator
