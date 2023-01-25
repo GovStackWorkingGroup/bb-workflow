@@ -1,0 +1,24 @@
+{
+    "processList": 1,
+    "processSingle": 2,
+    "processStart": 3,
+    "instanceList": 4,
+    "instanceSingle": 5,
+    "props": {
+        "1": {
+            "uri": "/processes"
+        },
+        "2": {
+            "uri": "/processes/{processId}"
+        },
+        "3": {
+            "uri": "/processes/{processId}/start"
+        },
+        "4": {
+            "uri": "/instances/"
+        },
+        "5": {
+            "uri": "/instances/{instanceId}"
+        }
+    }
+}
