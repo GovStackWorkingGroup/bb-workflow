@@ -12,9 +12,17 @@ servers:
     url: https://virtserver.swaggerhub.com/GovStack/Workflow-BB/1.0.0
 tags:
   - name: admins
-    description: Endpoints that are available to administrators of this workflow BB instance (e.g., to configure the workflow BB.)
+    description:
+      Endpoints that are available to administrators of this workflow BB
+      instance (e.g., to configure the workflow BB.)
   - name: developers
-    description: Endpoints that are available to other GovStack developers/applications to discover, instantiate, and monitor processes.
+    description:
+      Endpoints that are available to other GovStack developers/applications to
+      discover, instantiate, and monitor processes.
+  - name: Design
+    description: Endpoints that are used to configure workflows
+  - name: Runtime
+    description: Endpoints that are used to execute and monitor workflows
   - name: Design
     description: Endpoints that are used to configure workflows
   - name: Runtime
@@ -36,7 +44,7 @@ paths:
           required: false
           example: Register Child Birth Process
       responses:
-        "200":
+        '200':
           description: list of processes
           content:
             application/json:
@@ -44,7 +52,7 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Process'
-        "404":
+        '404':
           description: processes not found
         '500':
           $ref: '#/components/responses/InternalServerError'
@@ -81,13 +89,13 @@ paths:
       parameters:
         - $ref: '#/components/parameters/processIdParam'
       responses:
-        "200":
+        '200':
           description: process found and representation returned
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Process'
-        "404":
+        '404':
           description: process not found
         '500':
           $ref: '#/components/responses/InternalServerError'
@@ -134,9 +142,11 @@ paths:
         - Runtime
       summary: instantiates a process execution; creates a process instance
       operationId: start
-      description: Create a process instance and register it with the execution engine
+      description:
+        Create a process instance and register it with the execution engine
       requestBody:
-        description: Process instance initiation payload (initial "state" for the process)
+        description:
+          Process instance initiation payload (initial "state" for the process)
         content:
           application/json:
             schema:
@@ -186,7 +196,9 @@ paths:
         - developers
         - Runtime
       summary: return execution status details for a single process instance
-      description: By passing in the process instance ID, get full details on its execution, including server logs emitted.
+      description:
+        By passing in the process instance ID, get full details on its
+        execution, including server logs emitted.
       parameters:
         - name: instanceId
           in: path

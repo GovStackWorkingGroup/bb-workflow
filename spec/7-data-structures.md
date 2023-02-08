@@ -6,9 +6,7 @@ The full resource model is described in detail in the
 [SwaggerHub API Specification](https://app.swaggerhub.com/apis/GovStack/Workflow-BB/1.0.0),
 but the following is a high-level diagram of the key entities.
 
-<p id="gdcalert7" ><span style="color: red; font-weight: bold">>>>>>  gd2md-html alert: inline image link here (to images/image7.png). Store image on your image server and adjust path/filename/extension if necessary. </span><br>(<a href="#">Back to top</a>)(<a href="#gdcalert8">Next alert</a>)<br><span style="color: red; font-weight: bold">>>>>> </span></p>
-
-![alt_text](images/image7.png 'image_tooltip')
+![ERD](/diagrams/data-structures.png 'image_tooltip')
 
 [https://github.com/OpenFn/govstack-workflow-bb/blob/main/erd.drawio](https://github.com/OpenFn/govstack-workflow-bb/blob/main/erd.drawio)
 
