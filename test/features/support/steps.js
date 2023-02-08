@@ -1,18 +1,32 @@
 const assert = require('assert');
 const readYaml = require('read-yaml')
-const { When, Then } = require('@cucumber/cucumber');
+const { When, Then, Given } = require('@cucumber/cucumber');
 const { read } = require('fs');
+
+var workflowData = null
+var processData = null
+var instanceData = null
+var processInstanceData = null
+var processStart = null
+var apiSpec = null
 
 // TODO: is this the best way to allow insecure ssl?
 // TODO: and do we want to?
 
 process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = 0;
 
+function loadApiSpec() {
+  readYaml('../api/swagger.yaml', function (err, data) {
+    apiSpec = JSON.parse(JSON.stringify(data))
+  })
+};
+
+loadApiSpec()
+
 When('we request a list of processes from the api', async function () {
   this.whatIHeard = await fetch('https://localhost/processes');
 })
 
-var workflowData = null
 Then('we receive status code {int} for the processes', async function (expectedResponse) {
   const resp = this.whatIHeard;
   workflowData = await resp.json();
@@ -21,64 +35,56 @@ Then('we receive status code {int} for the processes', async function (expectedR
 });
 
 Then('process fields are aligned to api spec', function (expectedResponse) {
-  readYaml('../api/swagger.yaml', function (err, data) {
-    let apiSpec = JSON.parse(JSON.stringify(data))
-    let componentFields = apiSpec.components.schemas.ProcessDefinition.properties
+  const componentFields = apiSpec.components.schemas.ProcessDefinition.properties
+  const componentFieldNames = Object.keys(componentFields)
 
-    componentFieldNames = Object.keys(componentFields)
+  const sampleObject = workflowData.find(e => e.id != null)
+  const sampleObjectFields = Object.keys(sampleObject)
 
-    let sampleObject = workflowData.find(e => e.id != null)
-    let sampleObjectFields = Object.keys(sampleObject)
-    let matchedFieldsCount = 0
+  let matchedFieldsCount = 0
 
-    //Compare workflow object against component fields
-    for (let x = 0; x < componentFieldNames.length; x++) {
-      if (sampleObjectFields.find(e => e == componentFieldNames[x]) != null)
-        matchedFieldsCount += 1
-    }
+  //Compare workflow object against component fields
+  for (let x = 0; x < componentFieldNames.length; x++) {
+    if (sampleObjectFields.find(e => e == componentFieldNames[x]) != null)
+      matchedFieldsCount += 1
+  }
 
-    assert.equal(matchedFieldsCount, componentFieldNames.length);
-  })
+  assert.equal(matchedFieldsCount, componentFieldNames.length);
 });
 
-var instanceData = null
+
 When('we request a list of instances from the api', async function () {
   this.whatIHeard = await fetch('https://localhost/instances');
 })
 
 Then('we receive status code {int} for the instances', async function (expectedResponse) {
   const resp = this.whatIHeard;
-  instanceData = await this.whatIHeard.json()
+  instanceData = await resp.json()
 
   assert.equal(resp.status, 200);
 });
 
 Then('instance fields are aligned to api spec', function (expectedResponse) {
+  const componentFields = apiSpec.components.schemas.ProcessInstance.properties
+  const componentFieldNames = Object.keys(componentFields)
+  const sampleInstance = instanceData.find(e => e.id != null)
+  const instanceFieldNames = Object.keys(sampleInstance)
 
-  readYaml('../api/swagger.yaml', function (err, data) {
-    let apiSpec = JSON.parse(JSON.stringify(data))
-    let componentFields = apiSpec.components.schemas.ProcessInstance.properties
-    let componentFieldNames = Object.keys(componentFields)
-    let sampleInstance = instanceData.find(e => e.id != null)
-    let instanceFieldNames = Object.keys(sampleInstance)
+  let matchedFieldsCount = 0
 
-    let matchedFieldsCount = 0
+  for (let x = 0; x < componentFieldNames.length; x++) {
+    if (instanceFieldNames.find(e => e == componentFieldNames[x]) != null)
+      matchedFieldsCount += 1
+  }
 
-    for (let x = 0; x < componentFieldNames.length; x++) {
-      if (instanceFieldNames.find(e => e == componentFieldNames[x]) != null)
-        matchedFieldsCount += 1
-    }
-
-    assert.equal(matchedFieldsCount, componentFieldNames.length)
-  })
+  assert.equal(matchedFieldsCount, componentFieldNames.length)
 });
 
-var processData = null
 When('We request the details of an existing workflow processes from the api', async function () {
   //Fetch single process
-  let response = await fetch('https://localhost/processes')
-  let processList = await response.json()
-  let processQueryUrl = 'https://localhost/processes/' + processList[0].id;
+  const response = await fetch('https://localhost/processes')
+  const processList = await response.json()
+  const processQueryUrl = 'https://localhost/processes/' + processList[0].id;
 
   this.whatIHeard = await fetch(processQueryUrl)
 })
@@ -91,33 +97,26 @@ Then('we receive status code {int} for the workflow process', async function (ex
 });
 
 Then('workflow process fields are aligned to api spec', function (expectedResponse) {
-  var componentFieldNames;
+  const componentFields = apiSpec.components.schemas.ProcessDefinition.properties
+  const componentFieldNames = Object.keys(componentFields)
+  const sampleProcessFields = Object.keys(processData)
 
-  readYaml('../api/swagger.yaml', function (err, data) {
-    let apiSpec = JSON.parse(JSON.stringify(data))
-    let componentFields = apiSpec.components.schemas.ProcessDefinition.properties
+  let matchedFieldsCount = 0
 
-    componentFieldNames = Object.keys(componentFields)
+  //Compare workflow object against component fields
+  for (let x = 0; x < componentFieldNames.length; x++) {
+    if (sampleProcessFields.find(e => e == componentFieldNames[x]) != null)
+      matchedFieldsCount += 1
+  }
 
-    let sampleProcess = processData
-    let sampleProcessFields = Object.keys(sampleProcess)
-    let matchedFieldsCount = 0
-
-    //Compare workflow object against component fields
-    for (let x = 0; x < componentFieldNames.length; x++) {
-      if (sampleProcessFields.find(e => e == componentFieldNames[x]) != null)
-        matchedFieldsCount += 1
-    }
-
-    assert.equal(matchedFieldsCount, componentFieldNames.length)
-  })
+  assert.equal(matchedFieldsCount, componentFieldNames.length)
 })
 
-var processInstanceData = null
+
 When('We request the details of an existing workflow processes instance from the api', async function () {
-  let response = await fetch('https://localhost/instances');
-  let instanceList = await response.json();
-  let instanceQueryUrl = 'https://localhost/instances/' + instanceList[0].id;
+  const response = await fetch('https://localhost/instances');
+  const instanceList = await response.json();
+  const instanceQueryUrl = 'https://localhost/instances/' + instanceList[0].id;
 
   this.whatIHeard = await fetch(instanceQueryUrl);
 })
@@ -130,31 +129,25 @@ Then('we receive status code {int} for the workflow process instance', async fun
 });
 
 Then('workflow process instance fields are aligned to api spec', function (expectedResponse) {
-  
-  readYaml('../api/swagger.yaml', function (err, data) {
-    let apiSpec = JSON.parse(JSON.stringify(data))
-    let componentFields = apiSpec.components.schemas.ProcessInstance.properties
-    let componentFieldNames = Object.keys(componentFields)
-    let sampleInstance = processInstanceData
-    let instanceFieldNames = Object.keys(sampleInstance)
+  const componentFields = apiSpec.components.schemas.ProcessInstance.properties
+  const componentFieldNames = Object.keys(componentFields)
+  const instanceFieldNames = Object.keys(processInstanceData)
 
-    let matchedFieldsCount = 0
+  let matchedFieldsCount = 0
 
-    for (let x = 0; x < componentFieldNames.length; x++) {
-      if (instanceFieldNames.find(e => e == componentFieldNames[x]) != null)
-        matchedFieldsCount += 1
-    }
+  for (let x = 0; x < componentFieldNames.length; x++) {
+    if (instanceFieldNames.find(e => e == componentFieldNames[x]) != null)
+      matchedFieldsCount += 1
+  }
 
-    assert.equal(matchedFieldsCount, componentFieldNames.length)
-  })
+  assert.equal(matchedFieldsCount, componentFieldNames.length)
 })
 
-var processStart = null
 When('We request to start a workflow process from the api', async function () {
-  let payload = JSON.stringify({ "name": "Test" })
-  let response = await fetch('https://localhost/processes')
-  let processList = await response.json()
-  let processQueryUrl = 'https://localhost/processes/' + processList[0].id + '/start';
+  const payload = JSON.stringify({ "name": "Test" })
+  const response = await fetch('https://localhost/processes')
+  const processList = await response.json()
+  const processQueryUrl = 'https://localhost/processes/' + processList[0].id + '/start';
 
   this.whatIHeard = await fetch(processQueryUrl, {
     method: 'POST',
@@ -168,26 +161,21 @@ When('We request to start a workflow process from the api', async function () {
 Then('we receive status code {int} to confirm success', async function (expectedResponse) {
   const resp = await this.whatIHeard;
   processStart = await resp.json()
-  
+
   assert.equal(resp.status, expectedResponse);
 });
 
 Then('started workflow process fields are aligned to api spec', function (expectedResponse) {
-  
-  readYaml('../api/swagger.yaml', function (err, data) {
-    let apiSpec = JSON.parse(JSON.stringify(data))
-    let componentFields = apiSpec.paths["/processes/{processId}/start"].post.responses["201"].content["application/json"].schema.properties
-    let componentFieldNames = Object.keys(componentFields)
-    let processStartData = processStart
-    let processStartFieldNames = Object.keys(processStartData)
+  const componentFields = apiSpec.paths["/processes/{processId}/start"].post.responses["201"].content["application/json"].schema.properties
+  const componentFieldNames = Object.keys(componentFields)
+  const processStartFieldNames = Object.keys(processStart)
 
-    let matchedFieldsCount = 0
+  let matchedFieldsCount = 0
 
-    for (let x = 0; x < componentFieldNames.length; x++) {
-      if (processStartFieldNames.find(e => e == componentFieldNames[x]) != null)
-        matchedFieldsCount += 1
-    }
-  
-    assert.equal(matchedFieldsCount, componentFieldNames.length)
-  })
+  for (let x = 0; x < componentFieldNames.length; x++) {
+    if (processStartFieldNames.find(e => e == componentFieldNames[x]) != null)
+      matchedFieldsCount += 1
+  }
+
+  assert.equal(matchedFieldsCount, componentFieldNames.length)
 });
