@@ -190,4 +190,3 @@ Then('we receive status code {int} to confirm success', async function (expected
     assert.equal(matchedFieldsCount, componentFieldNames.length)
   })
 });
-
