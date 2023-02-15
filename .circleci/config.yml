@@ -1,42 +1,18 @@
 version: 2.1
-
-# Define a job to be invoked later in a workflow.
 setup: true
 
 orbs:
-  continuation: circleci/continuation@0.1.2
-  python: circleci/python@1.0.0
-
-jobs:
-  create-config:
-    executor: python/default
-    steps: 
-      - checkout
-      - run: mkdir -p workspace
-      - python/install-packages:
-          args: PyYAML
-          pypi-cache: false
-      - run:
-          name: Create config
-          command: pipenv run python .circleci/generate-config.py
-      - run: mv .circleci/generated.yml workspace
-      - persist_to_workspace:
-          root: workspace
-          paths:
-            - generated.yml
-  setup:
-    executor: continuation/default
-    steps:
-      - attach_workspace:
-          at: /tmp/workspace
-      - continuation/continue:
-          configuration_path: /tmp/workspace/generated.yml # use newly generated config to continue
-
+  test-harness: govstack-working-group/testutils@0.1.7
 
 workflows:
   test_everything:
     jobs:
-      - create-config
-      - setup:
+      - test-harness/create-config:
+          post-steps: # Persist to workspace has to be defined in main workflow
+            - persist_to_workspace:
+                root: workspace
+                paths:
+                  - generated.yml
+      - test-harness/execute-tests:
           requires:
-            - create-config
+            - test-harness/create-config
