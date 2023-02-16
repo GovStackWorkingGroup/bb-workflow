@@ -1,14 +1,13 @@
-version: '3.7'
+---
+version: '3.9'
 services:
-  caddy:
+  prism:
     build: .
-    restart: unless-stopped
-    ports:
-      - '80:80'
-      - '443:443'
+    image: stoplight/prism:4
+    command: 'mock -h 0.0.0.0 /tmp/workflow-engine.yml'
     volumes:
-      - ${CADDY_DATA_FOLDER}:/data
-      - ${CADDY_CONFIG_FOLDER}:/config
-
-volumes:
-  caddy_data:
+      - ../../workflow-engine.yml:/tmp/workflow-engine.yml:ro
+    ports:
+      # Serve the mocked API locally as available on port 80
+      - '80:4010'
+      - '443:4010'
