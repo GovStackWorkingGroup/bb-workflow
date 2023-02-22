@@ -2,12 +2,25 @@
 version: '3.9'
 services:
   prism:
-    build: .
+    platform: linux/amd64
     image: stoplight/prism:4
-    command: 'mock -h 0.0.0.0 /tmp/workflow-engine.yml'
+    command: 'mock -h 0.0.0.0 /tmp/api.oas3.yml'
     volumes:
-      - ../../workflow-engine.yml:/tmp/workflow-engine.yml:ro
+      - ./api.oas3.yml:/tmp/api.oas3.yml:ro
+      - ../../workflow-engine.yml:/tmp/api.oas3.yml:ro
     ports:
-      # Serve the mocked API locally as available on port 80
-      - '80:4010'
-      - '443:4010'
+      # Serve the mocked API locally as available on port 8080
+      - '8080:4010'
+# ---
+# version: '3.9'
+# services:
+#   prism:
+#     build: .
+#     image: stoplight/prism:4
+#     command: 'mock -h 0.0.0.0 /tmp/workflow-engine.yml'
+#     volumes:
+#       - ../../workflow-engine.yml:/tmp/workflow-engine.yml:ro
+#     ports:
+#       # Serve the mocked API locally as available on port 80
+#       - '80:4010'
+#       - '443:4010'
