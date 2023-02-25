@@ -11,6 +11,10 @@ servers:
   - description: SwaggerHub API Auto Mocking
     url: https://virtserver.swaggerhub.com/GovStack/Workflow-BB/1.0.0
 tags:
+  - name: v1
+    description:
+      This endpoint is a requirement for the v1 workflow engine BB
+      specification.
   - name: admins
     description:
       Endpoints that are available to administrators of this workflow BB
@@ -27,6 +31,7 @@ paths:
   /processes:
     get:
       tags:
+        - v1
         - developers
         - Design
       summary: returns a list of workflow processes i.e., definitions of process
@@ -76,6 +81,7 @@ paths:
   /processes/{processId}:
     get:
       tags:
+        - v1
         - developers
         - Design
       summary: returns detailed information about a process
@@ -134,6 +140,7 @@ paths:
   /processes/{processId}/start:
     post:
       tags:
+        - v1
         - developers
         - Runtime
       summary: instantiates a process execution; creates a process instance
@@ -169,6 +176,7 @@ paths:
   /instances/:
     get:
       tags:
+        - v1
         - developers
         - Runtime
       summary:
@@ -195,6 +203,7 @@ paths:
   /instances/{instanceId}:
     get:
       tags:
+        - v1
         - developers
         - Runtime
       summary: return execution status details for a single process instance
