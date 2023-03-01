@@ -24,16 +24,17 @@ building block:
    2. YAML
    3. _(Note that we’re saying “no” to XML!)_
 
-### Future Support
-
-1. CMMN - Case Management Model and Notation
-   ([https://www.omg.org/cmmn/](https://www.omg.org/cmmn/))
-2. DMN - Decision modeling notation
-   ([https://www.omg.org/spec/DMN](https://www.omg.org/spec/DMN))
-
-All dates should follow [ISO 8601](http://en.wikipedia.org/wiki/ISO_8601).
-
 ## Data Elements
 
-All data elements are described in detail in the
-[SwaggerHub API Specification](https://app.swaggerhub.com/apis/GovStack/Workflow-BB/1.0.0).
+The data elements listed below provide detail for the resource model defined above. This section lists the required fields for each resource. The data elements listed are extensible inorder to respond to specific use cases, however the data elements listed below are a minimum requirement
+
+
+| Data Element | Description |
+|------------- | ------------|
+| Process Definition | Reference to a blueprint of a process. Contains all the fields required to create a new process to a workflow engine |
+| Process | Represents a process that has been successfully created in a Workflow engine. This object contains important reference details like the generated process uuid, which is required to perform further operations on the process |
+| Process Instance Payload | Initiates a process execution or creates a process instance. Contains the ability to capture input values that may be required to start a new process instance |
+| Process Instance | Used to list a single or list of process instances that are in various states like active, suspended or stopped, in a Workflow engine |
+
+For reference , all data elements are described in detail in the
+[SwaggerHub API Specification](/api/swagger.yaml).
