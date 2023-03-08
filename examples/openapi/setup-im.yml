@@ -1,0 +1,228 @@
+---
+- hosts: ss_servers
+  connection: community.docker.docker
+
+  vars_files:
+    - vars.yml
+    - vault.yml
+  vars:
+    apikey: "{{ apikey_json['key'] }}"
+    repo_name: bb-workflow
+
+  tasks:
+
+  - name: Change Security Server UI password
+    user:
+      name: xrd
+      password: "{{ password | password_hash }}"
+
+  - name: Get the cert from github
+    community.crypto.get_certificate:
+      host: "raw.githubusercontent.com"
+      port: 443
+    delegate_to: localhost
+    run_once: true
+    register: github_cert
+
+  - name: Get caddy info
+    community.docker.docker_container_info:
+      name: im_caddy_1
+    delegate_to: localhost
+    register: caddy_info_result
+    when: protocol=='https'
+
+  - name: Get TLS cert from caddy
+    community.crypto.get_certificate:
+      host: "{{ caddy_info_result.container.NetworkSettings.Networks.bb-openapi_inside.IPAddress }}"
+      port: 443
+    delegate_to: localhost
+    run_once: true
+    register: caddy_cert
+    when: protocol=='https'
+
+  - name: Output result
+    debug:
+      var: caddy_cert
+      verbosity: 2
+    when: protocol=='https'
+
+  - name: Create API key
+    uri:
+      method: POST
+      url: https://localhost:4000/api/v1/api-keys
+      user: "{{ user }}"
+      password: "{{ password }}"
+      body:
+        - XROAD_SECURITY_OFFICER
+        - XROAD_REGISTRATION_OFFICER
+        - XROAD_SERVICE_ADMINISTRATOR
+        - XROAD_SYSTEM_ADMINISTRATOR
+        - XROAD_SECURITYSERVER_OBSERVER
+      body_format: json
+      validate_certs: no
+      creates: /home/xrd/APIKEY
+      dest: /home/xrd/APIKEY
+    no_log: false
+
+  - name: Register APIKEY file content
+    command: cat /home/xrd/APIKEY
+    register: apikey_result
+
+  - name: Set APIKEY variable
+    ansible.builtin.set_fact:
+      apikey_json: "{{ apikey_result.stdout | from_json }}"
+
+  - name: Register github cert as service TLS cert
+    uri:
+      method: POST
+      url: https://localhost:4000/api/v1/clients/CS:ORG:1111:TestService/tls-certificates
+      headers:
+        authorization: X-Road-ApiKey token={{ apikey }}
+        content-type: application/octet-stream
+      body: "{{ github_cert.cert }}"
+      status_code: [200, 201, 409]
+      validate_certs: no
+    register: cert_registration_result
+
+  - name: Output result
+    debug:
+      var: cert_registration_result
+      verbosity: 2
+
+  - name: Set internal server connection protocol to http/https
+    uri:
+      method: PATCH
+      url: https://localhost:4000/api/v1/clients/CS:ORG:1111:TestService
+      headers:
+        authorization: X-Road-ApiKey token={{ apikey }}
+      body:
+        connection_type: "{{ protocol | upper }}"
+      body_format: json
+      status_code: [200, 201]
+      validate_certs: no
+    register: service_https_result
+
+  - name: Output result
+    debug:
+      var: service_https_result
+      verbosity: 2
+
+  - name: Register services described in {{ repo_name }}
+    uri:
+      method: POST
+      url: https://localhost:4000/api/v1/clients/CS:ORG:1111:TestService/service-descriptions
+      headers:
+        authorization: X-Road-ApiKey token={{ apikey }}
+      body:
+        url: https://raw.githubusercontent.com/GovStackWorkingGroup/{{ repo_name }}/main/api/{{ api_name }}
+        rest_service_code: "{{ api_name }}"
+        ignore_warnings: false
+        type: OPENAPI3
+      body_format: json
+      status_code: [200, 201]
+      validate_certs: no
+    vars:
+      api_name: "{{ item | basename }}"
+    # loop over API description filenames in {{ repo_name }} repo
+    with_fileglob: "../../api/*"
+    register: registration_result
+
+  - name: Output result
+    debug:
+      var: registration_result
+      verbosity: 2
+
+  - name: Set server URL of registered services
+    uri:
+      method: PATCH
+      url: https://localhost:4000/api/v1/services/CS:ORG:1111:TestService:{{ item[0].service_code }}
+      headers:
+        authorization: X-Road-ApiKey token={{ apikey }}
+      body:
+        url: "{{ protocol }}://caddy"
+        timeout: 60
+        ssl_auth: "{{ protocol=='https' }}"
+      body_format: json
+      status_code: [200, 201]
+      validate_certs: no
+    loop: "{{ registration_result.results | map(attribute='json') | map(attribute='services') }}"
+    register: setting_result
+
+  - name: Output result
+    debug:
+      var: setting_result
+      verbosity: 2
+
+  - name: Register caddy cert as service TLS cert
+    uri:
+      method: POST
+      url: https://localhost:4000/api/v1/clients/CS:ORG:1111:TestService/tls-certificates
+      headers:
+        authorization: X-Road-ApiKey token={{ apikey }}
+        content-type: application/octet-stream
+      body: "{{ caddy_cert.cert }}"
+      status_code: [200, 201, 409]
+      validate_certs: no
+    register: caddy_registration_result
+    when: protocol=='https'
+
+  - name: Output result
+    debug:
+      var: caddy_registration_result
+      verbosity: 2
+    when: protocol=='https'
+
+  - name: Enable all just registered services
+    uri:
+      method: PUT
+      url: https://localhost:4000/api/v1/service-descriptions/{{ item }}/enable
+      headers:
+        authorization: X-Road-ApiKey token={{ apikey }}
+      status_code: [200, 201]
+      validate_certs: no
+    loop: "{{ registration_result.results | map(attribute='json') | map(attribute='id') }}"
+    register: enabling_result
+
+  - name: Output result
+    debug:
+      var: enabling_result
+      verbosity: 2
+
+  - name: Set member client protocol to http/https
+    uri:
+      method: PATCH
+      url: https://localhost:4000/api/v1/clients/CS:ORG:1111
+      headers:
+        authorization: X-Road-ApiKey token={{ apikey }}
+      body:
+        connection_type: "{{ protocol | upper }}"
+      body_format: json
+      status_code: [200, 201]
+      validate_certs: no
+    register: sethttp_result
+
+  - name: Output result
+    debug:
+      var: sethttp_result
+      verbosity: 2
+
+  - name: Give client access rights to service
+    uri:
+      method: POST
+      url: https://localhost:4000/api/v1/clients/CS:ORG:1111:TestService/service-clients/CS:ORG:1111:TestClient/access-rights
+      headers:
+        authorization: X-Road-ApiKey token={{ apikey }}
+      body:
+        items:
+          - service_code: "{{ item[0].service_code }}"
+      body_format: json
+      status_code: [200, 201]
+      validate_certs: no
+    loop: "{{ registration_result.results | map(attribute='json') | map(attribute='services') }}"
+    register: rights_result
+
+  - name: Output result
+    debug:
+      var: rights_result
+      verbosity: 2
+

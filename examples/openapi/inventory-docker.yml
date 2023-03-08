@@ -1,0 +1,5 @@
+plugin: community.docker.docker_containers
+docker_host: unix://var/run/docker.sock
+groups:
+  ss_servers: docker_name.split('_')[1]=='ss'
+  caddy_servers: docker_name.split('_')[1]=='caddy'

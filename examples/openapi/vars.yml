@@ -1,0 +1,3 @@
+user: xrd
+password: "{{ vault_password }}"
+protocol: http

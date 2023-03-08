@@ -1,0 +1,29 @@
+version: '3.7'
+
+services:
+  caddy:
+    build: .
+    restart: unless-stopped
+    expose:
+      - '80'
+      - '443'
+    networks:
+      - inside
+    volumes:
+      - ${CADDY_DATA_FOLDER}:/data
+      - ${CADDY_CONFIG_FOLDER}:/config
+
+  ss:
+    image: niis/xroad-security-server-standalone:bionic-7.0.2
+    depends_on:
+      - caddy
+    ports:
+      - '80:8080'
+      - '4000:4000'     # management port
+    networks:
+      - inside
+      - default
+
+networks:
+  inside:
+    internal: true
