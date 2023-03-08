@@ -218,7 +218,9 @@ process with two instances and SMSs sent to two _different_ people.)
 Below, the same process (Process 1) sends an SMS to two different people
 depending on the initial state it receives from in the triggering webhook event
 
-![alt_text](/diagrams/image2.png 'image_tooltip')
+<p id="gdcalert2" ><span style="color: red; font-weight: bold">>>>>>  gd2md-html alert: inline image link here (to images/image2.png). Store image on your image server and adjust path/filename/extension if necessary. </span><br>(<a href="#">Back to top</a>)(<a href="#gdcalert3">Next alert</a>)<br><span style="color: red; font-weight: bold">>>>>> </span></p>
+
+![alt_text](images/image2.png 'image_tooltip')
 
 **E.g.: Start the beneficiary scoring for beneficiary X:**
 
@@ -277,7 +279,9 @@ in a solid line with an arrowhead. It shows the order of flow elements.
 
 ###
 
-![alt_text](/diagrams/image3.png 'image_tooltip')
+<p id="gdcalert3" ><span style="color: red; font-weight: bold">>>>>>  gd2md-html alert: inline image link here (to images/image3.png). Store image on your image server and adjust path/filename/extension if necessary. </span><br>(<a href="#">Back to top</a>)(<a href="#gdcalert4">Next alert</a>)<br><span style="color: red; font-weight: bold">>>>>> </span></p>
+
+![alt_text](images/image3.png 'image_tooltip')
 
 ###
 
@@ -286,7 +290,9 @@ in a solid line with an arrowhead. It shows the order of flow elements.
 Message flow is used to show the flow of messages between separate pools/lanes.
 You cannot use message flow to connect flow objects within the same participant.
 
-![alt_text](/diagrams/image4.png 'image_tooltip')
+<p id="gdcalert4" ><span style="color: red; font-weight: bold">>>>>>  gd2md-html alert: inline image link here (to images/image4.png). Store image on your image server and adjust path/filename/extension if necessary. </span><br>(<a href="#">Back to top</a>)(<a href="#gdcalert5">Next alert</a>)<br><span style="color: red; font-weight: bold">>>>>> </span></p>
+
+![alt_text](images/image4.png 'image_tooltip')
 
 ### Process model
 
@@ -322,7 +328,24 @@ organize and categorize Activities within a Pool. In practice, lanes are
 commonly used for allocating activities to roles, systems, or the organization’s
 departments.
 
-![alt_text](/diagrams/image5.png 'image_tooltip')
+<p id="gdcalert5" ><span style="color: red; font-weight: bold">>>>>>  gd2md-html alert: inline image link here (to images/image5.png). Store image on your image server and adjust path/filename/extension if necessary. </span><br>(<a href="#">Back to top</a>)(<a href="#gdcalert6">Next alert</a>)<br><span style="color: red; font-weight: bold">>>>>> </span></p>
+
+![alt_text](images/image5.png 'image_tooltip')
 
 A pool and lane sample.
 
+# (4) Key Digital Functionalities
+
+The WFbb enables the creation and automatic execution of business processes. Any
+application that is used to implement the WFbb must:
+
+1. Allow business users to define and create arbitrary workflow processes
+   1. that can be instantiated via API, via manual interaction, or via the
+      passage of time
+   2. that can perform calculations, make API requests (e.g HTTPS) make HTTP
+      requests, and execute scripts
+2. Allow business users to monitor the status of process instances
+3. Allow other applications to discover existing processes via API
+
+If a candidate application/implementation does these things, it may make for a
+suitable WFbb implementation.
