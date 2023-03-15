@@ -56,14 +56,3 @@ The following are the internal key functionalities/capabilities that orchestrate
 1. Workflow will not need to provide RPA (Robotic Process Automation) capabilities. This means automated control of graphical user interfaces (UI), if required within a Building Block, will be handled by a third-party RPA tool which can be integrated into the Workflow Building Block for orchestration.
 2. Workflow is not _always_ responsible for data flow or information mediation. It only performs limited data management within the context of a parent-predefined workflow process. There are many cases where a building block application will make a request to another GovStack service (via the information mediator) _or_ to an external service (via an API gateway, for example) which does not involve workflow at all.
 3. While the WFbb does provide process scheduling capabilities, it is not always responsible for scheduling the execution of processes. For example, a process may be instantiated at a particular time by another application independently determining when to send that “start process” API call to the Workflow engine. In this case, Workflow is not responsible for scheduling but merely executes the process when told to by another application.
-
-## For Future Consideration
-
-1.Auto-sandboxing/testing/simulation
-
-1. Camunda simulation tool?
-2. OpenFn `fakeAdaptor.js`?
-
-2.IAM handles the provisioning of “admin users” (humans) that log into the Workflow Engine Building Block dashboard to build, run, and audit/monitor processes and process instances.&#x20;
-
-**3.Who handles the creation of “credentials” (often, machine-only/API-only access tokens or api tokens that allow a process to access a secure system during runtime)?** 1. Taylor says it’s not a problem. If a user must be created to access the MoH patient registry, that user must be created via IAM. Once it’s created, there will be a username and password. 2. The username and password may be saved in lastpass, in my notebook, or stored as a credential in a workflow engine.
