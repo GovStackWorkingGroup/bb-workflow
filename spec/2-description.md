@@ -2,24 +2,91 @@
 
 ## Short Description
 
-The Workflow Building Block (WFbb) helps to drive efficiency within GovStack by providing automation and orchestration capabilities for specified business processes within and across BBs. The Workflow BB provides design-time mapping & modeling of business processes based on mature open standards like BPMN and facilitates the run-time execution of deployed workflows in order to orchestrate process flows from initiation to completion.
+The Workflow Building Block (WFbb) helps to drive efficiency within GovStack by
+providing automation and orchestration capabilities for specified business
+processes within and across BBs. The Workflow BB provides design-time mapping &
+modeling of business processes based on mature open standards like BPMN and
+facilitates the run-time execution of deployed workflows in order to orchestrate
+process flows from initiation to completion.
 
 ## Full Description
 
-The WFbb helps automate and control the flow of information and activities within and across various services based on predefined protocols. Workflow “processes” involve “steps” (things to be done), “gateways” (conditional logic), and “events” (things that happen). These processes may guide software systems to automate data exchange based on certain events or conditions. In addition to accelerating and automating information flow, it can be used as a mechanism to encourage or enforce best practices such as adherence to data standards, clinical guidelines, and policy.
+The WFbb helps automate and control the flow of information and activities
+within and across various services based on predefined protocols. Workflow
+“processes” involve “steps” (things to be done), “gateways” (conditional logic),
+and “events” (things that happen). These processes may guide software systems to
+automate data exchange based on certain events or conditions. In addition to
+accelerating and automating information flow, it can be used as a mechanism to
+encourage or enforce best practices such as adherence to data standards,
+clinical guidelines, and policy.
 
-It is important to note that from the perspective of the WFbb, any process may be defined and may make use of APIs across several applications and ministries (so long as it has access to those APIs via the IM).
+It is important to note that from the perspective of the WFbb, any process may
+be defined and may make use of APIs across several applications and ministries
+(so long as it has access to those APIs via the IM).
 
-From the high-level view, we should recognize that some instances of a WFbb may be deployed, for example, in the Ministry of Health (MoH) and only access services in the MoH, but another may be deployed in the MoH and access services provided by the Ministry of Insurance (MoI). So long as MoH’s WFbb is authorized to access the service at MoI (via the Information Mediator) then it will work just fine.
+From the high-level view, we should recognize that some instances of a WFbb may
+be deployed, for example, in the Ministry of Health (MoH) and only access
+services in the MoH, but another may be deployed in the MoH and access services
+provided by the Ministry of Insurance (MoI). So long as MoH’s WFbb is authorized
+to access the service at MoI (via the Information Mediator) then it will work
+just fine.
+
+## _When_ to use a workflow engine
+
+It should be noted that candidate applications playing the role of the workflow
+BB are _not always_ responsible for controlling the logical flow of data or
+automation of business processes.
+
+There are many cases where a building block application will make a request to
+another GovStack service (via the information mediator) _or_ to an external
+service (via an API gateway, for example) which does not involve workflow at
+all.
+
+There are also plenty of cases where some slightly more complex automation will
+be a natural, already existing, in-built feature of some other application
+that's playing the role of, e.g. the Messaging spec. Let's consider an example.
+
+1. The messaging spec might require that candidates be able to send SMS
+   messages.
+2. The messaging BB might not _require_ that all candidates be able to send a
+   message, wait for a reply, and then send a canned response based on the
+   reply.
+3. But the logic defined in point 2 is _so common_ in the messaging world, it
+   would not be surprising to find that many messaging BB candidates provide
+   this type of business logic automation "out-of-the-box".
+4. In this case, we'd expect an implementer to use that out-of-the-box
+   functionality rather than also deploying a workflow engine candidate
+   alongside the messaging candidate.
+5. However, and this is the important part, if that feature (automating the
+   logic in step 2) was not _already_ part of an existing digital public good,
+   we would recommend that a GovStack implementer should deliver that business
+   process automation using a workflow engine, _rather than making costly
+   extensions to the candidate application itself._ I.e., don't code new
+   business logic if you don't have to and there's not high re-use value. Use a
+   workflow engine. That's what it's there for.
+
+The only caveat to point 4 is that certain "built-in" business logic automation
+provided by other applications might be avoided if you're opting for a GovStack
+implementation style in which a very large portion of interactions are
+catalogued in the audit trails generated by independent security servers. Then,
+even though the "built-in" logic is more convenient and affordable, you'd opt to
+activate a workflow process stored in a workflow engine candidate to generate a
+more robust audit trail.
 
 ## Example
 
-**The “Process Visit & Request Child Counselor” process is implemented using a WFbb installed at the Ministry of Health.**
+**The “Process Visit & Request Child Counselor” process is implemented using a
+WFbb installed at the Ministry of Health.**
 
 1. Receive webhook event from clinic system with a new patient visit
 2. Make GET request to another MoH API to retrieve full patient data
-3. Find patient date\_of\_birth in the response to the above request, calculate age from date of birth
-4. Make a POST request to the Ministry of Insurance with patient\_id and age to register the visit
+3. Find patient date_of_birth in the response to the above request, calculate
+   age from date of birth
+4. Make a POST request to the Ministry of Insurance with patient_id and age to
+   register the visit
 5. Make a POST request to a Messaging BB to send an SMS to the patient
-6. If the patient’s age is less than 18, make a POST request to a Messaging BB to send an email to staff members at the clinic requesting a child counselor to be assigned to this patient
-7. Make a POST request to the original clinic system, notifying them that the workflow process has been completed
+6. If the patient’s age is less than 18, make a POST request to a Messaging BB
+   to send an email to staff members at the clinic requesting a child counselor
+   to be assigned to this patient
+7. Make a POST request to the original clinic system, notifying them that the
+   workflow process has been completed
