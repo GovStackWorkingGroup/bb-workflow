@@ -1,3 +1,9 @@
+---
+description: >-
+  This section will highlight important requirements or describe any additional
+  cross-cutting requirements that apply to this Building Block.
+---
+
 # 5 Cross-Cutting Requirements
 
 The cross-cutting requirements described in this section are an extension of the cross-cutting requirements defined in the architecture specification document. This section will describe any additional cross-cutting requirements that apply to this Building Block.
@@ -12,4 +18,4 @@ Source code SHOULD be available and easily accessible.
 
 ## 5.14 Performance/Scalability Requirements
 
-The workflow BB application must support communication between multiple instances of the same application (e.g., when deployed in a high-availability environment such as a Kubernetes cluster with a load balancer) so that redundant copies of the workflow engine can guarantee not to duplicate individual activities in an instance or mistakenly create multiple instances of the same process when only one is requested (i.e., the workflow engine must handle executing instances as “singletons” across a distributed computing environment).
+The Workflow Building Block application must support communication between multiple instances of the same application (e.g., when deployed in a high-availability environment such as a Kubernetes cluster with a load balancer) so that redundant copies of the workflow engine can guarantee not to duplicate individual activities in an instance or mistakenly create multiple instances of the same process when only one is requested (i.e., the Workflow engine must handle executing instances as “singletons” across a distributed computing environment).

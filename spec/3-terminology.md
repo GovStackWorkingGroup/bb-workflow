@@ -1,15 +1,19 @@
+---
+description: Terminology used within this specification.
+---
+
 # 3 Terminology
 
 ## Overview
 
-The WFbb block is generic, flexible, and un-opinionated. These aspects are crucial, as they enable many different kinds of automated processes to be designed and executed. Fundamentally, every activity in a process may itself be another process—which includes multiple activities, and so on ad infinitum.
+The Workflow Building Block is generic, flexible, and un-opinionated. These aspects are crucial, as they enable many different kinds of automated processes to be designed and executed. Fundamentally, every activity in a process may itself be another process—which includes multiple activities, and so on ad infinitum.
 
 Bearing this in mind, it is still useful to have shorthand terminology to refer to a collection of activities, or a single activity relative to some linguistic scope that’s being applied in conversation.
 
 To achieve infinite “nestability” and enable conversational coherence for human beings, we have settled on two terms to refer to:
 
-* activity: a step, relative to some multi-step workflow
-* process: a multi-step workflow itself, or a collection of steps
+* activity: a step, relative to some multi-step workflow.
+* process: a multi-step workflow itself, or a collection of steps.
 
 ## Process
 
@@ -17,7 +21,7 @@ A business process is defined as a set of one or more linked activities that col
 
 ### Asynchronous Process
 
-An asynchronous process is the default process type for the WFbb, and once instantiated will return a 202/Accepted but then continue to execute the instance. Note that many asynchronous processes may include requests back to the initially requesting application, but these are new requests, not responses to the initial request.
+An asynchronous process is the default process type for the Workflow Building Block, and once instantiated will return a 202/Accepted but then continue to execute the instance. Note that many asynchronous processes may include requests back to the initially requesting application, but these are new requests, not responses to the initial request.
 
 ### Synchronous Process
 
@@ -152,13 +156,13 @@ State is a JSON object which contains the required data (or input values) for a 
 
 Consider a process that contains an activity to “send an SMS to a patient”. The process definition may dictate “send SMS to state.patient.ssid” and when the process is instantiated with the initial state from patient A’s clinical visit, the recipient of that SMS will be different from when the same process is instantiated with the initial state from patient B’s clinic visit (i.e., one process with two instances and SMSs sent to two different people).
 
-Below, the same process (Process 1) sends an SMS to two different people depending on the initial state it receives from in the triggering webhook event
+Below, the same process (Process 1) sends an SMS to two different people depending on the initial state it receives from in the triggering webhook event.
 
 ![alt\_text](../diagrams/image2.png)
 
 **E.g.: Start the beneficiary scoring for beneficiary X:**
 
-_Make POST to /api/workflow/beneficiary-scoring-process with the following body:_
+_Make POST to /API/workflow/beneficiary-scoring-process with the following body:_
 
 ```
 {
@@ -169,7 +173,7 @@ _Make POST to /api/workflow/beneficiary-scoring-process with the following body:
 }
 ```
 
-The process should be built with a knowledge (in so far as it’s needed) of the initial state that will be provided when it is called/a new instance is created.
+The process should be built with knowledge (in so far as it’s needed) of the initial state that will be provided when it is called/a new instance is created.
 
 The final activity in this process might be:
 
@@ -229,6 +233,4 @@ A pool in BPMN represents a participant in a business collaboration. In a BPMN m
 
 A BPMN Lane is a sub-partition within a Pool (see above) which extends the entire length of the Pool, either horizontally or vertically. Lanes are used to organize and categorize Activities within a Pool. In practice, lanes are commonly used for allocating activities to roles, systems, or the organization’s departments.
 
-![alt\_text](../diagrams/image5.png)
-
-A pool and lane sample.
+![A pool and lane sample.](../diagrams/image5.png)

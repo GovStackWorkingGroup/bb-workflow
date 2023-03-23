@@ -1,3 +1,9 @@
+---
+description: >-
+  This section provides a reference for APIs that should be implemented by this
+  Building Block.
+---
+
 # 8 Service APIs
 
 This section provides a reference for APIs that should be implemented by this Building Block. The APIs defined here establish a blueprint for how the Building Block will interact with other Building Blocks. Additional APIs may be implemented by the Building Block, but the listed APIs define a minimal set of functionality that should be provided by any implementation of this Building Block.&#x20;
