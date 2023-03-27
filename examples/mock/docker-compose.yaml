@@ -2,15 +2,15 @@ version: '3'
 
 services:
   mock:
-    build: .
-    command: mock api/workflow-engine.yml
+    image: stoplight/prism:4.1.2
+    #command: mock /usr/src/prism/packages/cli/api/workflow-engine.yaml
+    command: mock -h 0.0.0.0 /prism/workflow-engine.yaml
+    volumes:
+      - ../../api:/prism
+        #volumes:
+        #- type: bind
+        #source: ../../api/workflow-engine.yaml
+        #target: /usr/src/prism/packages/cli/api/
     ports:
       - '4010:4010'
-  # This was the old attempt, and can be removed when the build works.
-  # mock:
-  #   image: stoplight/prism:4.1.2
-  #   command: mock api/workflow-engine.yml
-  #   volumes:
-  #     - ./api:/usr/src/prism/packages/cli/api
-  #   ports:
-  #     - '4010:4010'
+
