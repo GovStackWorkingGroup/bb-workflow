@@ -19,8 +19,10 @@ implement the following internal workflow.
 ```mermaid
 sequenceDiagram
 autonumber
-    External Application->>WF Application: Call to start WF process with input data
-    WF Application: Create initial state for process instance with request body
-    WF Application: Add process instance to queue
-    WF Application->>External Application: Respond with 202 and process instance ID
+    participant E as External Application
+    participant W as Workflow Application
+    E->>W: Call to start WF process with input data
+    W-->W: Create initial state for process instance with request body
+    W-->W: Add process instance to queue
+    W->>E: Respond with 202 and process instance ID
 ```
