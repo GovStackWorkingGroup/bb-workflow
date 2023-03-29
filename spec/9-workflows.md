@@ -21,8 +21,13 @@ sequenceDiagram
 autonumber
     participant E as External Application
     participant W as Workflow Application
+    participant Q as Workflow Engine Queue
+    participant X as Workflow Engine Executor
     E->>W: Call to start WF process with input data
-    W-->W: Create initial state for process instance with request body
-    W-->W: Add process instance to queue
+    W->>W: Create initial state for process instance with request body
+    W->>Q: Add process instance to queue
     W->>E: Respond with 202 and process instance ID
+    X->>Q: Get process instance request from top of queue
+    X->>X: Execute workflow process instance
+    X->>W: Send results back to app
 ```
