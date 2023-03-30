@@ -16,7 +16,7 @@ It is important to note that from the perspective of the Workflow Building Block
 
 From the high-level view, we should recognize that some instances of a Workflow Building Block may be deployed, for example, in the Ministry of Health (MoH) and only access services in the MoH, but another may be deployed in the MoH and access services provided by the Ministry of Insurance (MoI). So long as MoH’s Workflow Building Block is authorized to access the service at MoI (via the Information Mediator) then it will work just fine.
 
-## _When_ to use a workflow engine
+## When to use a workflow engine
 
 It should be noted that candidate applications playing the role of the Workflow Building Block are not always responsible for controlling the logical flow of data or automation of business processes.
 
@@ -37,7 +37,7 @@ The only caveat to point 4 is that certain "built-in" business logic automation 
 **The “Process Visit & Request Child Counselor” process is implemented using a Workflow Building Block** **installed at the Ministry of Health.**
 
 1. Receive webhook event from clinic system with a new patient visit.
-2. Make GET request to another MoH API to retrieve full patient data.
+2. Make GET request to another Ministry of Health API to retrieve full patient data.
 3. Find patient date\_of\_birth in the response to the above request, calculate age from date of birth.
 4. Make a POST request to the Ministry of Insurance with patient\_id and age to register the visit.
 5. Make a POST request to a Messaging Building Block to send an SMS to the patient.

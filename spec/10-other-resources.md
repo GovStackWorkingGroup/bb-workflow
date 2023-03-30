@@ -7,70 +7,55 @@ description: >-
 
 # 10 Other Resources
 
-## UI Examples
+## User Interfaces Examples
 
 Example user interfaces provide illustrative context for common functionalities.
 
 **Building a process**
 
-![alt_text](../diagrams/image8.png)
+![alt\_text](../diagrams/image8.png)
 
 **Adding arbitrary scripts to a process**
 
-![alt_text](../diagrams/image9.png)
+![alt\_text](../diagrams/image9.png)
 
 **Adding new activities to existing processes**
 
-![alt_text](../diagrams/image10.png)
+![alt\_text](../diagrams/image10.png)
 
-![alt_text](../diagrams/image11.png)
+![alt\_text](../diagrams/image11.png)
 
 **Adding credentials for use in a process**
 
-![alt_text](../diagrams/image12.png)
+![alt\_text](../diagrams/image12.png)
 
 **Configuring an HTTP request as an activity in a process**
 
-![alt_text](../diagrams/image13.png)
+![alt\_text](../diagrams/image13.png)
 
 **Adding a conditional gateway to a process**
 
-![alt_text](../diagrams/image14.png)
+![alt\_text](../diagrams/image14.png)
 
-These UI examples are meant to aid reviewers and developers in understanding the
-high-level requirements of the WFbb, not to specify certain design elements or
-guidelines.
+These user interface examples are meant to aid reviewers and developers in understanding the high-level requirements of the Workflow Building Block, not to specify certain design elements or guidelines.
 
-1. Link to architecture requirements document (and specific sections within that
-   document, such as cross-functional requirements, and general
-   recommendations).
-2. Link to use cases document – this document may be a valuable resource while
-   developing workflows to ensure that a variety of different use cases are
-   covered by the Building Block definition.
-3. Link to the Building Block criteria and maturity metrics document created by
-   Tanvir.
+1. Link to architecture requirements document (and specific sections within that document, such as cross-functional requirements, and general recommendations).
+2. Link to use cases document – this document may be a valuable resource while developing workflows to ensure that a variety of different use cases are covered by the Building Block definition.
+3. Link to the Building Block criteria and maturity metrics document created by Tanvir.
 4. Link to Low Resource Settings document.
-5. Link to GitHub repository and OpenAPI documentation site for the Building
-   Blocks.
+5. Link to GitHub repository and OpenAPI documentation site for the Building Blocks.
 
 ### 10.1 Key Decision Log <a href="#10.2-key-decision-log" id="10.2-key-decision-log"></a>
 
-[A historical log of key decisions regarding this Building Block](https://govstack-global.atlassian.net/wiki/spaces/GH/pages/183205892).
-​
+[A historical log of key decisions regarding this Building Block](https://govstack-global.atlassian.net/wiki/spaces/GH/pages/183205892). ​
 
 ### 10.1 Future Considerations <a href="#10.3-future-considerations" id="10.3-future-considerations"></a>
 
-[A list of topics that may be relevant to future versions of this Building Block](https://govstack-global.atlassian.net/wiki/spaces/GH/pages/183500904).&#x20;
+[A list of topics that may be relevant to future versions of this Building Block](https://govstack-global.atlassian.net/wiki/spaces/GH/pages/183500904).
 
 ## User Journeys and Use Cases
 
-The WFbb is present in multiple use cases. Use cases can be found in the
-[logical process blueprint](https://docs.google.com/document/d/1DRjpuyINjf6YVBRrEh9Q6VdB0zVzq1aqGQOukpktWZ8/edit#heading=h.f0ewpzm6b55p)
-and a subset of those that we focus on below can be found
-[here](https://drive.google.com/drive/folders/1JYdcmeUhJrwl7TfSuVtBJ9a0C335VbRg).
-These user journeys and use cases have been referenced by the authors of the
-specification to ensure that the functional requirements for the spec suit the
-needs of the proposed implementations.
+The WFbb is present in multiple use cases. Use cases can be found in the [logical process blueprint](https://docs.google.com/document/d/1DRjpuyINjf6YVBRrEh9Q6VdB0zVzq1aqGQOukpktWZ8/edit#heading=h.f0ewpzm6b55p) and a subset of those that we focus on below can be found [here](https://drive.google.com/drive/folders/1JYdcmeUhJrwl7TfSuVtBJ9a0C335VbRg). These user journeys and use cases have been referenced by the authors of the specification to ensure that the functional requirements for the spec suit the needs of the proposed implementations.
 
 ### Postpartum and Infant Care
 
@@ -115,15 +100,15 @@ needs of the proposed implementations.
 | USCT         | [001: Eligibility Determination and Benefit Package(s) Design](https://docs.google.com/document/d/1pBr0wHt9W4boeEzCWA21TIzhetPPlA4ad3PrQHWwNcU) | Check if the beneficiary is employed from Employment Registry                     | Must be able to perform an external task or similar which calls remote service (REST API). Response from Remote service should contain requested data and/or response code |
 | USCT         | [001: Eligibility Determination and Benefit Package(s) Design](https://docs.google.com/document/d/1pBr0wHt9W4boeEzCWA21TIzhetPPlA4ad3PrQHWwNcU) | Check if the beneficiary is receiving any income from Taxk Registry               | Must be able to perform an external task or similar which calls remote service (REST API). Response from Remote service should contain requested data and/or response code |
 
-#### [Payment (type 1) for USCT](https://docs.google.com/document/d/1uP_v9BYDg8P7B7anRA1e-F3XLFb9MFMYbllfbYZGAhI/edit#heading=h.9l9ar3fqqo6u)
+#### [Payment (type 1) for USCT](https://docs.google.com/document/d/1uP\_v9BYDg8P7B7anRA1e-F3XLFb9MFMYbllfbYZGAhI/edit#heading=h.9l9ar3fqqo6u)
 
-| User journey | Use-case                                                                                                                                                   | Capabilities                                                                                                            | Functional requirements       |
-| ------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- | ----------------------------- |
-| USCT         | [001: Payment (non-electronic/cash payments)](https://docs.google.com/document/d/1uP_v9BYDg8P7B7anRA1e-F3XLFb9MFMYbllfbYZGAhI/edit#heading=h.9l9ar3fqqo6u) | Receive trigger from Scheduling Building Block that due date has been reached                                           | Initiate worfklow via webhook |
-| USCT         | [001: Payment (non-electronic/cash payments)](https://docs.google.com/document/d/1uP_v9BYDg8P7B7anRA1e-F3XLFb9MFMYbllfbYZGAhI/edit#heading=h.9l9ar3fqqo6u) | Load SRIS (Social Registry Information System) workload (i.e a list of eligible beneficiaries that are due for payment) | Make HTTP GET request         |
-| USCT         | [001: Payment (non-electronic/cash payments)](https://docs.google.com/document/d/1uP_v9BYDg8P7B7anRA1e-F3XLFb9MFMYbllfbYZGAhI/edit#heading=h.9l9ar3fqqo6u) | Iterate through each beneficiary and compute payment amounts due to beneficiary                                         | Perform calculation, loop     |
-| USCT         | [001: Payment (non-electronic/cash payments)](https://docs.google.com/document/d/1uP_v9BYDg8P7B7anRA1e-F3XLFb9MFMYbllfbYZGAhI/edit#heading=h.9l9ar3fqqo6u) | Request payment for beneficiary (Payment Building Block)                                                                | Make HTTP POST request        |
-| USCT         | [001: Payment (non-electronic/cash payments)](https://docs.google.com/document/d/1uP_v9BYDg8P7B7anRA1e-F3XLFb9MFMYbllfbYZGAhI/edit#heading=h.9l9ar3fqqo6u) | Set TransactionID for successful payment and mark beneficiary as paid (Social Registry)                                 | Make HTTP POST request        |
+| User journey | Use-case                                                                                                                                                    | Capabilities                                                                                                            | Functional requirements       |
+| ------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- | ----------------------------- |
+| USCT         | [001: Payment (non-electronic/cash payments)](https://docs.google.com/document/d/1uP\_v9BYDg8P7B7anRA1e-F3XLFb9MFMYbllfbYZGAhI/edit#heading=h.9l9ar3fqqo6u) | Receive trigger from Scheduling Building Block that due date has been reached                                           | Initiate worfklow via webhook |
+| USCT         | [001: Payment (non-electronic/cash payments)](https://docs.google.com/document/d/1uP\_v9BYDg8P7B7anRA1e-F3XLFb9MFMYbllfbYZGAhI/edit#heading=h.9l9ar3fqqo6u) | Load SRIS (Social Registry Information System) workload (i.e a list of eligible beneficiaries that are due for payment) | Make HTTP GET request         |
+| USCT         | [001: Payment (non-electronic/cash payments)](https://docs.google.com/document/d/1uP\_v9BYDg8P7B7anRA1e-F3XLFb9MFMYbllfbYZGAhI/edit#heading=h.9l9ar3fqqo6u) | Iterate through each beneficiary and compute payment amounts due to beneficiary                                         | Perform calculation, loop     |
+| USCT         | [001: Payment (non-electronic/cash payments)](https://docs.google.com/document/d/1uP\_v9BYDg8P7B7anRA1e-F3XLFb9MFMYbllfbYZGAhI/edit#heading=h.9l9ar3fqqo6u) | Request payment for beneficiary (Payment Building Block)                                                                | Make HTTP POST request        |
+| USCT         | [001: Payment (non-electronic/cash payments)](https://docs.google.com/document/d/1uP\_v9BYDg8P7B7anRA1e-F3XLFb9MFMYbllfbYZGAhI/edit#heading=h.9l9ar3fqqo6u) | Set TransactionID for successful payment and mark beneficiary as paid (Social Registry)                                 | Make HTTP POST request        |
 
 #### [Payment (type 2) for USCT](https://docs.google.com/document/d/1Eu52kE2TC1qZ5ps5-fWBGD570G-gB7mt-JYuIrTroLQ/edit#heading=h.9l9ar3fqqo6u)
 

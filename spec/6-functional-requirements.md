@@ -39,8 +39,6 @@ The following are the internal key functionalities/capabilities that orchestrate
 
 **Flow Repository** is the place where flow definitions are stored. This repository can be linked to related components, like that validate/parse flow definitions comply with open standards like Business Process Model and Notation. The repository is a general term that refers to the storage place of flow-related components of a flow definition including tasks, processes, decision gateways, etc.
 
-**Flow Repository** is the place where flow definitions are stored. This repository can be linked to related components like that validate / parse flow definitions comply with open standards like BPMN. The repository is general term that refers to the storage place of flow related component of a flow definition including tasks, processes and decision gateways e.t.c
-
 **Metadata Store** refers to the storage of data that an Execution Engine needs to associate with a defined workflow to facilitate successful execution. This data includes but is not limited to input variables, constants, mathematical and/or logical functions, data objects, or any important data that gives context to a given workflow.
 
 **Trigger Manager** facilitates the bootstrapping or initiates the instantiation of a workflow for execution by the Execution Engine. This component should be aware of different ways that a workflow can be triggered, e.g. through an API call, a timer, etc.
@@ -51,9 +49,9 @@ The following are the internal key functionalities/capabilities that orchestrate
 
 **Workflow Designer** is a graphical user interface or editor that may be used by Process Designers to build workflows and have them saved in the Flow Repository. This interface must be intuitive, easy to use, and able to facilitate common CRUD-like functionality which includes: creating new workflows, listing saved workflows, updating existing workflows, and deletion of workflows. The designer may also facilitate imports of workflows from external sources, supporting open formats like Business Process Model and Notation.
 
-**Batch Queue Manager** is responsible for the queuing and batch processing of workflows. It is assumed that at any given time, multiple workflows may be active and may be in execution mode. Hence a queue manager that may have multi-threading capabilities may support the execution of a large number of workflow processes or tasks in real time yet providing the required execution isolation to ensure the integrity of each workflow.
-
 **Web API** is an important component that should be designed to manage all interoperability requirements for the Workflow Building Block. This API layer should facilitate the remote initiation of workflow processes from external systems and also the exposure of workflow-related data (design time and execution time) to facilitate reporting by external systems when needed.
+
+**Batch Queue Manager** is responsible for the queuing and batch processing of workflows. It is assumed that at any given time, multiple workflows may be active and may be in execution mode. Hence a queue manager that may have multi-threading capabilities may support the execution of a large number of workflow processes or tasks in real-time yet providing the required execution isolation to ensure the integrity of each workflow.
 
 ## Out of Scope
 

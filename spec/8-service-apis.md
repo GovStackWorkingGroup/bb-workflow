@@ -12,7 +12,7 @@ The [GovStack non-functional requirements document](https://govstack.gitbook.io/
 
 
 
-All APIs will be defined using the OpenAPI (Swagger) standard. The API definitions will be hosted outside of this document. This section may provide a brief description of the required APIs. This section will primarily contain links to the GitHub repository for OpenAPI definition (yaml) files as well as to a website hosted by GovStack that provides a live API documentation portal.
+All APIs will be defined using the OpenAPI (Swagger) standard. The API definitions will be hosted outside of this document. This section may provide a brief description of the required APIs. This section will primarily contain links to the GitHub repository for OpenAPI definition (YAML) files as well as to a website hosted by GovStack that provides a live API documentation portal.
 
 ### v1 API
 
@@ -48,4 +48,4 @@ All APIs will be defined using the OpenAPI (Swagger) standard. The API definitio
    * Retrieves the list of running process instances for a given workflow process definition ID.
    * Get Instances workflow process by ID (GET) /instances?processId=123
 5. **Get the status of an existing process instance by instance ID.** (GET) **/instances/{instanceId}**
-   * Retrieves the status of a single process instance given an instance ID
+   * Retrieves the status of a single process instance given an instance ID.

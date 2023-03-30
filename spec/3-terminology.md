@@ -107,7 +107,7 @@ Log: “HTTP REQUEST ERROR 502”
 
 #### Ex. Instance “061816d9-f59c-7ae5-a2e5-a2a2b4b3bc0e”
 
-\*\* \*\*Process: “Registration Process”
+Process: “Registration Process”
 
 ```
 Trigger: Webhook Event
@@ -162,7 +162,7 @@ Below, the same process (Process 1) sends an SMS to two different people dependi
 
 **E.g.: Start the beneficiary scoring for beneficiary X:**
 
-_Make POST to /API/workflow/beneficiary-scoring-process with the following body:_
+Make POST to /API/workflow/beneficiary-scoring-process with the following body:
 
 ```
 {
@@ -177,7 +177,7 @@ The process should be built with knowledge (in so far as it’s needed) of the i
 
 The final activity in this process might be:
 
-_MAKE A POST to \`${state.callbackUrl}/${state.id} with BODY { “score”: state.finalScore }_
+MAKE A POST to \`${state.callbackUrl}/${state.id} with BODY { “score”: state.finalScore }
 
 ## Event
 
@@ -185,9 +185,9 @@ An event is something that “happens” during the course of a process. Events 
 
 Types:
 
-* Start event
-* Intermediate events
-* End event
+* Start event.
+* Intermediate events.
+* End event.
 
 ## Business Process Model & Notation (BPMN)
 
@@ -225,7 +225,7 @@ Note that a single token will have at least three attributes: id, processInstanc
 
 ### Pool
 
-A pool in BPMN represents a participant in a business collaboration. In a BPMN model (or diagram) a pool can represent an entity like a company, a role (e.g a buyer, seller, or customer), or even a system (e.g., OpenMRS API).
+A pool in Business Process Model & Notation (BPMN) represents a participant in business collaboration. In a BPMN model (or diagram) a pool can represent an entity like a company, a role (e.g a buyer, seller, or customer), or even a system (e.g., OpenMRS API).
 
 ###
 
