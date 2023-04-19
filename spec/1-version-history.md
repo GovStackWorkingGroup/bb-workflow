@@ -10,3 +10,4 @@ description: >-
 | ------- | -------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------- |
 | 0.9.2   | Khaled Ben Driss, Farai Mutero, Comfort Mankga, Dr. P. S. Ramkumar, Aare Lapõnin, and Taylor Downs | Initial draft for the Technical Advisory Committee review            |
 | 0.9.3   | Khaled Ben Driss, Farai Mutero, Comfort Mankga, Dr. P. S. Ramkumar, Aare Lapõnin, and Taylor Downs | Feedback incorporated from the Technical Advisory Committee's review |
+| 1.0     |                                                                                                    | Published version                                                    |
