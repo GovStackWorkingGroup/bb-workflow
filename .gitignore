@@ -1,5 +1,11 @@
 tmp
 .env
+node_modules
+
+# This file is copied for Docker build
+test/api-suite/docker/swagger.yaml
+# Gherkin results
+test/api-suite/result
 
 # mac & intelliJ stuff
 .DS_Store

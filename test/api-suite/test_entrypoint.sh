@@ -2,4 +2,8 @@
 ## RESULT_NAME <- determines where test result is stored. 
 ## API_URL <- used to detemine base URL of tested API
 chmod u+x docker/entrypoint.sh 
+
+# Required for build
+cp ../../api/swagger.yaml docker
+
 docker-compose up --build gherkin-test-report
