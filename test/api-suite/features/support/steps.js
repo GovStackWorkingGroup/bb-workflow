@@ -17,7 +17,7 @@ process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = 0;
 
 function loadApiSpec() {
   readYaml('swagger.yaml', function (err, data) {
-      apiSpec = JSON.parse(JSON.stringify(data));
+    apiSpec = JSON.parse(JSON.stringify(data));
   });
 }
 
