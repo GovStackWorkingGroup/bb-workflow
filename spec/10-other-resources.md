@@ -49,9 +49,13 @@ These user interface examples are meant to aid reviewers and developers in under
 
 [A historical log of key decisions regarding this Building Block](https://govstack-global.atlassian.net/wiki/spaces/GH/pages/183205892). ​
 
-### 10.1 Future Considerations <a href="#10.3-future-considerations" id="10.3-future-considerations"></a>
+### 10.2 Future Considerations <a href="#10.3-future-considerations" id="10.3-future-considerations"></a>
 
 [A list of topics that may be relevant to future versions of this Building Block](https://govstack-global.atlassian.net/wiki/spaces/GH/pages/183500904).
+
+### 10.3 Out-of-Scope Assumptions <a href="#10.3-future-considerations" id="10.3-future-considerations"></a>
+
+[A list of functions out of the scope of this Building Block](https://govstack-global.atlassian.net/l/cp/zBpDaJD4).
 
 ## User Journeys and Use Cases
 
