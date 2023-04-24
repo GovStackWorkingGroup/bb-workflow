@@ -6,28 +6,13 @@ description: >-
 
 # 7 Data Structures
 
-## Resource Model
+## 7.1 Resource Model
 
 The full resource model is described in detail in the [SwaggerHub API Specification](https://app.swaggerhub.com/apis/GovStack/Workflow-BB/1.0.0), but the following is a high-level diagram of the key entities.
 
-![ERD](../diagrams/data-structures.png)
+![Diagram Source](../diagrams/data-structures.png)
 
-[https://github.com/OpenFn/govstack-workflow-bb/blob/main/erd.drawio](https://github.com/OpenFn/govstack-workflow-bb/blob/main/erd.drawio)
-
-## Standards
-
-The following standards are applicable to data structures in the Workflow Building Block:
-
-1. [BPMN v2.0.2 - Business Process Model and Notation](https://www.omg.org/spec/BPMN/)&#x20;
-2. [OpenAPI](https://github.com/OAI/OpenAPI-Specification/blob/3.0.2/versions/3.0.2.md)
-3.  REST APIs
-
-    1. JSON
-    2. YAML
-
-    N.B. We are saying “no” to XML.
-
-## Data Elements
+## 7.2 Data Elements
 
 The data elements listed below provide detail for the resource model defined above. This section lists the required fields for each resource. The data elements listed are extensible in order to respond to specific use cases, however, the data elements listed below are a minimum requirement.
 
@@ -39,3 +24,16 @@ The data elements listed below provide detail for the resource model defined abo
 | Process Instance         | Used to list a single or list of process instances that are in various states like active, suspended or stopped, in a Workflow engine.                                                                                          |
 
 For reference, all data elements are described in detail in the [SwaggerHub API Specification](../api/swagger.yaml).
+
+## Standards
+
+The following standards are applicable to data structures in the Workflow Building Block:
+
+1. [BPMN v2.0.2 - Business Process Model and Notation](https://www.omg.org/spec/BPMN/)
+2. [OpenAPI](https://github.com/OAI/OpenAPI-Specification/blob/3.0.2/versions/3.0.2.md)
+3.  REST APIs
+
+    1. JSON
+    2. YAML
+
+    Note that we are not using XML.
