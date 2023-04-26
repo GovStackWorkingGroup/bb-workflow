@@ -1,6 +1,6 @@
 # Installation
 
-First, innstall `asdf` following these [instructions](https://asdf-vm.com/guide/getting-started.html#core-installation-complete).
+First, innstall `asdf` following these [instructions](https://asdf-vm.com/guide/getting-started.html).
 Make sure to also install the node plugin for `asdf` as shown in the plugin section.
 
 Next, follow these steps.
