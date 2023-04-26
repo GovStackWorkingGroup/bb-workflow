@@ -17,7 +17,8 @@ services:
       - EXPORT_RESULTS=${EXPORT_SCRIPT:-docker/export_to_mongo.sh}
       - API_URL=${API_URL:-localhost:80/healthcheck}
     volumes:
-      - ./result/:/app/results
+      - ./result/:/app/api-suite/results
+      - ../../api:/api
     network_mode: 'host'
 
 volumes:
