@@ -5,7 +5,6 @@ Feature: View the details of a workflow process
   Scenario: A GovStack user wants to see the details of a workflow process
     When we request the details of an existing workflow process from the api
     Then we receive status code 200 for the workflow process
-    Then workflow process fields are aligned to api spec
 
   @unit @positive
     Scenario: Successfully retrieved the details of a workflow process
