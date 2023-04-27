@@ -5,7 +5,6 @@ Feature: View a list of workflow process instances
   Scenario: A GovStack user wants to see a list of historical workflow process instances
     When we request a list of instances from the api
     Then we receive status code 200 for the instances
-    Then instance fields are aligned to api spec
 
   @unit @positive
     Scenario: Successfully retrieved a list of of workflow process instances

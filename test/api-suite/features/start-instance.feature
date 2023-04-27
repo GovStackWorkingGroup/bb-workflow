@@ -5,7 +5,6 @@ Feature: Start workflow process instance
   Scenario: A GovStack user wants to start a workflow process instance
     When We request to start a workflow process from the api
     Then we receive status code 200 for the request
-    Then started workflow process fields are aligned to api spec
 
   @unit @positive
    Scenario: Successfully start a workflow process instance

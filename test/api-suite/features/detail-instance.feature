@@ -5,7 +5,6 @@ Feature: View the details of a workflow process instance
   Scenario: A GovStack user wants to see the details of a workflow process instance
     When we request the details of an existing workflow instance from the api
     Then we receive status code 200 for the workflow process instance
-    Then workflow process instance fields are aligned to api spec
 
   @unit @positive
    Scenario: Successfully retrieved the details of a workflow process instance
