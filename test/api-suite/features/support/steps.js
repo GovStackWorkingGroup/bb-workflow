@@ -27,8 +27,7 @@ When('we request a list of processes from the api', async function () {
   this.whatIHeard = await fetch('https://localhost/processes');
 });
 
-Then(
-  'we receive status code {int} for the processes',
+Then('we receive status code {int} for the processes',
   async function (expectedResponse) {
     const resp = this.whatIHeard;
     workflowData = await resp.json();
@@ -60,8 +59,7 @@ When('we request a list of instances from the api', async function () {
   this.whatIHeard = await fetch('https://localhost/instances');
 });
 
-Then(
-  'we receive status code {int} for the instances',
+Then('we receive status code {int} for the instances',
   async function (expectedResponse) {
     const resp = this.whatIHeard;
     instanceData = await resp.json();
@@ -86,8 +84,7 @@ Then('instance fields are aligned to api spec', function (expectedResponse) {
   assert.equal(matchedFieldsCount, componentFieldNames.length);
 });
 
-When(
-  'We request the details of an existing workflow processes from the api',
+When('we request the details of an existing workflow process from the api',
   async function () {
     //Fetch single process
     const response = await fetch('https://localhost/processes');
@@ -98,8 +95,7 @@ When(
   }
 );
 
-Then(
-  'we receive status code {int} for the workflow process',
+Then('we receive status code {int} for the workflow process',
   async function (expectedResponse) {
     const resp = this.whatIHeard;
     processData = await resp.json();
@@ -108,8 +104,7 @@ Then(
   }
 );
 
-Then(
-  'workflow process fields are aligned to api spec',
+Then('workflow process fields are aligned to api spec',
   function (expectedResponse) {
     const componentFields =
       apiSpec.components.schemas.ProcessDefinition.properties;
@@ -128,8 +123,7 @@ Then(
   }
 );
 
-When(
-  'We request the details of an existing workflow processes instance from the api',
+When('we request the details of an existing workflow instance from the api',
   async function () {
     const response = await fetch('https://localhost/instances');
     const instanceList = await response.json();
@@ -140,8 +134,7 @@ When(
   }
 );
 
-Then(
-  'we receive status code {int} for the workflow process instance',
+Then('we receive status code {int} for the workflow process instance',
   async function (expectedResponse) {
     const resp = this.whatIHeard;
     processInstanceData = await resp.json();
@@ -150,8 +143,7 @@ Then(
   }
 );
 
-Then(
-  'workflow process instance fields are aligned to api spec',
+Then('workflow process instance fields are aligned to api spec',
   function (expectedResponse) {
     const componentFields =
       apiSpec.components.schemas.ProcessInstance.properties;
@@ -185,8 +177,7 @@ When('We request to start a workflow process from the api', async function () {
   });
 });
 
-Then(
-  'we receive status code {int} to confirm success',
+Then('we receive status code {int} for the request',
   async function (expectedResponse) {
     const resp = await this.whatIHeard;
     processStart = await resp.json();
@@ -195,8 +186,7 @@ Then(
   }
 );
 
-Then(
-  'started workflow process fields are aligned to api spec',
+Then('started workflow process fields are aligned to api spec',
   function (expectedResponse) {
     const componentFields =
       apiSpec.paths['/processes/{processId}/start'].post.responses['201']
