@@ -10,7 +10,7 @@ There are no required internal workflows for candidate applications that impleme
 
 ## 9.1 Start a workflow process via API
 
-To satisfy functional requirements 10, 11, and 12, a candidate application may implement the following internal workflow.
+To satisfy the initial 6.2 functional requirements a candidate application may implement the following internal workflow.
 
 ```mermaid
 sequenceDiagram
