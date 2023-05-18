@@ -29,7 +29,7 @@ The following Functional Requirements are grouped by the Key Digital Functionali
 * Must allow the execution of a workflow process based on cron/timer (REQUIRED)
 * Must allow the definition of a “flow-trigger” which can instantiate a process based on at least “successful completion” or “failure of/exception in” an earlier process (REQUIRED)
 * Must allow the execution of a workflow process based on a “flow trigger” (REQUIRED)
-* Should allow integration with messaging channels (REQUIRED)
+* Should allow integration with messaging channels (RECOMMENDED)
 * Must support sending messages between different organizations (REQUIRED)
 * Must support sending messages within one organization between different organizational units (REQUIRED)
 
@@ -40,11 +40,11 @@ The following Functional Requirements are grouped by the Key Digital Functionali
 
 ## 6.4 Programmatic Process Discovery
 
-24. Must allow an administrator to “enable” or “disable” specific processes which will then appear in the BB API spec: “/api/process” LIST for discovery (REQUIRED)
+* Must allow an administrator to “enable” or “disable” specific processes which will then appear in the BB API spec: “/api/process” LIST for discovery (REQUIRED)
 
 ## 6.5 Other Functionality
 
-25. Must have an OpenIAM-compatible API for user/privilege provisioning (REQUIRED)
+* Must have an OpenIAM-compatible API for user/privilege provisioning (REQUIRED)
 
 ### Internal Function Blocks
 
