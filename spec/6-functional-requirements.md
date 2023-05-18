@@ -50,7 +50,7 @@ The following Functional Requirements are grouped by the Key Digital Functionali
 
 The following are the internal key functionalities/capabilities that orchestrate the functionality of the implementation of the Workflow Building Block:
 
-![alt\_text](../diagrams/image6.png)
+![Blocks containing internal key functionalities of the Workflow Building Block](../diagrams/image6.png)
 
 **Flow Repository** is the place where flow definitions are stored. This repository can be linked to related components, like that validate/parse flow definitions comply with open standards like Business Process Model and Notation. The repository is a general term that refers to the storage place of flow-related components of a flow definition including tasks, processes, decision gateways, etc.
 
