@@ -14,7 +14,7 @@ All APIs will be defined using the OpenAPI (Swagger) standard. The API definitio
 
 This section also provides guidance on how candidate products are tested and how GovStack validates a product's API against the API specifications defined here.&#x20;
 
-The tests for the Scheduler Building Block can be found in [this GitHub repository](https://github.com/GovStackWorkingGroup/bb-workflow/tree/main/test).
+The tests for the Workflow Building Block can be found in [this GitHub repository](https://github.com/GovStackWorkingGroup/bb-workflow/tree/main/test).
 
 ## 8.1 Workflow Processes
 
