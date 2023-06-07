@@ -20,3 +20,23 @@ Building Block must:
 
 If a candidate application/implementation does these things, it may make for a
 suitable Workflow Building Block implementation.
+
+## Out of Scope
+
+1. Workflow will not need to provide RPA (Robotic Process Automation)
+   capabilities. This means automated control of graphical user interfaces (UI),
+   if required within a Building Block, will be handled by a third-party RPA
+   tool which can be integrated into the Workflow Building Block for
+   orchestration.
+2. Workflow is not always responsible for data flow or information mediation. It
+   only performs limited data management within the context of a
+   parent-predefined workflow process. There are many cases where a building
+   block application will make a request to another GovStack service (via the
+   information mediator) or to an external service (via an API gateway, for
+   example) which does not involve workflow at all.
+3. While the WFbb does provide process scheduling capabilities, it is not always
+   responsible for scheduling the execution of processes. For example, a process
+   may be instantiated at a particular time by another application independently
+   determining when to send that “start process” API call to the Workflow
+   engine. In this case, Workflow is not responsible for scheduling but merely
+   executes the process when told to by another application.
