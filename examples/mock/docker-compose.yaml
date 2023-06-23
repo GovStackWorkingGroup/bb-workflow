@@ -1,16 +1,20 @@
-version: '3'
-
+version: "3"
 services:
-  mock:
-    image: stoplight/prism:4.1.2
-    #command: mock /usr/src/prism/packages/cli/api/workflow-engine.yaml
-    command: mock -h 0.0.0.0 /prism/workflow-engine.yaml
-    volumes:
-      - ../../api:/prism
-        #volumes:
-        #- type: bind
-        #source: ../../api/workflow-engine.yaml
-        #target: /usr/src/prism/packages/cli/api/
+  mockoon:
+    image: mockoon/cli:latest
+    command: -d /data # this is where the change takes place
     ports:
-      - '4010:4010'
-
+      - "3000:3000"
+    networks:
+      demo:
+    volumes:
+      - type: bind
+        source: ../../api/workflow-engine.yml  
+        target: /data 
+  pytest:
+   build:
+     context: ../../test/.
+   tty: true
+   stdin_open: true
+   networks:
+      demo:
