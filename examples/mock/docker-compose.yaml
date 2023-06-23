@@ -5,18 +5,8 @@ services:
     command: -d /data # this is where the change takes place
     ports:
       - "3000:3000"
-    networks:
-      demo:
     volumes:
       - type: bind
         source: ../../api/workflow-engine.yaml  
         target: /data 
-  pytest:
-   build:
-     context: ../../test/.
-   tty: true
-   stdin_open: true
-   networks:
-      demo:
-networks:
-      demo:
+  
