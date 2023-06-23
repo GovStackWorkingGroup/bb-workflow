@@ -18,3 +18,5 @@ services:
    stdin_open: true
    networks:
       demo:
+networks:
+      demo:
