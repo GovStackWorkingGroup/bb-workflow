@@ -9,7 +9,7 @@ services:
       demo:
     volumes:
       - type: bind
-        source: ../../api/workflow-engine.yml  
+        source: ../../api/workflow-engine.yaml  
         target: /data 
   pytest:
    build:
