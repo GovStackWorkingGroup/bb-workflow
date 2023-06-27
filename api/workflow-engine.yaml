@@ -7,9 +7,6 @@ info:
   license:
     name: MIT
   version: 1.0.0
-servers:
-  - description: SwaggerHub API Auto Mocking
-    url: https://virtserver.swaggerhub.com/GovStack/Workflow-BB/1.0.0
 tags:
   - name: v1
     description:

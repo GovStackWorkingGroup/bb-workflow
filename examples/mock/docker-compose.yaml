@@ -1,14 +1,12 @@
-version: '3.7'
+version: "3"
 services:
-  caddy:
-    build: .
-    restart: unless-stopped
+  mockoon:
+    image: mockoon/cli:latest
+    command: -d /data # this is where the change takes place
     ports:
-      - '80:80'
-      - '443:443'
+      - "80:3000"
     volumes:
-      - ${CADDY_DATA_FOLDER}:/data
-      - ${CADDY_CONFIG_FOLDER}:/config
-
-volumes:
-  caddy_data:
+      - type: bind
+        source: ../../api/workflow-engine.yaml  
+        target: /data 
+  

@@ -1,4 +1,2 @@
-FROM caddy:latest
-
-# Configure Caddy in the image build, so we don't rely on persistent volumes.
-COPY Caddyfile /etc/caddy/Caddyfile
+#FROM stoplight/prism:4.1.2
+#COPY api/workflow-engine.yaml /usr/src/prism/packages/cli/api
