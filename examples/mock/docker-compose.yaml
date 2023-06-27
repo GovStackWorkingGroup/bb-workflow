@@ -4,7 +4,7 @@ services:
     image: mockoon/cli:latest
     command: -d /data # this is where the change takes place
     ports:
-      - "3000:3000"
+      - "80:3000"
     volumes:
       - type: bind
         source: ../../api/workflow-engine.yaml  
