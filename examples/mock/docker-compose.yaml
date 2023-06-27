@@ -1,12 +1,11 @@
-version: "3"
+version: '3'
 services:
   mockoon:
     image: mockoon/cli:latest
     command: -d /data # this is where the change takes place
     ports:
-      - "80:3000"
+      - '80:3000'
     volumes:
       - type: bind
-        source: ../../api/workflow-engine.yaml  
-        target: /data 
-  
+        source: ../../api/swagger.yaml
+        target: /data
