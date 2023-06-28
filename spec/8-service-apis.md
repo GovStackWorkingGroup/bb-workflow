@@ -24,9 +24,13 @@ All APIs will be defined using the OpenAPI (Swagger) standard. The API definitio
 [https://raw.githubusercontent.com/GovStackWorkingGroup/bb-workflow/main/api/swagger.yaml](https://raw.githubusercontent.com/GovStackWorkingGroup/bb-workflow/main/api/swagger.yaml)
 {% endswagger %}
 
-### Workflow Process Start
+### Workflow Process Start & Stop
 
 {% swagger src="https://raw.githubusercontent.com/GovStackWorkingGroup/bb-workflow/main/api/swagger.yaml" path="/processes/{processId}/start" method="post" %}
+[https://raw.githubusercontent.com/GovStackWorkingGroup/bb-workflow/main/api/swagger.yaml](https://raw.githubusercontent.com/GovStackWorkingGroup/bb-workflow/main/api/swagger.yaml)
+{% endswagger %}
+
+{% swagger src="https://raw.githubusercontent.com/GovStackWorkingGroup/bb-workflow/main/api/swagger.yaml" path="/processes/{processId}/stop" method="post" %}
 [https://raw.githubusercontent.com/GovStackWorkingGroup/bb-workflow/main/api/swagger.yaml](https://raw.githubusercontent.com/GovStackWorkingGroup/bb-workflow/main/api/swagger.yaml)
 {% endswagger %}
 
@@ -50,8 +54,10 @@ All APIs will be defined using the OpenAPI (Swagger) standard. The API definitio
    * Instantiates a given process definition Id. Responds with instance Universal Unique Identifier.
    * Process variables (just a PAYLOAD object - process, should be able to extract from the payload JSON object attributes) may be supplied in the request body.
    * If the start event has mandatory variables, the workflow engine will perform backend validation.
-4. **List process instances.** (GET) **/instances**
+4. **Stop a process instance** (POST) **/processes/{processId}/stop** 
+   * Stops a running processs instance
+5. **List process instances.** (GET) **/instances**
    * Retrieves the list of running process instances for a given workflow process definition ID.
    * Get Instances workflow process by ID (GET) /instances?processId=123
-5. **Get the status of an existing process instance by instance ID.** (GET) **/instances/{instanceId}**
+6. **Get the status of an existing process instance by instance ID.** (GET) **/instances/{instanceId}**
    * Retrieves the status of a single process instance given an instance ID.

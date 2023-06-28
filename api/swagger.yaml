@@ -170,6 +170,34 @@ paths:
           description: Invalid processId. Process does not exist
         '500':
           $ref: '#/components/responses/InternalServerError'
+  /processes/{processId}/stop:
+    post:
+      tags:
+        - v1
+        - developers
+        - Runtime
+      summary: stops a process execution; deletes a process instance
+      operationId: start
+      description:
+        Create a process instance and register it with the execution engine
+      parameters:
+        - $ref: '#/components/parameters/processIdParam'
+      responses:
+        '201':
+          description:
+            Process stopped. Running process instances marked for deletion after necessary clean-up processes 
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  processId:
+                    type: integer
+                    description: The unique processe ID.
+        '404':
+          description: Invalid processId. Process does not exist
+        '500':
+          $ref: '#/components/responses/InternalServerError'
   /instances/:
     get:
       tags:
