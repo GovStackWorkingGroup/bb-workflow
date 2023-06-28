@@ -15,8 +15,9 @@ Building Block must:
      time;
    - that can perform calculations, make API requests (e.g. Hypertext Transfer
      Protocol Secure, HTTPS) make HTTP requests, and execute scripts.
-2. Allow business users to monitor the status of process instances.
-3. Allow other applications to discover existing processes via API.
+2. Allow business to start and/or stop process instances. 
+3. Allow business users to monitor the status of process instances.
+4. Allow other applications to discover existing processes via API.
 
 If a candidate application/implementation does these things, it may make for a
 suitable Workflow Building Block implementation.
@@ -40,3 +41,5 @@ suitable Workflow Building Block implementation.
    determining when to send that “start process” API call to the Workflow
    engine. In this case, Workflow is not responsible for scheduling but merely
    executes the process when told to by another application.
+4. Parallel processing of workflow process instances is an optional useful feature to support scaling requirements for production deployments. WFbb is not prescriptive on technologies and/or patterns that may be employed to support such capabilities, which may include, for example, multi-threading, service workers and/or message queues e.t.c
+5. While workflow process start and stop capabilities have been listed as key digital functionalities, WFbb is not prescriptive on possible transcation management processes (e.g durability, rollbacks), state management, memory object clean-ups, garbage collection, alerts and/or general data management routines that should be considered to facilitate safe, reliable and predictable stoppage of workflow processes.
