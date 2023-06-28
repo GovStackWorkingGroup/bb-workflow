@@ -1,5 +1,6 @@
 ---
-description: This section lists the technical capabilities of this Building Block.
+description:
+  This section lists the technical capabilities of this Building Block.
 ---
 
 # 6 Functional Requirements
@@ -67,3 +68,4 @@ The following are the internal key functionalities/capabilities that orchestrate
 **Web API** is an important component that should be designed to manage all interoperability requirements for the Workflow Building Block. This API layer should facilitate the remote initiation of workflow processes from external systems and also the exposure of workflow-related data (design time and execution time) to facilitate reporting by external systems when needed.
 
 **Batch Queue Manager** is responsible for the queuing and batch processing of workflows. It is assumed that at any given time, multiple workflows may be active and may be in execution mode. Hence a queue manager that may have multi-threading capabilities may support the execution of a large number of workflow processes or tasks in real-time yet providing the required execution isolation to ensure the integrity of each workflow.
+
