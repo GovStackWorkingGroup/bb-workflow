@@ -177,7 +177,7 @@ paths:
         - developers
         - Runtime
       summary: stops a process execution; deletes a process instance
-      operationId: start
+      operationId: stop
       description:
         Create a process instance and register it with the execution engine
       parameters:
