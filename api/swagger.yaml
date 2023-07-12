@@ -247,7 +247,7 @@ paths:
                     type: integer
                     description: The unique process instance ID.
         "404":
-          description: Invalid process instance ID. Process instance does not exist
+          description: Process instance not found
         "500":
           $ref: "#/components/responses/InternalServerError"
 components:
