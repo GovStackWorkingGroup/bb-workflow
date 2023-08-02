@@ -31,7 +31,7 @@ Then('we receive status code {int} for the processes',
   async function (expectedResponse) {
     const resp = this.whatIHeard;
     workflowData = await resp.json();
-
+    print(workflowData)
     assert.equal(resp.status, 200);
   }
 );
@@ -43,7 +43,7 @@ Then('process fields are aligned to api spec', function (expectedResponse) {
 
   const sampleObject = workflowData.find(e => e.id != null);
   const sampleObjectFields = Object.keys(sampleObject);
-
+  print(SampleObjectFields)
   let matchedFieldsCount = 0;
 
   //Compare workflow object against component fields
@@ -63,7 +63,7 @@ Then('we receive status code {int} for the instances',
   async function (expectedResponse) {
     const resp = this.whatIHeard;
     instanceData = await resp.json();
-
+    print(instanceData)
     assert.equal(resp.status, 200);
   }
 );
@@ -73,7 +73,7 @@ Then('instance fields are aligned to api spec', function (expectedResponse) {
   const componentFieldNames = Object.keys(componentFields);
   const sampleInstance = instanceData.find(e => e.id != null);
   const instanceFieldNames = Object.keys(sampleInstance);
-
+  print(instanceFieldNames)
   let matchedFieldsCount = 0;
 
   for (let x = 0; x < componentFieldNames.length; x++) {
@@ -99,7 +99,7 @@ Then('we receive status code {int} for the workflow process',
   async function (expectedResponse) {
     const resp = this.whatIHeard;
     processData = await resp.json();
-
+    print(processData)
     assert.equal(resp.status, expectedResponse);
   }
 );
@@ -110,7 +110,7 @@ Then('workflow process fields are aligned to api spec',
       apiSpec.components.schemas.ProcessDefinition.properties;
     const componentFieldNames = Object.keys(componentFields);
     const sampleProcessFields = Object.keys(processData);
-
+    print(sampleProcessFields)
     let matchedFieldsCount = 0;
 
     //Compare workflow object against component fields
@@ -138,7 +138,7 @@ Then('we receive status code {int} for the workflow process instance',
   async function (expectedResponse) {
     const resp = this.whatIHeard;
     processInstanceData = await resp.json();
-
+    print(processInstanceData)
     assert.equal(resp.status, expectedResponse);
   }
 );
@@ -149,7 +149,7 @@ Then('workflow process instance fields are aligned to api spec',
       apiSpec.components.schemas.ProcessInstance.properties;
     const componentFieldNames = Object.keys(componentFields);
     const instanceFieldNames = Object.keys(processInstanceData);
-
+    print(instanceFieldNames)
     let matchedFieldsCount = 0;
 
     for (let x = 0; x < componentFieldNames.length; x++) {
