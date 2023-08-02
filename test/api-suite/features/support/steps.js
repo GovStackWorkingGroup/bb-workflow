@@ -24,7 +24,7 @@ function loadApiSpec() {
 loadApiSpec();
 
 When('we request a list of processes from the api', async function () {
-  this.whatIHeard = await fetch('http://localhost/processes');
+  this.whatIHeard = await fetch('http://localhost/GovStackInstance/memberClass/memberCode/applicationCode/processes');
 });
 
 Then('we receive status code {int} for the processes',
