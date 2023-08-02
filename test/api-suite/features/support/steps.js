@@ -56,7 +56,7 @@ Then('process fields are aligned to api spec', function (expectedResponse) {
 });
 
 When('we request a list of instances from the api', async function () {
-  this.whatIHeard = await fetch('http://localhost/instances');
+  this.whatIHeard = await fetch('http://localhost/GovStackInstance/memberClass/memberCode/applicationCode/instances');
 });
 
 Then('we receive status code {int} for the instances',
@@ -87,9 +87,9 @@ Then('instance fields are aligned to api spec', function (expectedResponse) {
 When('we request the details of an existing workflow process from the api',
   async function () {
     //Fetch single process
-    const response = await fetch('http://localhost/processes');
+    const response = await fetch('http://localhost/GovStackInstance/memberClass/memberCode/applicationCode/processes');
     const processList = await response.json();
-    const processQueryUrl = 'http://localhost/processes/' + processList[0].id;
+    const processQueryUrl = 'http://localhost/GovStackInstance/memberClass/memberCode/applicationCode/processes/' + processList[0].id;
 
     this.whatIHeard = await fetch(processQueryUrl);
   }
@@ -125,10 +125,10 @@ Then('workflow process fields are aligned to api spec',
 
 When('we request the details of an existing workflow instance from the api',
   async function () {
-    const response = await fetch('http://localhost/instances');
+    const response = await fetch('http://localhost/GovStackInstance/memberClass/memberCode/applicationCode/instances');
     const instanceList = await response.json();
     const instanceQueryUrl =
-      'http://localhost/instances/' + instanceList[0].id;
+      'http://localhost/GovStackInstance/memberClass/memberCode/applicationCode/instances/' + instanceList[0].id;
 
     this.whatIHeard = await fetch(instanceQueryUrl);
   }
@@ -163,10 +163,10 @@ Then('workflow process instance fields are aligned to api spec',
 
 When('We request to start a workflow process from the api', async function () {
   const payload = JSON.stringify({ name: 'Test' });
-  const response = await fetch('http://localhost/processes');
+  const response = await fetch('http://localhost/GovStackInstance/memberClass/memberCode/applicationCode/processes');
   const processList = await response.json();
   const processQueryUrl =
-    'http://localhost/processes/' + processList[0].id + '/start';
+    'http://localhost/GovStackInstance/memberClass/memberCode/applicationCode/processes/' + processList[0].id + '/start';
 
   this.whatIHeard = await fetch(processQueryUrl, {
     method: 'POST',
