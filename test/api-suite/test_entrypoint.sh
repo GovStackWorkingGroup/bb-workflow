@@ -4,6 +4,6 @@
 chmod u+x docker/entrypoint.sh 
 
 # Required for build
-cp ../../api/swagger.yaml docker
+cp ../../api/workflow-engine.yaml docker
 
 docker-compose up --build gherkin-test-report
