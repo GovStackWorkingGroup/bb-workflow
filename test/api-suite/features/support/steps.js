@@ -74,17 +74,15 @@ Then('instance fields are aligned to api spec', function (expectedResponse) {
   const sampleInstance = instanceData.find(e => e.id != null);
   const instanceFieldNames = Object.keys(sampleInstance);
   console.log('instanceFieldNames value:', instanceFieldNames);
-  //let matchedFieldsCount = 0;
+  let matchedFieldsCount = 0;
 
-  //for (let x = 0; x < componentFieldNames.length; x++) {
-  //  if (instanceFieldNames.find(e => e == componentFieldNames[x]) != null)
-  //    matchedFieldsCount += 1;
-  const fieldsMatch = componentFieldNames.every(field => instanceFieldNames.includes(field));
+  for (let x = 0; x < componentFieldNames.length; x++) {
+    if (instanceFieldNames.find(e => e == componentFieldNames[x]) != null)
+      matchedFieldsCount += 1;
+ 
+      }
 
-  assert.equal(fieldsMatch, true, 'Not all fields match with API spec');
-  //}
-
-  //assert.equal(matchedFieldsCount, componentFieldNames.length);
+  assert.equal(matchedFieldsCount, componentFieldNames.length);
 });
 
 When('we request the details of an existing workflow process from the api',
