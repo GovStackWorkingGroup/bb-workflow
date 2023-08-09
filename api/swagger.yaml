@@ -41,18 +41,18 @@ paths:
           required: false
           example: Register Child Birth Process
       responses:
-        "200":
+        '200':
           description: list of processes
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: "#/components/schemas/Process"
-        "404":
-          description: processes not found
-        "500":
-          $ref: "#/components/responses/InternalServerError"
+                  $ref: '#/components/schemas/Process'
+        '404':
+          description: Processes not found
+        '500':
+          $ref: '#/components/responses/InternalServerError'
     post:
       tags:
         - admins
@@ -64,16 +64,16 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/ProcessDefinition"
+              $ref: '#/components/schemas/ProcessDefinition'
       responses:
-        "201":
+        '201':
           description: Process successfully added
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Process"
-        "500":
-          $ref: "#/components/responses/InternalServerError"
+                $ref: '#/components/schemas/Process'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
   /processes/{processId}:
     get:
       tags:
@@ -85,24 +85,24 @@ paths:
         Pass in the ID of the process and it will return all information about that process
       operationId: getProcess
       parameters:
-        - $ref: "#/components/parameters/processIdParam"
+        - $ref: '#/components/parameters/processIdParam'
       responses:
-        "200":
+        '200':
           description: process found and representation returned
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Process"
-        "404":
-          description: process not found
-        "500":
-          $ref: "#/components/responses/InternalServerError"
+                $ref: '#/components/schemas/Process'
+        '404':
+          description: Process not found
+        '500':
+          $ref: '#/components/responses/InternalServerError'
     put:
       tags:
         - Design
         - admins
       parameters:
-        - $ref: "#/components/parameters/processIdParam"
+        - $ref: '#/components/parameters/processIdParam'
       summary: updates an existing process
       description: Updates a process on the system
       operationId: updateProcess
@@ -112,27 +112,27 @@ paths:
             schema:
               type: object
       responses:
-        "204":
+        '204':
           description: Process successfully updated
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Process"
-        "500":
-          $ref: "#/components/responses/InternalServerError"
+                $ref: '#/components/schemas/Process'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
     delete:
       tags:
         - admins
       parameters:
-        - $ref: "#/components/parameters/processIdParam"
+        - $ref: '#/components/parameters/processIdParam'
       summary: deletes an existing process
       description: Deletes a process on the system
       operationId: deleteProcess
       responses:
-        "200":
+        '200':
           description: Process successfully deleted
-        "500":
-          $ref: "#/components/responses/InternalServerError"
+        '500':
+          $ref: '#/components/responses/InternalServerError'
   /processes/{processId}/start:
     post:
       tags:
@@ -143,15 +143,15 @@ paths:
       operationId: start
       description: Create a process instance and register it with the execution engine
       requestBody:
-        description: Process instance initiation payload (initial "state" for the process)
+        description: Process instance initiation payload (initial 'state' for the process)
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/ProcessInstancePayload"
+              $ref: '#/components/schemas/ProcessInstancePayload'
       parameters:
-        - $ref: "#/components/parameters/processIdParam"
+        - $ref: '#/components/parameters/processIdParam'
       responses:
-        "201":
+        '201':
           description:
             Process started; registered for execution with unique process
             instance ID.
@@ -163,10 +163,10 @@ paths:
                   instanceId:
                     type: integer
                     description: The unique process instance ID.
-        "404":
-          description: Invalid processId. Process does not exist
-        "500":
-          $ref: "#/components/responses/InternalServerError"
+        '404':
+          description: Process not found
+        '500':
+          $ref: '#/components/responses/InternalServerError'
   /instances/:
     get:
       tags:
@@ -180,20 +180,20 @@ paths:
         Optionally include a processId in the query params to filter by that
         process
       parameters:
-        - $ref: "#/components/parameters/processIdQueryParam"
+        - $ref: '#/components/parameters/processIdQueryParam'
       responses:
-        "200":
+        '200':
           description: An array of process instances
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: "#/components/schemas/ProcessInstance"
-        "404":
-          description: Invalid instance ID. Process instance does not exist
-        "500":
-          $ref: "#/components/responses/InternalServerError"
+                  $ref: '#/components/schemas/ProcessInstance'
+        '404':
+          description: Process instance not found
+        '500':
+          $ref: '#/components/responses/InternalServerError'
   /instances/{instanceId}:
     get:
       tags:
@@ -214,16 +214,16 @@ paths:
           schema:
             type: integer
       responses:
-        "200":
+        '200':
           description: A detailed process instance status object
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ProcessInstance"
-        "404":
-          description: Invalid processId. Process does not exist
-        "500":
-          $ref: "#/components/responses/InternalServerError"
+                $ref: '#/components/schemas/ProcessInstance'
+        '404':
+          description: Process instance not found
+        '500':
+          $ref: '#/components/responses/InternalServerError'
   /instances/{instanceId}/stop:
     post:
       tags:
@@ -234,9 +234,9 @@ paths:
       operationId: stop
       description: Stops a process instance during execution
       parameters:
-        - $ref: "#/components/parameters/processIdParam"
+        - $ref: '#/components/parameters/processIdParam'
       responses:
-        "201":
+        '201':
           description: Process instance stopped.
           content:
             application/json:
@@ -246,10 +246,10 @@ paths:
                   processId:
                     type: integer
                     description: The unique process instance ID.
-        "404":
+        '404':
           description: Process instance not found
-        "500":
-          $ref: "#/components/responses/InternalServerError"
+        '500':
+          $ref: '#/components/responses/InternalServerError'
 components:
   schemas:
     ProcessDefinition:
@@ -281,7 +281,7 @@ components:
         description:
           type: string
         processBody:
-          $ref: "#/components/schemas/ListOfProperties"
+          $ref: '#/components/schemas/ListOfProperties'
     Process:
       type: object
       properties:
@@ -289,7 +289,7 @@ components:
           type: integer
           description: generated by a system surrogate primary key
         processDefinition:
-          $ref: "#/components/schemas/ProcessDefinition"
+          $ref: '#/components/schemas/ProcessDefinition'
     ProcessInstancePayload:
       type: object
       required:
@@ -298,7 +298,7 @@ components:
         processStartedBy:
           type: string
         instanceValues:
-          $ref: "#/components/schemas/ListOfProperties"
+          $ref: '#/components/schemas/ListOfProperties'
     ProcessInstance:
       type: object
       properties:
