@@ -67,15 +67,3 @@ The data elements listed below provide detail for the resource model defined by 
 | code  | string | none        | Required: false. Restrictions: none. |
 | value | string | none        | Required: false. Restrictions: none. |
 
-## Standards
-
-The following standards are applicable to data structures in the Workflow Building Block:
-
-1. [BPMN v2.0.2 - Business Process Model and Notation](https://www.omg.org/spec/BPMN/)
-2. [OpenAPI](https://github.com/OAI/OpenAPI-Specification/blob/3.0.2/versions/3.0.2.md)
-3.  REST APIs
-
-    1. JSON
-    2. YAML
-
-    Note that we are not using XML.
