@@ -6,23 +6,25 @@ description: >-
 
 # 4 Key Digital Functionalities
 
-The Workflow Building Block enables the creation and automatic execution of
-business processes. Any application that is used to implement the Workflow
-Building Block must:
+The Workflow Building Block enables the creation and automatic execution of business processes. Any application used to implement the Workflow Building Block specification must provide the following Key Digital Functionalities.
 
-1. Allow business users to define and create arbitrary workflow processes:
-   - that can be instantiated via API, manual interaction, or via the passage of
-     time;
-   - that can perform calculations, make API requests (e.g. Hypertext Transfer
-     Protocol Secure, HTTPS) make HTTP requests, and execute scripts.
-2. Allow business to start and/or stop process instances. 
-3. Allow business users to monitor the status of process instances.
-4. Allow other applications to discover existing processes via API.
+## 4.1 Workflow Process Building
 
-If a candidate application/implementation does these things, it may make for a
-suitable Workflow Building Block implementation.
+Workflow Building Block candidates must allow business users to create arbitrary workflow processes. These processes must be able to perform calculations, make API requests (e.g. Hypertext Transfer Protocol Secure, HTTPS) make HTTP requests, and execute scripts.
 
-## Out of Scope
+## 4.2 Workflow Process Execution
+
+Workflow Building Block candidates (to differentiate themselves from mere business-process modelling tools) must be able to execute workflow processes:
+
+1. via web API,
+2. via manual interaction (click to run),
+3. or via the passage of time.
+
+## 4.3 Status Monitoring
+
+Workflow Building Block candidates must allow business users to monitor the status of process instances.
+
+## 4.4 Programmatic Process Discovery
 
 1. Workflow will not need to provide RPA (Robotic Process Automation)
    capabilities. This means automated control of graphical user interfaces (UI),
@@ -43,3 +45,4 @@ suitable Workflow Building Block implementation.
    executes the process when told to by another application.
 4. Parallel processing of workflow process instances is an optional useful feature to support scaling requirements for production deployments. WFbb is not prescriptive on technologies and/or patterns that may be employed to support such capabilities, which may include, for example, multi-threading, service workers and/or message queues e.t.c
 5. While workflow process start and stop capabilities have been listed as key digital functionalities, WFbb is not prescriptive on possible transcation management processes (e.g durability, rollbacks), state management, memory object clean-ups, garbage collection, alerts and/or general data management routines that should be considered to facilitate safe, reliable and predictable stoppage of workflow processes.
+Workflow Building Block candidates must provide an API which allows another application or developer to find a list of all available workflow processes for a given project or workspace.
