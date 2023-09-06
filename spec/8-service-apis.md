@@ -9,7 +9,7 @@ description: >-
 This section provides a reference for APIs that should be implemented by this Building Block. The APIs defined here establish a blueprint for how the Building Block will interact with other Building Blocks. Additional APIs may be implemented by the Building Block, but the listed APIs define a minimal set of functionality that should be provided by any implementation of this Building Block.
 
 The [GovStack non-functional requirements document](https://govstack.gitbook.io/specification/v/1.0/architecture-and-nonfunctional-requirements/6-onboarding) provides additional information on how 'adaptors' may be used to translate an existing API to the patterns described here.&#x20;
-The [GovStack non-functional requirements document](https://govstack.gitbook.io/specification/v/1.0/architecture-and-nonfunctional-requirements/6-onboarding) provides additional information on how 'adaptors' may be used to translate an existing API to the patterns described here.&#x20;
+
 
 All APIs will be defined using the OpenAPI (Swagger) standard. The API definitions will be hosted outside of this document. This section may provide a brief description of the required APIs. This section will primarily contain links to the GitHub repository for OpenAPI definition (YAML) files as well as to a website hosted by GovStack that provides a live API documentation portal.
 
@@ -34,7 +34,7 @@ The tests for the Workflow Building Block can be found in [this GitHub repositor
 [https://raw.githubusercontent.com/GovStackWorkingGroup/bb-workflow/main/api/swagger.yaml](https://raw.githubusercontent.com/GovStackWorkingGroup/bb-workflow/main/api/swagger.yaml)
 {% endswagger %}
 
-### Workflow Process Start & Stop
+### Workflow Process Start
 
 3. Instantiate a process instance.&#x20;
 
@@ -48,20 +48,14 @@ The tests for the Workflow Building Block can be found in [this GitHub repositor
 
 ## 8.2 Workflow Instances
 
-4. List process instances.&#x20;
-
-* Retrieves the list of running process instances for a given workflow process definition ID.
-* Get Instances workflow process by ID (GET) /instances?processId=123
+4. Stop a process instance
+-  Stops execution of a running process instance
 
 {% swagger src="https://raw.githubusercontent.com/GovStackWorkingGroup/bb-workflow/main/api/swagger.yaml" path="/processes/{processId}/stop" method="post" %}
 [https://raw.githubusercontent.com/GovStackWorkingGroup/bb-workflow/main/api/swagger.yaml](https://raw.githubusercontent.com/GovStackWorkingGroup/bb-workflow/main/api/swagger.yaml)
 {% endswagger %}
 
-### Workflow Process Instance Monitoring
-
-## 8.2 Workflow Instances
-
-4. List process instances.&#x20;
+5. List process instances.&#x20;
 
 * Retrieves the list of running process instances for a given workflow process definition ID.
 * Get Instances workflow process by ID (GET) /instances?processId=123
@@ -70,7 +64,7 @@ The tests for the Workflow Building Block can be found in [this GitHub repositor
 [https://raw.githubusercontent.com/GovStackWorkingGroup/bb-workflow/main/api/swagger.yaml](https://raw.githubusercontent.com/GovStackWorkingGroup/bb-workflow/main/api/swagger.yaml)
 {% endswagger %}
 
-5. Get the status of an existing process instance by instance ID.&#x20;
+6. Get the status of an existing process instance by instance ID.&#x20;
 
 * Retrieves the status of a single process instance given an instance ID.
 
