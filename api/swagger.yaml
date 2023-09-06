@@ -9,8 +9,7 @@ info:
   version: 1.0.0
 tags:
   - name: v1
-    description:
-      This endpoint is a requirement for the v1 workflow engine BB
+    description: This endpoint is a requirement for the v1 workflow engine BB
       specification.
   - name: admins
     description:
@@ -51,7 +50,7 @@ paths:
                 items:
                   $ref: '#/components/schemas/Process'
         '404':
-          description: processes not found
+          description: Processes not found
         '500':
           $ref: '#/components/responses/InternalServerError'
     post:
@@ -95,7 +94,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Process'
         '404':
-          description: process not found
+          description: Process not found
         '500':
           $ref: '#/components/responses/InternalServerError'
     put:
@@ -142,11 +141,9 @@ paths:
         - Runtime
       summary: instantiates a process execution; creates a process instance
       operationId: start
-      description:
-        Create a process instance and register it with the execution engine
+      description: Create a process instance and register it with the execution engine
       requestBody:
-        description:
-          Process instance initiation payload (initial "state" for the process)
+        description: Process instance initiation payload (initial 'state' for the process)
         content:
           application/json:
             schema:
@@ -167,7 +164,7 @@ paths:
                     type: integer
                     description: The unique process instance ID.
         '404':
-          description: Invalid processId. Process does not exist
+          description: Process not found
         '500':
           $ref: '#/components/responses/InternalServerError'
   /instances/:
@@ -194,7 +191,7 @@ paths:
                 items:
                   $ref: '#/components/schemas/ProcessInstance'
         '404':
-          description: Invalid instance ID. Process instance does not exist
+          description: Process instance not found
         '500':
           $ref: '#/components/responses/InternalServerError'
   /instances/{instanceId}:
@@ -224,7 +221,33 @@ paths:
               schema:
                 $ref: '#/components/schemas/ProcessInstance'
         '404':
-          description: Invalid processId. Process does not exist
+          description: Process instance not found
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+  /instances/{instanceId}/stop:
+    post:
+      tags:
+        - v1
+        - developers
+        - Runtime
+      summary: stops a process instance during execution
+      operationId: stop
+      description: Stops a process instance during execution
+      parameters:
+        - $ref: '#/components/parameters/processIdParam'
+      responses:
+        '201':
+          description: Process instance stopped.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  processId:
+                    type: integer
+                    description: The unique process instance ID.
+        '404':
+          description: Process instance not found
         '500':
           $ref: '#/components/responses/InternalServerError'
 components:
