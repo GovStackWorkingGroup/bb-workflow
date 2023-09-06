@@ -6,7 +6,7 @@ description: This section provides context for this Building Block.
 
 ## Short Description
 
-The Workflow Building Block helps to drive efficiency within GovStack by providing automation and orchestration capabilities for specified business processes within and across Building Blocks. The Workflow Building Block provides design-time mapping & modeling of business processes based on mature open standards like Business Process Model and Notation (BPMN) and facilitates the run-time execution of deployed workflows in order to orchestrate process flows from initiation to completion.
+The Workflow Building Block drives efficiency within GovStack by providing automation and orchestration capabilities for specified business processes within and across Building Blocks. The Workflow Building Block provides design-time mapping & modeling of business processes based on mature open standards like Business Process Model and Notation (BPMN) and facilitates the run-time execution of deployed workflows in order to orchestrate process flows from initiation to completion.
 
 ## Full Description
 
