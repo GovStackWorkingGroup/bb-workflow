@@ -9,7 +9,8 @@ info:
   version: 1.0.0
 tags:
   - name: v1
-    description: This endpoint is a requirement for the v1 workflow engine BB
+    description:
+      This endpoint is a requirement for the v1 workflow engine BB
       specification.
   - name: admins
     description:
@@ -141,9 +142,11 @@ paths:
         - Runtime
       summary: instantiates a process execution; creates a process instance
       operationId: start
-      description: Create a process instance and register it with the execution engine
+      description:
+        Create a process instance and register it with the execution engine
       requestBody:
-        description: Process instance initiation payload (initial 'state' for the process)
+        description:
+          Process instance initiation payload (initial 'state' for the process)
         content:
           application/json:
             schema:
