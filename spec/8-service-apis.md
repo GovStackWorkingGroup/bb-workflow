@@ -33,7 +33,7 @@ The tests for the Workflow Building Block can be found in
 
 ## 8.1 Workflow Processes
 
-1. List processes.&#x20;
+### List processes
 
 - Retrieves the list of workflow processes deployed on the workflow engine.
 - Provides for each process the information: definition ID, version, status
@@ -43,15 +43,13 @@ The tests for the Workflow Building Block can be found in
 [https://raw.githubusercontent.com/GovStackWorkingGroup/bb-workflow/main/api/swagger.yaml](https://raw.githubusercontent.com/GovStackWorkingGroup/bb-workflow/main/api/swagger.yaml)
 {% endswagger %}
 
-2. Get individual process definition.
+### Get process definition
 
 {% swagger src="https://raw.githubusercontent.com/GovStackWorkingGroup/bb-workflow/main/api/swagger.yaml" path="/processes/{processId}" method="get" %}
 [https://raw.githubusercontent.com/GovStackWorkingGroup/bb-workflow/main/api/swagger.yaml](https://raw.githubusercontent.com/GovStackWorkingGroup/bb-workflow/main/api/swagger.yaml)
 {% endswagger %}
 
-### Workflow Process Start
-
-3. Instantiate a process instance.&#x20;
+### Instantiate (start) a process instance
 
 - Instantiates a given process definition Id. Responds with instance Universal
   Unique Identifier.
@@ -66,15 +64,7 @@ The tests for the Workflow Building Block can be found in
 
 ## 8.2 Workflow Instances
 
-4. Stop a process instance
-
-- Stops execution of a running process instance
-
-{% swagger src="https://raw.githubusercontent.com/GovStackWorkingGroup/bb-workflow/main/api/swagger.yaml" path="/processes/{processId}/stop" method="post" %}
-[https://raw.githubusercontent.com/GovStackWorkingGroup/bb-workflow/main/api/swagger.yaml](https://raw.githubusercontent.com/GovStackWorkingGroup/bb-workflow/main/api/swagger.yaml)
-{% endswagger %}
-
-5. List process instances.&#x20;
+### List process instances
 
 - Retrieves the list of running process instances for a given workflow process
   definition ID.
@@ -84,11 +74,19 @@ The tests for the Workflow Building Block can be found in
 [https://raw.githubusercontent.com/GovStackWorkingGroup/bb-workflow/main/api/swagger.yaml](https://raw.githubusercontent.com/GovStackWorkingGroup/bb-workflow/main/api/swagger.yaml)
 {% endswagger %}
 
-6. Get the status of an existing process instance by instance ID.&#x20;
+### Get the status of an existing process instance
 
 - Retrieves the status of a single process instance given an instance ID.
 
 {% swagger src="https://raw.githubusercontent.com/GovStackWorkingGroup/bb-workflow/main/api/swagger.yaml" path="/instances/{instanceId}" method="get" %}
+[https://raw.githubusercontent.com/GovStackWorkingGroup/bb-workflow/main/api/swagger.yaml](https://raw.githubusercontent.com/GovStackWorkingGroup/bb-workflow/main/api/swagger.yaml)
+{% endswagger %}
+
+### Stop a running process instance
+
+- Stops execution of a running process instance
+
+{% swagger src="https://raw.githubusercontent.com/GovStackWorkingGroup/bb-workflow/main/api/swagger.yaml" path="/processes/{processId}/stop" method="post" %}
 [https://raw.githubusercontent.com/GovStackWorkingGroup/bb-workflow/main/api/swagger.yaml](https://raw.githubusercontent.com/GovStackWorkingGroup/bb-workflow/main/api/swagger.yaml)
 {% endswagger %}
 
@@ -107,12 +105,12 @@ The tests for the Workflow Building Block can be found in
      request body.
    - If the start event has mandatory variables, the workflow engine will
      perform backend validation.
-4. **Stop a process instance** (POST) **/processes/{processId}/stop**
-   - Stops a running processs instance
-5. **List process instances.** (GET) **/instances**
+4. **List process instances.** (GET) **/instances**
    - Retrieves the list of running process instances for a given workflow
      process definition ID.
    - Get Instances workflow process by ID (GET) /instances?processId=123
-6. **Get the status of an existing process instance by instance ID.** (GET)
+5. **Get the status of an existing process instance by instance ID.** (GET)
    **/instances/{instanceId}**
    - Retrieves the status of a single process instance given an instance ID.
+6. **Stop a process instance** (POST) **/processes/{processId}/stop**
+   - Stops a running processs instance
