@@ -8,6 +8,7 @@ var processData = null;
 var instanceData = null;
 var processInstanceData = null;
 var processStart = null;
+var processStop = null
 var apiSpec = null;
 
 // TODO: is this the best way to allow insecure ssl?
@@ -198,6 +199,50 @@ Then('started workflow process fields are aligned to api spec',
 
     for (let x = 0; x < componentFieldNames.length; x++) {
       if (processStartFieldNames.find(e => e == componentFieldNames[x]) != null)
+        matchedFieldsCount += 1;
+    }
+
+    assert.equal(matchedFieldsCount, componentFieldNames.length);
+  }
+);
+
+When('We request to stop a workflow process from the api', async function () {
+  const payload = JSON.stringify({ name: 'Test' });
+  const response = await fetch('https://localhost/processes');
+  const processList = await response.json();
+  const processQueryUrl =
+    'https://localhost/processes/' + processList[0].id + '/stop';
+
+  this.whatIHeard = await fetch(processQueryUrl, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: payload,
+  });
+});
+
+Then('we receive status code {int} for the request',
+  async function (expectedResponse) {
+    const resp = await this.whatIHeard;
+    processStop = await resp.json();
+   
+    assert.equal(resp.status, expectedResponse);
+  }
+);
+
+Then('stopped workflow process fields are aligned to api spec',
+  function (expectedResponse) {
+    const componentFields =
+      apiSpec.paths['/instances/{instanceId}/stop'].post.responses['201']
+        .content['application/json'].schema.properties;
+    const componentFieldNames = Object.keys(componentFields);
+    const processStopFieldNames = Object.keys(processStop);
+
+    let matchedFieldsCount = 0;
+
+    for (let x = 0; x < componentFieldNames.length; x++) {
+      if (processStopFieldNames.find(e => e == componentFieldNames[x]) != null)
         matchedFieldsCount += 1;
     }
 

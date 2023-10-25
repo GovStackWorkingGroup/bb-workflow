@@ -237,7 +237,14 @@ paths:
       operationId: stop
       description: Stops a process instance during execution
       parameters:
-        - $ref: '#/components/parameters/processIdParam'
+        - name: instanceId
+          in: path
+          description: Numeric ID of a process instance
+          required: true
+          style: simple
+          explode: false
+          schema:
+            type: integer
       responses:
         '201':
           description: Process instance stopped.
