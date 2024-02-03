@@ -86,7 +86,7 @@ The tests for the Workflow Building Block can be found in
 
 - Stops execution of a running process instance
 
-{% swagger src="https://raw.githubusercontent.com/GovStackWorkingGroup/bb-workflow/main/api/swagger.yaml" path="/processes/{processId}/stop" method="post" %}
+{% swagger src="https://raw.githubusercontent.com/GovStackWorkingGroup/bb-workflow/main/api/swagger.yaml" path="/instances/{instanceId}/stop" method="post" %}
 [https://raw.githubusercontent.com/GovStackWorkingGroup/bb-workflow/main/api/swagger.yaml](https://raw.githubusercontent.com/GovStackWorkingGroup/bb-workflow/main/api/swagger.yaml)
 {% endswagger %}
 
@@ -112,5 +112,5 @@ The tests for the Workflow Building Block can be found in
 5. **Get the status of an existing process instance by instance ID.** (GET)
    **/instances/{instanceId}**
    - Retrieves the status of a single process instance given an instance ID.
-6. **Stop a process instance** (POST) **/processes/{processId}/stop**
+6. **Stop a process instance** (POST) **/instances/{instanceId}/stop**
    - Stops a running processs instance
