@@ -29,10 +29,10 @@ The spec is provided in human-readable format via
 
 In future we should specify which roles can access which endpoints.
 
-6. **Suspend a workflow process Definition By Id **(POST)
+6. **Suspend a workflow process Definition By Id (POST)**
    - Suspend a given process definition by id
-7. **Activate a workflow process Definition By Id **(POST)
-   - ·Activate a given process definition by id
+7. **Activate a workflow process Definition By Id (POST)**
+   - Activate a given process definition by id
 8. **Suspend a workflow instance by instance ID.** (POST)
    - Suspend a running workflow instance given an instance ID.
 9. **Delete a workflow instance by instance ID.** (DELETE)
@@ -53,9 +53,9 @@ In future we should specify which roles can access which endpoints.
     - Retrieves runtime statistics of the process engine of running process
       instances.
 14. **Deploy a new workflow process (POST)**
-    - **Creates a new workflow process and specifies the detail of its
-      configuration **
-15. Redeploy ** workflow process (POST)**
+    - Creates a new workflow process and specifies the detail of its
+      configuration
+15. **Redeploy workflow process (POST)**
     - Re-deploy an existing deployment to modify the workflow process.
 16. **Delete a specific Deployment (DELETE)**
     - Deletes a specific workflow process.
