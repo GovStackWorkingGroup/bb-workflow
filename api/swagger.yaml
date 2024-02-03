@@ -34,13 +34,6 @@ paths:
       summary: returns a list of workflow processes i.e., definitions of process
       description: Listing of all processes with basic information
       operationId: getProcessList
-      parameters:
-        - name: name
-          in: query
-          schema:
-            type: string
-          required: false
-          example: Register Child Birth Process
       responses:
         '200':
           description: list of processes
@@ -50,6 +43,18 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Process'
+              example:
+                ArrayOfProcesses:
+                  type: array
+                  example:
+                    - id: ReviewInvoice:1:bf20fe53-5548-11ed-9dd4-0242ac150002
+                      key: ReviewInvoice
+                      category: http://bpmn.io/schema/bpmn
+                      version: 1
+                    - id: invoice:1:bf2013f1-5548-11ed-9dd4-0242ac150002
+                      key: invoice
+                      category: http://www.omg.org/spec/BPMN/20100524/MODEL
+                      version: 1
         '404':
           description: Processes not found
         '500':
@@ -163,9 +168,26 @@ paths:
               schema:
                 type: object
                 properties:
-                  instanceId:
-                    type: integer
+                  id:
+                    type: string
+                    example: 95aef406-3a7a-11e5-85b6-dafa20524153
                     description: The unique process instance ID.
+                  processRef:
+                    type: string
+                    example: invoice:1:15e97a1c-312d-11e5-aca3-a0e120524153
+                    description: The process definition ID.
+                  suspended:
+                    type: boolean
+                    example: false
+                    description: States if process instance is suspended
+                  ended:
+                    type: boolean
+                    example: false
+                    description: States if process instance has ended
+                  state:
+                    type: string
+                    example: running
+                    description: Provides the execution state of the process instance
         '404':
           description: Process not found
         '500':
@@ -193,6 +215,20 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/ProcessInstance'
+              example:
+                ProcessInstances:
+                  type: array
+                  example:
+                    - id: 020229ae-9fd5-11ed-94af-0242ac150002
+                      processRef: ReviewInvoice:1:bf20fe53-5548-11ed-9dd4-0242ac150002
+                      initTime: 2023-01-31T08:45:11
+                      lastChangeTime: 2023-05-23T02:34:00
+                      state: running
+                    - id: ff0f25e2-a792-11ed-b524-0242ac150002
+                      processRef: invoice:1:bf2013f1-5548-11ed-9dd4-0242ac150002
+                      initTime: 2023-11-08T17:23:00
+                      lastChangeTime: 2023-11-08T17:23:00
+                      state: suspended
         '404':
           description: Process instance not found
         '500':
@@ -214,6 +250,7 @@ paths:
           required: true
           style: simple
           explode: false
+          example: 95aef406-3a7a-11e5-85b6-dafa20524153
           schema:
             type: integer
       responses:
@@ -243,6 +280,7 @@ paths:
           required: true
           style: simple
           explode: false
+          example: 95aef406-3a7a-11e5-85b6-dafa20524153
           schema:
             type: integer
       responses:
@@ -253,9 +291,26 @@ paths:
               schema:
                 type: object
                 properties:
-                  processId:
-                    type: integer
+                  id:
+                    type: string
+                    example: 95aef406-3a7a-11e5-85b6-dafa20524153
                     description: The unique process instance ID.
+                  processRef:
+                    type: string
+                    example: invoice:1:15e97a1c-312d-11e5-aca3-a0e120524153
+                    description: The process definition ID.
+                  suspended:
+                    type: boolean
+                    example: false
+                    description: States if process instance is suspended
+                  ended:
+                    type: boolean
+                    example: true
+                    description: States if process instance has ended
+                  state:
+                    type: string
+                    example: stopped
+                    description: Provides the execution state of the process instance
         '404':
           description: Process instance not found
         '500':
@@ -292,11 +347,16 @@ components:
           type: string
         processBody:
           $ref: '#/components/schemas/ListOfProperties'
+      example:
+        id: "invoice:1:bf2013f1-5548-11ed-9dd4-0242ac150002"
+        key: "invoice"
+        category: "http://www.omg.org/spec/BPMN/20100524/MODEL"
+        version: 1
     Process:
       type: object
       properties:
         id:
-          type: integer
+          type: string
           description: generated by a system surrogate primary key
         processDefinition:
           $ref: '#/components/schemas/ProcessDefinition'
@@ -307,7 +367,7 @@ components:
       properties:
         processStartedBy:
           type: string
-        instanceValues:
+        InstanceValues:
           $ref: '#/components/schemas/ListOfProperties'
     ProcessInstance:
       type: object
@@ -315,19 +375,23 @@ components:
         id:
           type: integer
           description: generated by a system surrogate primary key
+          example: 020229ae-9fd5-11ed-94af-0242ac150002
         processRef:
-          type: integer
+          type: string
           description: reference to the process definition
-          example: 4
+          example: ReviewInvoice:1:bf20fe53-5548-11ed-9dd4-0242ac150002
         initTime:
           type: string
           description: Initiation Timestamp
+          example: 2023-11-08T17:23:00
         state:
           type: string
           description: see BPMN specification v.2.0 section 13.2.2
+          example: running
         lastChangeTime:
           type: string
           description: last change Timestamp
+          example: 2023-11-08T17:23:00
     ListOfProperties:
       type: array
       items:
@@ -337,22 +401,26 @@ components:
             type: string
           value:
             type: string
+        example:
+          - creditor: "Niall"
+            amount: 100
+            invoiceNumber: 123
   parameters:
     processIdQueryParam:
       in: query
       name: processId
       required: false
       schema:
-        type: integer
-        minimum: 1
+        type: string
+        example: bf20fe53-5548-11ed-9dd4-0242ac150002
       description: The id for a defined process in the workflow engine.
     processIdParam:
       in: path
       name: processId
       required: true
       schema:
-        type: integer
-        minimum: 1
+        type: string
+        example: bf20fe53-5548-11ed-9dd4-0242ac150002
       description: The id for a defined process in the workflow engine.
   responses:
     InternalServerError:
