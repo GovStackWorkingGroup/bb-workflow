@@ -55,7 +55,7 @@ In future we should specify which roles can access which endpoints.
 14. **Deploy a new workflow process (POST)**
     - **Creates a new workflow process and specifies the detail of its
       configuration **
-15. Redeploy ** workflow process (POSTT)**
+15. Redeploy ** workflow process (POST)**
     - Re-deploy an existing deployment to modify the workflow process.
 16. **Delete a specific Deployment (DELETE)**
     - Deletes a specific workflow process.
